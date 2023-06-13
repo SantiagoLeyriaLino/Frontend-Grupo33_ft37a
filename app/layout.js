@@ -1,5 +1,12 @@
+'use client'
 import './globals.css'
 import { Inter } from 'next/font/google'
+
+import NavBar from '@/components/NavBar'
+import Footer from '@/components/Footer'
+import { usePathname } from "next/navigation";
+
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -9,9 +16,25 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
+
+  const path = usePathname()
+
+
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {
+          !path.includes('login') &&
+          !path.includes('register') && <NavBar/>
+        }
+        {children}
+
+        {
+          !path.includes('login') &&
+          !path.includes('register') && <Footer/>
+        }
+        
+        </body>
     </html>
   )
 }
