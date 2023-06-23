@@ -1,0 +1,167 @@
+[
+    {
+        "id":1,
+        "title":"Rev",
+        "description":"Pantalon Azul Vinson Berlin",
+        "marca":"Vinson",
+        "talle":47,
+        "background_image":"https://static.dafiti.com.ar/p/vinson-5950-656413-1-catalog-new.jpg",
+        "price":10.005
+    },
+{
+    "id":2,
+    "title":"Rev",
+    "description":"Pantalón Gris Vinson Berlin",
+    "marca":"Vinson",
+    "talle":59,
+    "background_image":"https://static.dafiti.com.ar/p/vinson-5746-756413-1-catalog-new.jpg",
+    "price":10.005 
+},
+
+{
+    "id":3,
+    "title":"Dr",
+    "description":"Pantalon Verde El Genoves Jogger",
+    "marca":"El Genovés",
+    "talle":54,
+    "background_image":"https://static.dafiti.com.ar/p/el-genoves-6672-475316-1-catalog-new.jpg",
+    "price":14.990
+},
+{
+    "id":4,"title":"Ms",
+    "description":"Chino Gris Bensimon Phineas",
+    "marca":"BENSIMON",
+    "talle":28,
+    "background_image":"https://static.dafiti.com.ar/p/bensimon-8001-0184321-1-catalog-new.jpg",
+    "price":26.099
+},
+{
+    "id":5,
+    "title":"Mrs",
+    "description":"Jogging Cierre Gris Vilo",
+    "marca":"VILO",
+    "talle":53,
+    "background_image":"https://static.dafiti.com.ar/p/vilo-3282-678489-1-catalog-new.jpg",
+    "price":8.890
+},
+{
+    "id":6,
+    "title":"Rev",
+    "description":"Pantalón Azul El Genovés Jogger",
+    "marca":"El Genovés",
+    "talle":47,
+    "background_image":"https://static.dafiti.com.ar/p/el-genoves-6670-965316-1-catalog-new.jpg",
+    "price":14.990
+},
+{
+    "id":7,
+    "title":"Rev",
+    "description":"Jogging Cierre Negro Vilo",
+    "marca":"VILO",
+    "talle":47,
+    "background_image":"https://static.dafiti.com.ar/p/vilo-3282-778489-1-catalog-new.jpg",
+    "price":8.890
+},
+{
+"id":8,
+"title":"Rev",
+"description":"Pantalón Negro Fraction Net",
+"marca":"Fraction Net",
+"talle":59,
+"background_image":"https://static.dafiti.com.ar/p/fraction-net-3678-994984-1-catalog-new.jpg",
+"price":11.990
+},
+
+{
+"id":9,
+"title":"Dr",
+"description":"Pantalón Gris El Genoves Jogger",
+"marca":"El Genovés",
+"talle":54,
+"background_image":"https://static.dafiti.com.ar/p/el-genoves-6671-375316-1-catalog-new.jpg",
+"price":14.990
+},
+{
+    "id":10,
+    "title":"Rev",
+    "description":"Pantalon Azul Vinson Berlin",
+    "marca":"Vinson",
+    "talle":47,
+    "background_image":"https://static.dafiti.com.ar/p/vinson-5950-656413-1-catalog-new.jpg",
+    "price":10.005
+},
+{
+"id":11,
+"title":"Rev",
+"description":"Pantalón Gris Vinson Berlin",
+"marca":"Vinson",
+"talle":59,
+"background_image":"https://static.dafiti.com.ar/p/vinson-5746-756413-1-catalog-new.jpg",
+"price":10.005 
+},
+
+{
+"id":12,
+"title":"Dr",
+"description":"Pantalon Verde El Genoves Jogger",
+"marca":"El Genovés",
+"talle":54,
+"background_image":"https://static.dafiti.com.ar/p/el-genoves-6672-475316-1-catalog-new.jpg",
+"price":14.990
+},
+{
+"id":13,
+"title":"Ms",
+"description":"Chino Gris Bensimon Phineas",
+"marca":"BENSIMON",
+"talle":28,
+"background_image":"https://static.dafiti.com.ar/p/bensimon-8001-0184321-1-catalog-new.jpg",
+"price":26.099
+},
+{
+"id":14,
+"title":"Mrs",
+"description":"Jogging Cierre Gris Vilo",
+"marca":"VILO",
+"talle":53,
+"background_image":"https://static.dafiti.com.ar/p/vilo-3282-678489-1-catalog-new.jpg",
+"price":8.890
+},
+{
+"id":15,
+"title":"Rev",
+"description":"Pantalón Azul El Genovés Jogger",
+"marca":"El Genovés",
+"talle":47,
+"background_image":"https://static.dafiti.com.ar/p/el-genoves-6670-965316-1-catalog-new.jpg",
+"price":14.990
+},
+{
+"id":16,
+"title":"Rev",
+"description":"Jogging Cierre Negro Vilo",
+"marca":"VILO",
+"talle":47,
+"background_image":"https://static.dafiti.com.ar/p/vilo-3282-778489-1-catalog-new.jpg",
+"price":8.890
+},
+{
+"id":17,
+"title":"Rev",
+"description":"Pantalón Negro Fraction Net",
+"marca":"Fraction Net",
+"talle":59,
+"background_image":"https://static.dafiti.com.ar/p/fraction-net-3678-994984-1-catalog-new.jpg",
+"price":11.990
+},
+
+{
+"id":18,
+"title":"Dr",
+"description":"Pantalón Gris El Genoves Jogger",
+"marca":"El Genovés",
+"talle":54,
+"background_image":"https://static.dafiti.com.ar/p/el-genoves-6671-375316-1-catalog-new.jpg",
+"price":14.990
+}
+]

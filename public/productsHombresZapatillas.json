@@ -1,0 +1,128 @@
+[
+    {
+        "id":1,
+        "title":"Rev",
+        "description":"Zapatilla Negra Adidas Duramo 10",
+        "marca":"Adidas",
+        "talle":47,
+        "background_image":"https://static.dafiti.com.ar/p/adidas-0507-509729-1-catalog-new.jpg",
+        "price":41.999 
+    },
+{
+    "id":2,
+    "title":"Rev",
+    "description":"Zapatilla Blanca Adidas Breaknet 2.0",
+    "marca":"Adidas",
+    "talle":59,
+    "background_image":"https://static.dafiti.com.ar/p/adidas-1407-9398421-1-catalog-new.jpg",
+    "price":33.999 },
+
+{
+    "id":3,
+    "title":"Dr",
+    "description":"Zapatilla Negra Adidas Coreracer",
+    "marca":"Adidas",
+    "talle":54,
+    "background_image":"https://static.dafiti.com.ar/p/adidas-7547-6398421-1-catalog-new.jpg",
+    "price":25.199},
+{
+    "id":4,"title":"Ms",
+    "description":"Zapatilla Blanca Adidas AlphaBounce+",
+    "marca":"Adidas",
+    "talle":28,
+    "background_image":"https://static.dafiti.com.ar/p/adidas-1432-8398421-1-catalog-new.jpg",
+    "price":39.599},
+{
+    "id":5,
+    "title":"Mrs",
+    "description":"Zapatilla Negra Adidas RaceR tR21",
+    "marca":"Adidas",
+    "talle":53,
+    "background_image":"https://static.dafiti.com.ar/p/adidas-9486-4947321-1-catalog-new.jpg",
+    "price":44.999 
+},
+{
+    "id":6,
+    "title":"Rev",
+    "description":"Zapatilla Negra Adidas Duramo 10",
+    "marca":"Adidas",
+    "talle":47,
+    "background_image":"https://static.dafiti.com.ar/p/adidas-0507-509729-1-catalog-new.jpg",
+    "price":41.999 
+},
+{
+    "id":7,
+"title":"Rev",
+"description":"Zapatilla Blanca Adidas Breaknet 2.0",
+"marca":"Adidas",
+"talle":59,
+"background_image":"https://static.dafiti.com.ar/p/adidas-1407-9398421-1-catalog-new.jpg",
+"price":33.999 },
+
+{
+"id":8,
+"title":"Dr",
+"description":"Zapatilla Negra Adidas Coreracer",
+"marca":"Adidas",
+"talle":54,
+"background_image":"https://static.dafiti.com.ar/p/adidas-7547-6398421-1-catalog-new.jpg",
+"price":25.199},
+{
+"id":9,"title":"Ms",
+"description":"Zapatilla Blanca Adidas AlphaBounce+",
+"marca":"Adidas",
+"talle":28,
+"background_image":"https://static.dafiti.com.ar/p/adidas-1432-8398421-1-catalog-new.jpg",
+"price":39.599},
+{
+"id":10,
+"title":"Mrs",
+"description":"Zapatilla Negra Adidas RaceR tR21",
+"marca":"Adidas",
+"talle":53,
+"background_image":"https://static.dafiti.com.ar/p/adidas-9486-4947321-1-catalog-new.jpg",
+"price":44.999 
+},
+{
+    "id":11,
+    "title":"Rev",
+    "description":"Zapatilla Negra Adidas Duramo 10",
+    "marca":"Adidas",
+    "talle":47,
+    "background_image":"https://static.dafiti.com.ar/p/adidas-0507-509729-1-catalog-new.jpg",
+    "price":41.999 
+},
+{
+    "id":12,
+"title":"Rev",
+"description":"Zapatilla Blanca Adidas Breaknet 2.0",
+"marca":"Adidas",
+"talle":59,
+"background_image":"https://static.dafiti.com.ar/p/adidas-1407-9398421-1-catalog-new.jpg",
+"price":33.999 },
+
+{
+"id":13,
+"title":"Dr",
+"description":"Zapatilla Negra Adidas Coreracer",
+"marca":"Adidas",
+"talle":54,
+"background_image":"https://static.dafiti.com.ar/p/adidas-7547-6398421-1-catalog-new.jpg",
+"price":25.199},
+{
+"id":14,"title":"Ms",
+"description":"Zapatilla Blanca Adidas AlphaBounce+",
+"marca":"Adidas",
+"talle":28,
+"background_image":"https://static.dafiti.com.ar/p/adidas-1432-8398421-1-catalog-new.jpg",
+"price":39.599},
+{
+"id":15,
+"title":"Mrs",
+"description":"Zapatilla Negra Adidas RaceR tR21",
+"marca":"Adidas",
+"talle":53,
+"background_image":"https://static.dafiti.com.ar/p/adidas-9486-4947321-1-catalog-new.jpg",
+"price":44.999 
+}
+]

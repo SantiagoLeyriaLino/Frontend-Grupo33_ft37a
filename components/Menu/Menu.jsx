@@ -39,12 +39,15 @@ export default function Menu() {
 
     return (
         <ul className="flex justify-around items-center ">
+            <Link href={'/'}>
             <li
                 className="block pb-[0.4rem]"
-            >Home</li>
-            <li
+                >Home</li>
+                </Link>
+            <Link
                 className="block pb-[0.4rem]"
-            >About</li>
+                href={'/about'}
+            >About</Link>
             <div
                 onMouseEnter={openMenu}
                 onMouseLeave={closeMenu}
@@ -60,15 +63,15 @@ export default function Menu() {
                                 onMouseEnter={openMenu2}
                                 onMouseLeave={closeMenu2}
                                 className="relative ">
-                                <li className={`hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer ${isOpen2 === true ? 'bg-[#909090] text-white' : ''}`}>Hombres</li>
+                                <Link href={'/products/hombres'}><li className={`hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer ${isOpen2 === true ? 'bg-[#909090] text-white' : ''}`}>Hombres</li></Link>
                                 {
                                     isOpen2
                                         ?
                                         <ul className="absolute bg-white flex flex-col left-[100%] top-0 ">
-                                            <li className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Zapatillas</li>
-                                            <li className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Buzos</li>
-                                            <li className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Remeras</li>
-                                            <li className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Pantalones</li>
+                                            <Link href={'/products/hombres/zapatillas'} className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Zapatillas</Link>
+                                            <Link href={'products/hombres/buzos'} className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Buzos</Link>
+                                            <Link href={'/products/hombres/remeras'} className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Remeras</Link>
+                                            <Link href={'/products/hombres/pantalones'} className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Pantalones</Link>
                                         </ul>
                                         :
                                         <></>
@@ -80,15 +83,15 @@ export default function Menu() {
                                 onMouseLeave={closeMenu3}
                                 className="relative ">
 
-                                <li className={`hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer ${isOpen3 === true ? 'bg-[#909090] text-white' : ''}`}>Mujeres</li>
+                                <Link href={'/products/female'}><li className={`hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer ${isOpen3 === true ? 'bg-[#909090] text-white' : ''}`}>Female</li></Link>
                                 {
                                     isOpen3
                                         ?
                                         <ul className="absolute bg-white flex flex-col left-[100%] top-0 ">
-                                            <li className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Zapatillas</li>
-                                            <li className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Buzos</li>
-                                            <li className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Remeras</li>
-                                            <li className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Pantalones</li>
+                                            <Link href={'/products/female/shoes'} className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Shoes</Link>
+                                            <Link href={'/products/female/hoodie'} className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Sweatshirt</Link>
+                                            <Link href={'/products/female/t-shirt'} className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Shirt</Link>
+                                            <Link href={'/products/female/pants'} className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Pants</Link>
                                         </ul>
                                         :
                                         <></>
@@ -99,15 +102,15 @@ export default function Menu() {
                                 onMouseEnter={openMenu4}
                                 onMouseLeave={closeMenu4}
                                 className="relative ">
-                                <li className={`hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer ${isOpen4 === true ? 'bg-[#909090] text-white' : ''}`}>Infantil</li>
+                                <Link href={'/products/children'}><li className={`hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer ${isOpen4 === true ? 'bg-[#909090] text-white' : ''}`}>Children</li></Link>
                                 {
                                     isOpen4
                                         ?
                                         <ul className="absolute bg-white flex flex-col left-[100%] top-0 ">
-                                            <li className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Zapatillas</li>
-                                            <li className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Buzos</li>
-                                            <li className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Remeras</li>
-                                            <li className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Pantalones</li>
+                                            <Link href={'/products/children/shoes'} className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Shoes</Link>
+                                            <Link href={'/products/children/sweatshirt'} className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Sweatshirt</Link>
+                                            <Link href={'/products/children/shirt'} className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Shirt</Link>
+                                            <Link href={'/products/children/pants'} className="hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer">Pants</Link>
                                         </ul>
                                         :
                                         <></>
@@ -120,9 +123,11 @@ export default function Menu() {
                         <></>
                 }
             </div>
+            <Link href={'/products/create'}>
             <li
                 className="block pb-[0.4rem]"
-            >More</li>
+                >Create</li>
+                </Link>
         </ul>
     )
 }

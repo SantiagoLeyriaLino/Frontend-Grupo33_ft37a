@@ -1,0 +1,164 @@
+[
+    {
+        "id":1,
+        "title":"Rev",
+        "description":"Buzo Azul Fraction Net Oversize",
+        "marca":"Fraction Net",
+        "talle":47,
+        "background_image":"https://static.dafiti.com.ar/p/fraction-net-1770-6864321-1-catalog-new.jpg",
+        "price":9.199
+    },
+{
+    "id":2,
+    "title":"Rev",
+    "description":"Hoodie Gris Bensimon Orgullo",
+    "marca":"BENSIMON",
+    "talle":59,
+    "background_image":"https://static.dafiti.com.ar/p/bensimon-9871-9974321-1-catalog-new.jpg",
+    "price":31.699 
+},
+
+{
+    "id":3,
+    "title":"Dr",
+    "description":"Buzo Natural Polo Label Flag",
+    "marca":"Polo Label",
+    "talle":54,
+    "background_image":"https://static.dafiti.com.ar/p/polo-label-7766-8654221-1-catalog-new.jpg",
+    "price":10.399
+},
+{
+    "id":4,"title":"Ms",
+    "description":"Buzo Verde Militar Bensimon Full Degradee",
+    "marca":"BENSIMON",
+    "talle":28,
+    "background_image":"https://static.dafiti.com.ar/p/bensimon-6722-7538221-1-catalog-new.jpg",
+    "price":30.499
+},
+{
+    "id":5,
+    "title":"Mrs",
+    "description":"Buzo Negro G4 Lax",
+    "marca":"G4",
+    "talle":53,
+    "background_image":"https://static.dafiti.com.ar/p/g4-5071-760329-1-catalog-new.jpg",
+    "price":4.899
+},
+{
+    "id":6,
+    "title":"Rev",
+    "description":"Buzo Negro Polo Label Basico",
+    "marca":"Polo Label",
+    "talle":47,
+    "background_image":"https://static.dafiti.com.ar/p/polo-label-5606-874539-1-catalog-new.jpg",
+    "price":8.809
+},
+{
+    "id":7,
+    "title":"Rev",
+    "description":"Buzo Azul Bensimon Full Degradee",
+    "marca":"BENSIMON",
+    "talle":47,
+    "background_image":"https://static.dafiti.com.ar/p/bensimon-1475-6538221-1-catalog-new.jpg",
+    "price":30.199
+},
+{
+"id":8,
+"title":"Rev",
+"description":"Buzo Blanco Fraction Net Oversize",
+"marca":"Fraction Net",
+"talle":59,
+"background_image":"https://static.dafiti.com.ar/p/fraction-net-8723-0674321-1-catalog-new.jpg",
+"price":12.019 },
+
+{
+"id":9,
+"title":"Dr",
+"description":"Hoodie Verde Bensimon Full Cuadrados",
+"marca":"BENSIMON",
+"talle":54,
+"background_image":"https://static.dafiti.com.ar/p/bensimon-9940-1974321-1-catalog-new.jpg",
+"price":33.499 
+},
+{
+    "id":1,
+    "title":"Rev",
+    "description":"Buzo Azul Fraction Net Oversize",
+    "marca":"Fraction Net",
+    "talle":47,
+    "background_image":"https://static.dafiti.com.ar/p/fraction-net-1770-6864321-1-catalog-new.jpg",
+    "price":9.199
+},
+{
+"id":2,
+"title":"Rev",
+"description":"Hoodie Gris Bensimon Orgullo",
+"marca":"BENSIMON",
+"talle":59,
+"background_image":"https://static.dafiti.com.ar/p/bensimon-9871-9974321-1-catalog-new.jpg",
+"price":31.699 
+},
+
+{
+"id":3,
+"title":"Dr",
+"description":"Buzo Natural Polo Label Flag",
+"marca":"Polo Label",
+"talle":54,
+"background_image":"https://static.dafiti.com.ar/p/polo-label-7766-8654221-1-catalog-new.jpg",
+"price":10.399
+},
+{
+"id":4,"title":"Ms",
+"description":"Buzo Verde Militar Bensimon Full Degradee",
+"marca":"BENSIMON",
+"talle":28,
+"background_image":"https://static.dafiti.com.ar/p/bensimon-6722-7538221-1-catalog-new.jpg",
+"price":30.499
+},
+{
+"id":5,
+"title":"Mrs",
+"description":"Buzo Negro G4 Lax",
+"marca":"G4",
+"talle":53,
+"background_image":"https://static.dafiti.com.ar/p/g4-5071-760329-1-catalog-new.jpg",
+"price":4.899
+},
+{
+"id":6,
+"title":"Rev",
+"description":"Buzo Negro Polo Label Basico",
+"marca":"Polo Label",
+"talle":47,
+"background_image":"https://static.dafiti.com.ar/p/polo-label-5606-874539-1-catalog-new.jpg",
+"price":8.809
+},
+{
+"id":7,
+"title":"Rev",
+"description":"Buzo Azul Bensimon Full Degradee",
+"marca":"BENSIMON",
+"talle":47,
+"background_image":"https://static.dafiti.com.ar/p/bensimon-1475-6538221-1-catalog-new.jpg",
+"price":30.199
+},
+{
+"id":8,
+"title":"Rev",
+"description":"Buzo Blanco Fraction Net Oversize",
+"marca":"Fraction Net",
+"talle":59,
+"background_image":"https://static.dafiti.com.ar/p/fraction-net-8723-0674321-1-catalog-new.jpg",
+"price":12.019 },
+
+{
+"id":9,
+"title":"Dr",
+"description":"Hoodie Verde Bensimon Full Cuadrados",
+"marca":"BENSIMON",
+"talle":54,
+"background_image":"https://static.dafiti.com.ar/p/bensimon-9940-1974321-1-catalog-new.jpg",
+"price":33.499 
+}
+]

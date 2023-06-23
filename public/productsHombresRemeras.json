@@ -1,0 +1,155 @@
+[
+    {
+        "id":1,
+        "title":"Rev",
+        "description":"Remera Negra Levi's Graphic Set In Neck Poster Log",
+        "marca":"Levis",
+        "talle":47,
+        "background_image":"https://static.dafiti.com.ar/p/levis-7129-1163221-1-catalog-new.jpg",
+        "price":15.699 
+    },
+{
+    "id":2,
+    "title":"Rev",
+    "description":"Remera Beige Polo Label Retro",
+    "marca":"Polo Label",
+    "talle":59,
+    "background_image":"https://static.dafiti.com.ar/p/polo-label-7800-2864221-1-catalog-new.jpg",
+    "price":5.499 },
+
+{
+    "id":3,
+    "title":"Dr",
+    "description":"Remera Natural G4 Optimist",
+    "marca":"G4",
+    "talle":54,
+    "background_image":"https://static.dafiti.com.ar/p/g4-1957-703649-1-catalog-new.jpg",
+    "price":6.299},
+{
+    "id":4,"title":"Ms",
+    "description":"Remera Negra Bensimon Rocha",
+    "marca":"BENSIMON",
+    "talle":28,
+    "background_image":"https://static.dafiti.com.ar/p/bensimon-6702-8438221-1-catalog-new.jpg",
+    "price":12.199},
+{
+    "id":5,
+    "title":"Mrs",
+    "description":"Remera Verde Levi's Graphic Set In Neck",
+    "marca":"Levis",
+    "talle":53,
+    "background_image":"https://static.dafiti.com.ar/p/levis-8052-3932321-1-catalog-new.jpg",
+    "price":15.199
+},
+{
+    "id":6,
+    "title":"Rev",
+    "description":"Remera Gris Levi's Graphic Set In Neck Levi´s",
+    "marca":"Levis",
+    "talle":47,
+    "background_image":"https://static.dafiti.com.ar/p/levis-7198-2703221-1-catalog-new.jpg",
+    "price":15.099
+},
+{
+    "id":7,
+    "title":"Rev",
+    "description":"Remera Negra Levi's Graphic Set In Neck Poster Log",
+    "marca":"Levis",
+    "talle":47,
+    "background_image":"https://static.dafiti.com.ar/p/levis-7129-1163221-1-catalog-new.jpg",
+    "price":15.699 
+},
+{
+"id":8,
+"title":"Rev",
+"description":"Remera Beige Polo Label Retro",
+"marca":"Polo Label",
+"talle":59,
+"background_image":"https://static.dafiti.com.ar/p/polo-label-7800-2864221-1-catalog-new.jpg",
+"price":5.499 },
+
+{
+"id":9,
+"title":"Dr",
+"description":"Remera Natural G4 Optimist",
+"marca":"G4",
+"talle":54,
+"background_image":"https://static.dafiti.com.ar/p/g4-1957-703649-1-catalog-new.jpg",
+"price":6.299},
+{
+"id":10,"title":"Ms",
+"description":"Remera Negra Bensimon Rocha",
+"marca":"BENSIMON",
+"talle":28,
+"background_image":"https://static.dafiti.com.ar/p/bensimon-6702-8438221-1-catalog-new.jpg",
+"price":12.199},
+{
+"id":11,
+"title":"Mrs",
+"description":"Remera Verde Levi's Graphic Set In Neck",
+"marca":"Levis",
+"talle":53,
+"background_image":"https://static.dafiti.com.ar/p/levis-8052-3932321-1-catalog-new.jpg",
+"price":15.199
+},
+{
+"id":12,
+"title":"Rev",
+"description":"Remera Gris Levi's Graphic Set In Neck Levi´s",
+"marca":"Levis",
+"talle":47,
+"background_image":"https://static.dafiti.com.ar/p/levis-7198-2703221-1-catalog-new.jpg",
+"price":15.099
+},
+{
+    "id":13,
+    "title":"Rev",
+    "description":"Remera Negra Levi's Graphic Set In Neck Poster Log",
+    "marca":"Levis",
+    "talle":47,
+    "background_image":"https://static.dafiti.com.ar/p/levis-7129-1163221-1-catalog-new.jpg",
+    "price":15.699 
+},
+{
+"id":14,
+"title":"Rev",
+"description":"Remera Beige Polo Label Retro",
+"marca":"Polo Label",
+"talle":59,
+"background_image":"https://static.dafiti.com.ar/p/polo-label-7800-2864221-1-catalog-new.jpg",
+"price":5.499 },
+
+{
+"id":15,
+"title":"Dr",
+"description":"Remera Natural G4 Optimist",
+"marca":"G4",
+"talle":54,
+"background_image":"https://static.dafiti.com.ar/p/g4-1957-703649-1-catalog-new.jpg",
+"price":6.299},
+{
+"id":16,"title":"Ms",
+"description":"Remera Negra Bensimon Rocha",
+"marca":"BENSIMON",
+"talle":28,
+"background_image":"https://static.dafiti.com.ar/p/bensimon-6702-8438221-1-catalog-new.jpg",
+"price":12.199},
+{
+"id":17,
+"title":"Mrs",
+"description":"Remera Verde Levi's Graphic Set In Neck",
+"marca":"Levis",
+"talle":53,
+"background_image":"https://static.dafiti.com.ar/p/levis-8052-3932321-1-catalog-new.jpg",
+"price":15.199
+},
+{
+"id":18,
+"title":"Rev",
+"description":"Remera Gris Levi's Graphic Set In Neck Levi´s",
+"marca":"Levis",
+"talle":47,
+"background_image":"https://static.dafiti.com.ar/p/levis-7198-2703221-1-catalog-new.jpg",
+"price":15.099
+}
+]
