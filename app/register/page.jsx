@@ -58,7 +58,7 @@ export default function RegisterPage() {
                             setFormularioSend(true)
                             setTimeout(() => setFormularioSend(false), 5000);
                             try {
-                                const response = await axios.post("backend-grupo-33ft37a.vercel.app/users", values)
+                                const response = await axios.post("https://backend-grupo-33ft37a.vercel.app/users", values)
                                 console.log(response);
                                 notify("User created successfully, check your email to activate your account");
                             } catch (error) {
