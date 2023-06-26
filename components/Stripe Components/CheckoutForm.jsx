@@ -62,7 +62,7 @@ export default function CheckoutForm({ products }) {
             <form id="payment-form" onSubmit={handleSubmit} className="w-[80%] mx-[auto]">
                 <PaymentElement />
                 <AddressElement options={{ mode: 'billing' }} />
-                <button className="py-[0.4rem]  px-[0.8rem] text-white bg-[#F8662B] mt-[1rem] rounded-[0.8rem]" disabled={isProcessing} id="submit">
+                <button className="py-[0.4rem] px-[0.8rem] text-white bg-[#F8662B] mt-[1rem] rounded-[0.8rem]" disabled={isProcessing} id="submit">
                     <span className="" id="button-text">
                         {isProcessing ? "Processing ... " : "Pay now"}
                     </span>
@@ -73,32 +73,4 @@ export default function CheckoutForm({ products }) {
             </form>
         );
     }
-}
-
-
-
-    useEffect(() => {
-        const userData = localStorage.getItem('user')
-        if(userData){
-            const data = JSON.parse(userData)
-            setEmail(data.data.email)
-        }
-
-    }, [])
-    console.log(email);
-
-    return (
-        <form id="payment-form" onSubmit={handleSubmit} className="w-[80%] mx-[auto]">
-            <PaymentElement />
-            <AddressElement options={{ mode: 'billing' }} />
-            <button className="py-[0.4rem]  px-[0.8rem] text-white bg-[#F8662B] mt-[1rem] rounded-[0.8rem]" disabled={isProcessing} id="submit">
-                <span className="" id="button-text">
-                    {isProcessing ? "Processing ... " : "Pay now"}
-                </span>
-            </button >
-
-            {/* Show any error or success messages */}
-            {message && <div id="payment-message">{message}</div>}
-        </form>
-    );}
 }
