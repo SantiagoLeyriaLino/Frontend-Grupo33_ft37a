@@ -12,7 +12,7 @@ import SkeletonDetail from "./SkeletonComponents/SkeletonDetail";
 
 export default function ProductDetail() {
 
-    const [productDetail, setProductDetail] = useState([])
+    if (typeof localStorage !== 'undefined'){{const [productDetail, setProductDetail] = useState([])
     const [currentImg, setCurrentImage] = useState("")
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [loading, setLoading] = useState(true)
@@ -52,7 +52,7 @@ export default function ProductDetail() {
     };
 
     const addMyCart = () => {
-        if (typeof localStorage !== 'undefined'){console.log('estoy');
+       console.log('estoy');
         const myCartLocal = localStorage.getItem('myCart')
         const myCart = JSON.parse(myCartLocal)
         console.log(myCart);
@@ -64,7 +64,7 @@ export default function ProductDetail() {
             notify('Add to Cart')
         } else {
             notifyError('Already added to cart')
-        }}
+        }
 
 
     }
@@ -172,5 +172,5 @@ export default function ProductDetail() {
             }
 
         </main>
-    )
+    )}
 }

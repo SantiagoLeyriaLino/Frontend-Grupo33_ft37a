@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 // import 'sweetalert2/src/sweetalert2.scss'
 
 export default function CheckoutForm({ products }) {
-    const stripe = useStripe()
+    if (typeof localStorage !== 'undefined'){{const stripe = useStripe()
     const elements = useElements()
 
 
@@ -63,7 +63,7 @@ export default function CheckoutForm({ products }) {
 
 
     useEffect(() => {
-        if (typeof localStorage !== 'undefined'){const userData = localStorage.getItem('user')}
+        const userData = localStorage.getItem('user')
         if(userData){
             const data = JSON.parse(userData)
             setEmail(data.data.email)
@@ -85,5 +85,5 @@ export default function CheckoutForm({ products }) {
             {/* Show any error or success messages */}
             {message && <div id="payment-message">{message}</div>}
         </form>
-    );
+    );}
 }

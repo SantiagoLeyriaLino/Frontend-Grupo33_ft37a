@@ -19,7 +19,7 @@ export default function CheckoutPage() {
     //     appearance: {/*...*/},
     //   };
 
-    const [products, setProducts] = useState()
+    if (typeof localStorage !== 'undefined'){ {const [products, setProducts] = useState()
     const [clientSecret, setClientSecret] = useState("");
     // const [stripePromise, setStripePromise] = useState("");
     const amount = useSelector(state => state.products.totalPay)
@@ -27,10 +27,10 @@ export default function CheckoutPage() {
     // setStripePromise(loadStripe('pk_test_51NLR6uLcLCj2IYBvkClOWECjiBqzYZeLetrIKGc9QlEeC2tJQKMq12enElgMR9lJzingQYbAq09DR5Z8XmjRpEwp00xG9VyEUi'))
 
     const getMyCart = () => { // extrae localStorage y almacena en estado "products"
-        if (typeof localStorage !== 'undefined'){const myCartLocal = localStorage.getItem("myCart")
+        const myCartLocal = localStorage.getItem("myCart")
         const myCart = JSON.parse(myCartLocal)
         console.log(myCart);
-        setProducts(myCart)}
+        setProducts(myCart)
     }
 
     const handleCantChange = (producId, newCant) => {
@@ -62,7 +62,7 @@ export default function CheckoutPage() {
     }, [])
 
     useEffect(() => {
-        if (typeof localStorage !== 'undefined'){localStorage.setItem('myCart', JSON.stringify(products))}
+        localStorage.setItem('myCart', JSON.stringify(products))
     }, [products])
 
     const getClientSecret = async (amount) => {
@@ -106,5 +106,5 @@ export default function CheckoutPage() {
                 </div>
             </section>
         </main>
-    )
+    )}
 }

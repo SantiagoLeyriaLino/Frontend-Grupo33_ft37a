@@ -8,7 +8,7 @@ import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css";
 
 export default function UserMenu({user}) {
-    const [isOpen, setIsOpen] = useState(false);
+    if (typeof localStorage !== 'undefined'){{ const [isOpen, setIsOpen] = useState(false);
     const router = useRouter()
     
     const notify = (message) => {
@@ -23,7 +23,7 @@ export default function UserMenu({user}) {
         setIsOpen(false);
     };
     const handleClick = () => {
-        if (typeof localStorage !== 'undefined'){ localStorage.removeItem('user')}
+         localStorage.removeItem('user')
         notify('Logging out ...')
         setTimeout(()=> {router.push('/login')}, 3000)
     }
@@ -55,5 +55,5 @@ export default function UserMenu({user}) {
                 }
             <ToastContainer/>
             </div>
-    )
+    )}
 }

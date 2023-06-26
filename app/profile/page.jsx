@@ -7,10 +7,10 @@ import axios from "axios"
 import { userSchema, emailSchema, phoneNumberSchema, dateSchema } from './validations'
 
 export default function ProfilePage(){
-    if (typeof localStorage !== 'undefined'){ const user = JSON.parse(localStorage.getItem('user'))
+    if (typeof localStorage !== 'undefined'){{ const user = JSON.parse(localStorage.getItem('user'))
     const fields = [ 'Nombre de usuario', 'Correo electrónico', 'Teléfono', 'Fecha de nacimiento']
     const { _id, name, email, phoneNumber, date } = user.data
-    const lsDataEntry = Object.entries({ name, email, phoneNumber, date })} // data del localStorage como 'entry'
+    const lsDataEntry = Object.entries({ name, email, phoneNumber, date })// data del localStorage como 'entry'
    
 
     const [ hover, setHover ] = useState(false)
@@ -184,5 +184,5 @@ export default function ProfilePage(){
                 }
             </div>
         </section>
-    </main>
+    </main>}
 }

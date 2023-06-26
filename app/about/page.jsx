@@ -13,7 +13,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function LoginPage() {
-	const router = useRouter();
+	if (typeof localStorage !== 'undefined'){{const router = useRouter();
 
 	const notify = (message) => {
 		toast.success(message, {
@@ -41,13 +41,13 @@ export default function LoginPage() {
 		let url = `password=${login.password}&email=${login.email}`;
 		try {
 			const response = await axios(`https://backend-grupo-33ft37a-jpaguo1zy-santiagoleyrialino.vercel.app/users/login?${url}`);
-			if (typeof localStorage !== 'undefined'){localStorage.setItem(
+			localStorage.setItem(
 				'user',
 				JSON.stringify({
 					data: response.data,
 					validated: false,
 				}),
-			);}
+			);
 			notify('You were successfully logged in');
 			setTimeout(() => router.push('/'), 3000);
 		} catch (error) {
@@ -161,5 +161,5 @@ export default function LoginPage() {
 				<ToastContainer />
 			</section>
 		</main>
-	);
+	);}
 }

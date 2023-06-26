@@ -14,17 +14,17 @@ import { useSession } from 'next-auth/react';
 import axios from 'axios';
 
 export default function NavBar() {
-	const [search, setSearch] = useState('');
+	if (typeof localStorage !== 'undefined'){{const [search, setSearch] = useState('');
 	const router = useRouter();
 	const dispatch = useDispatch();
-	if (typeof localStorage !== 'undefined'){const userData = localStorage.getItem('user');}
+	const userData = localStorage.getItem('user');
 	const { data: session } = useSession();
 
 	useEffect(() => {
-		if (typeof localStorage !== 'undefined'){const myCartLocal = localStorage.getItem('myCart');
+		const myCartLocal = localStorage.getItem('myCart');
 		if (!myCartLocal) {
 			localStorage.setItem('myCart', JSON.stringify([]));
-		}}
+		}
 	}, []);
 
 	useEffect(async () => {
@@ -34,13 +34,13 @@ export default function NavBar() {
 				`https://backend-grupo-33ft37a-jpaguo1zy-santiagoleyrialino.vercel.app/users/auth/${email}`,
 			);
 			console.log(response);
-			if (typeof localStorage !== 'undefined'){localStorage.setItem(
+			localStorage.setItem(
 				'user',
 				JSON.stringify({
 					data: response.data,
 					validated: false,
 				}),
-			);}
+			);
 		}
 	}, []);
 
@@ -100,5 +100,5 @@ export default function NavBar() {
 			</div>
 			<Menu />
 		</nav>
-	);
+	);}
 }
