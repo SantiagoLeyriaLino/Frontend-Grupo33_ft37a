@@ -46,12 +46,12 @@ export default function ProductCard({ product }) {
 
     const addMyCart = () => {
         console.log(product.cant);
-        const myCartLocal = localStorage.getItem('myCart')
+        if (typeof localStorage !== 'undefined'){const myCartLocal = localStorage.getItem('myCart')
         const myCartParse = JSON.parse(myCartLocal)
-        const productFind = myCartParse.find(prod => (prod._id === product._id) && (prod.cant === cant))
+        const productFind = myCartParse.find(prod => (prod._id === product._id) && (prod.cant === cant))}
         if (!productFind) {
             if (myCartParse.length === 0) {
-                localStorage.setItem('myCart', JSON.stringify([{ ...product, cant: cant }]))
+                if (typeof localStorage !== 'undefined'){ localStorage.setItem('myCart', JSON.stringify([{ ...product, cant: cant }]))}
                 notify('Add to Cart')
             } else {
                 const productMyCart = { ...product, cant: cant }
@@ -59,14 +59,14 @@ export default function ProductCard({ product }) {
                 if (!sameProduct) {
                     const myCart = [...myCartParse, productMyCart]
                     console.log(myCart);
-                    localStorage.setItem('myCart', JSON.stringify(myCart))
+                    if (typeof localStorage !== 'undefined'){localStorage.setItem('myCart', JSON.stringify(myCart))}
                     notify('Add to Cart')
                 } else {
 
                     console.log(sameProduct);
                     const arrayFilter = myCartParse.filter(prod => prod._id !== sameProduct._id)
                     const newArray = [...arrayFilter, productMyCart]
-                    localStorage.setItem('myCart', JSON.stringify(newArray))
+                    if (typeof localStorage !== 'undefined'){ localStorage.setItem('myCart', JSON.stringify(newArray))}
                     notify('Add to Cart')
                 }
             }

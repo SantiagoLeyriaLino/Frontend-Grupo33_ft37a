@@ -17,14 +17,14 @@ export default function NavBar() {
 	const [search, setSearch] = useState('');
 	const router = useRouter();
 	const dispatch = useDispatch();
-	const userData = localStorage.getItem('user');
+	if (typeof localStorage !== 'undefined'){const userData = localStorage.getItem('user');}
 	const { data: session } = useSession();
 
 	useEffect(() => {
-		const myCartLocal = localStorage.getItem('myCart');
+		if (typeof localStorage !== 'undefined'){const myCartLocal = localStorage.getItem('myCart');
 		if (!myCartLocal) {
 			localStorage.setItem('myCart', JSON.stringify([]));
-		}
+		}}
 	}, []);
 
 	useEffect(async () => {
@@ -34,13 +34,13 @@ export default function NavBar() {
 				`https://backend-grupo-33ft37a-jpaguo1zy-santiagoleyrialino.vercel.app/users/auth/${email}`,
 			);
 			console.log(response);
-			localStorage.setItem(
+			if (typeof localStorage !== 'undefined'){localStorage.setItem(
 				'user',
 				JSON.stringify({
 					data: response.data,
 					validated: false,
 				}),
-			);
+			);}
 		}
 	}, []);
 

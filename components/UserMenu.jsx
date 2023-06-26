@@ -23,7 +23,7 @@ export default function UserMenu({user}) {
         setIsOpen(false);
     };
     const handleClick = () => {
-        localStorage.removeItem('user')
+        if (typeof localStorage !== 'undefined'){ localStorage.removeItem('user')}
         notify('Logging out ...')
         setTimeout(()=> {router.push('/login')}, 3000)
     }

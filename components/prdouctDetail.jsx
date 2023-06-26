@@ -52,7 +52,7 @@ export default function ProductDetail() {
     };
 
     const addMyCart = () => {
-        console.log('estoy');
+        if (typeof localStorage !== 'undefined'){console.log('estoy');
         const myCartLocal = localStorage.getItem('myCart')
         const myCart = JSON.parse(myCartLocal)
         console.log(myCart);
@@ -64,7 +64,7 @@ export default function ProductDetail() {
             notify('Add to Cart')
         } else {
             notifyError('Already added to cart')
-        }
+        }}
 
 
     }

@@ -63,7 +63,7 @@ export default function CheckoutForm({ products }) {
 
 
     useEffect(() => {
-        const userData = localStorage.getItem('user')
+        if (typeof localStorage !== 'undefined'){const userData = localStorage.getItem('user')}
         if(userData){
             const data = JSON.parse(userData)
             setEmail(data.data.email)
