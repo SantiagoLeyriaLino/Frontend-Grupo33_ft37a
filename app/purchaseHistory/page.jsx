@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from "react"
-import CardHistoryPurchase from "@/components/cardHistoryPurchase"
+import CardHistoryPurchase from "@/components/CardHistoryPurchase"
 import axios from "axios"
 
 export default function PurchaseHistory(){
