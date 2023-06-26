@@ -10,7 +10,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function ProductCard({ product }) {
 
-    if (typeof localStorage !== 'undefined'){{const notify = (message) => {
+    if (typeof localStorage !== 'undefined'){
+        const notify = (message) => {
         toast.success(message, {
             autoClose: 2000,
         });
