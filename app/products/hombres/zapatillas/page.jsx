@@ -5,14 +5,22 @@ import { useSelector, useDispatch } from "react-redux"
 import { getProducts } from "@/redux/Slice"
 import FilterBar from "@/components/FilterBar"
 
+import Paginate from "@/components/Paginate/Paginate"
+
+import SkeletonFilterBar from "@/components/SkeletonComponents/SkeletonFilterBar"
+import SkeletonContainerProducts from "@/components/SkeletonComponents/SkeletonContainerProducts"
+
+
 export default function ProductsPage() {
     
     const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.products.allProducts);
-    const renderProducts = useSelector((state)=>state.products.filterProducts)
+    const renderProducts = useSelector((state)=>state.products.renderProducts)
     const [products, setProducts] = useState([]);
     const [render, setRender] = useState([])
   
+    const [loadingFilter,setLoadingFilter] = useState(true)
+    const [loadingProduct,setLoadingProduct] = useState(true)
 
     useEffect(() => {
         dispatch(getProducts("male", "shoe"));
@@ -21,6 +29,11 @@ export default function ProductsPage() {
       useEffect(() => {
           if (allProducts && allProducts.length > 0) {
             setProducts(allProducts);
+            setLoadingFilter(false)
+
+          }
+          return () =>{
+            setProducts([])
           }
         }, [allProducts]);
       
@@ -28,20 +41,35 @@ export default function ProductsPage() {
           if (renderProducts && renderProducts.length > 0) {
               console.log({RENDER:renderProducts})
             setRender(renderProducts);
+            setLoadingProduct(false)
+          }
+          return () =>{
+            setRender([])
           }
         }, [renderProducts]);
 
 
     return (
-        <main className="pt-[9rem] min-h-[100vh]">
-        <section className="w-[70%] mx-[auto] flex py-[3rem]">
-            
-            {products&&products.length>0?<FilterBar products={products} gender={"male"} category={"shoe"}/>:<p>loading...</p>}
+      <main className="pt-[9rem] min-h-[100vh]">
+      <section className="w-[70%] mx-[auto] flex py-[3rem]">
 
-            <div className="w-[80%]">
-                {render&&render.length>0?<ContainerProducts products={render}/>:<p>loading...</p>}
-            </div>
-        </section>
+      {
+        loadingFilter
+        ? <SkeletonFilterBar />
+        : <FilterBar products={products} gender={"male"} category={"shoe"} />
+      }
+        {/* {products && products.length > 0 ? <FilterBar products={products} gender={"male"} category={"shoe"} /> : <SkeletonFilterBar />} */}
+
+        <div className="w-[80%] relative">
+          <Paginate />
+          {
+            loadingProduct
+            ? <SkeletonContainerProducts />
+            : <ContainerProducts products={render} />
+          }
+          {/* {render && render.length > 0 ? <ContainerProducts products={render} /> : <SkeletonContainerProducts />} */}
+        </div>
+      </section>
     </main>
     )
 }

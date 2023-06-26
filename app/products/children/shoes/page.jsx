@@ -1,46 +1,51 @@
 'use client'
 import ContainerProducts from "@/components/ContainerProducts"
-import {useState, useEffect} from "react"
+import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { getProducts } from "@/redux/Slice"
 import FilterBar from "@/components/FilterBar"
+import Paginate from "@/components/Paginate/Paginate"
+import SkeletonFilterBar from "@/components/SkeletonComponents/SkeletonFilterBar"
+import SkeletonContainerProducts from "@/components/SkeletonComponents/SkeletonContainerProducts"
 
 export default function ChildrenShoesPage() {
 
-    const dispatch = useDispatch();
-    const allProducts = useSelector((state) => state.products.allProducts);
-    const renderProducts = useSelector((state)=>state.products.filterProducts)
-    const [products, setProducts] = useState([]);
-    const [render, setRender] = useState([])
-  
-    useEffect(() => {
-      dispatch(getProducts("child", "shoe"));
-    }, [dispatch]);
-  
-    useEffect(() => {
-        if (allProducts && allProducts.length > 0) {
-          setProducts(allProducts);
-        }
-      }, [allProducts]);
+  const dispatch = useDispatch();
+  const allProducts = useSelector((state) => state.products.allProducts);
+  const renderProducts = useSelector((state) => state.products.renderProducts)
+  const [products, setProducts] = useState([]);
+  const [render, setRender] = useState([])
 
-      useEffect(() => {
-        if (renderProducts && renderProducts.length > 0) {
-            console.log({RENDER:renderProducts})
-          setRender(renderProducts);
-        }
-      }, [renderProducts]);
-   
+  useEffect(() => {
+    dispatch(getProducts("child", "shoe"));
+  }, [dispatch]);
 
-    return (
-        <main className="pt-[9rem] min-h-[100vh]">
-        <section className="w-[70%] mx-[auto] flex py-[3rem]">
-            
-            {products&&products.length>0?<FilterBar products={products} gender={"child"} category={"shoe"}/>:<p>loading...</p>}
+  useEffect(() => {
+    if (allProducts && allProducts.length > 0) {
+      setProducts(allProducts);
+    }
+  }, [allProducts]);
 
-            <div className="w-[80%]">
-                {render&&render.length>0?<ContainerProducts products={render}/>:<p>loading...</p>}
-            </div>
-        </section>
+
+  useEffect(() => {
+    if (renderProducts && renderProducts.length > 0) {
+      console.log({ RENDER: renderProducts })
+      setRender(renderProducts);
+    }
+  }, [renderProducts]);
+
+
+  return (
+    <main className="pt-[9rem] min-h-[100vh]">
+      <section className="w-[70%] mx-[auto] flex py-[3rem]">
+
+        {products && products.length > 0 ? <FilterBar products={products} gender={"child"} category={"shoe"} /> : <SkeletonFilterBar />}
+
+        <div className="w-[80%] relative">
+          <Paginate />
+          {render && render.length > 0 ? <ContainerProducts products={render} /> : <SkeletonContainerProducts />}
+        </div>
+      </section>
     </main>
-    )
+  )
 }

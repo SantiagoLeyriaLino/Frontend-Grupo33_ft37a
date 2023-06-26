@@ -8,16 +8,19 @@ import zapas from '../public/zapas.png'
 import pantalon from '../public/pantalon.png'
 import tienda from '../public/photo4.jpg'
 import tienda2 from '../public/photo3.jpg'
+import CarouselHome from '../components/Carousel/CarouselHome'
+import CarouselBanner from '@/components/CarouselBanner'
 
 export default function Home() {
   return (
     <main className='pt-[9rem] min-h-[100vh]'>
       <div className='relative'>
-      <Image 
+      <CarouselBanner 
       className='w-[100%] object-cover h-[60vh] '
       src={shop} alt='img-header' width={1500} height={1500}/>
       <h2 className='absolute text-white font-bold text-[2rem] top-[2rem] left-[4rem] bg-[#90909050] py-[1rem] px-[1.4rem] rounded-[1rem]'>Empieza tu negocio</h2>
       </div>
+      <br />
 
       <section className='flex w-[80%] mx-[auto]  justify-center py-[3rem]'>
         <div className='w-[60%] pt-[2rem] text-center'>
@@ -27,8 +30,9 @@ export default function Home() {
         <Image 
         className='h-[500px] w-[40%] object-cover rounded-[1rem]'
         src={clothes} alt='photo1' width={600} height={600}/>
+        
       </section>
-
+      
       <section className='bg-[#909090] py-[4rem]'>
         <div className='flex w-[80%] mx-[auto] justify-around flex-wrap '>
         <h2 className='w-full font-bold text-[2rem] mb-[2rem]'>Nuestros articulos</h2>

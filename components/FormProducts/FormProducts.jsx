@@ -66,7 +66,7 @@ export default function FormProducts (){
               formData.append("images", file);
             });
             console.log(formData)
-            axios.post("https://backend-grupo-33ft37a.vercel.app/products", formData)
+            axios.post("https://backend-grupo-33ft37a-jpaguo1zy-santiagoleyrialino.vercel.app/products", formData)
             .then((response)=>{
                 alert("product created");
                 console.log(response.data);
@@ -140,7 +140,26 @@ export default function FormProducts (){
             </div>
             <div className="mb-6 my-6">
                 <label htmlFor="category" className="flex flex-col gap-y-[0.4rem]">Category: </label>
-                <input type="text" id="category" placeholder="eje: Shoe" onChange={handleChange} value={formik.values.category} onBlur={handleBlur} className="py-[0.6rem] px-[1rem] rounded-[1rem] shadow-md shadow-[#11111180] w-[30rem]"/>
+                <select
+                id="category"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={formik.values.category}
+                className="w-full px-4 py-2 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                style={{
+                  backgroundColor: 'black',
+                  color: 'white',
+                  borderRadius: '1rem',
+                  marginTop: '0.5rem',
+                  width: '80%', // Ajusta el valor según tus necesidades
+                }}
+              >
+                <option value="">Select</option>
+                <option value="shoe">Shoe</option>
+                <option value="hoodie">Hoodie</option>
+                <option value="t-shirt">T-shirt</option>
+                <option value="pants">Pants</option>
+              </select>
                 {formik.errors.category &&(
                 <div className="text-red-500 text-sm">{formik.errors.category}</div>
                 )}
