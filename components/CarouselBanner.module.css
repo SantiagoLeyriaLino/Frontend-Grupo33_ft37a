@@ -1,26 +1,26 @@
 .carouselContainer {
-    position: relative;
-    height: 400px; /* Ajusta la altura según tus necesidades */
-    overflow: hidden;
-  }
-  
-  .carouselButton {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: transparent;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 10px;
-  }
-  
-  .arrowIcon {
-    font-size: 24px;
-    color: #ffffff; /* Cambia el color según tus necesidades */
-    transition: color 0.3s ease;
-  }
-  
-  .arrowIcon:hover {
-    color: #ff0000; /* Cambia el color del hover según tus necesidades */
-  }
+  position: relative;
+  height: 400px; /* Ajusta la altura según tus necesidades */
+  overflow: hidden;
+}
+
+.carouselButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.arrowIcon {
+  font-size: 24px;
+  color: #ffffff; /* Cambia el color según tus necesidades */
+  transition: color 0.3s ease;
+}
+
+.arrowIcon:hover {
+  color: #ff0000; /* Cambia el color del hover según tus necesidades */
+}

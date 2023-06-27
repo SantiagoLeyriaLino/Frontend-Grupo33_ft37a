@@ -66,7 +66,7 @@ export default function FormProducts (){
               formData.append("images", file);
             });
             console.log(formData)
-            axios.post("https://backend-grupo-33ft37a-jpaguo1zy-santiagoleyrialino.vercel.app/products", formData)
+            axios.post("https://backend-33ft37a-deploy.vercel.app/products", formData)
             .then((response)=>{
                 alert("product created");
                 console.log(response.data);

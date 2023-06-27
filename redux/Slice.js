@@ -69,7 +69,7 @@ export const { getProductsStart,
 export const getProducts = (gender, category) => async (dispatch) => {
   dispatch(getProductsStart());
   try {
-    let url = "https://backend-grupo-33ft37a-jpaguo1zy-santiagoleyrialino.vercel.app/products";
+    let url = "https://backend-33ft37a-deploy.vercel.app/products";
     if (gender && category) {
       const query = { gender, category };
       const queryString = Object.entries(query)
@@ -89,7 +89,7 @@ export const getProducts = (gender, category) => async (dispatch) => {
 export const getFilterProducts = (gender, category, brand, color, name) => async (dispatch) => {
   dispatch(getProductsStart());
   try {
-    let url = "https://backend-grupo-33ft37a-jpaguo1zy-santiagoleyrialino.vercel.app/products";
+    let url = "https://backend-33ft37a-deploy.vercel.app/products";
     if ((gender && category) || (brand || color || name)) {
       const query = { gender, category, brand, color, name };
       const queryString = Object.entries(query)
@@ -112,7 +112,7 @@ export const getFilterProducts = (gender, category, brand, color, name) => async
 export const searchProducts = (name) => async (dispatch) => {
   dispatch(getProductsStart());
   try {
-    let url = "https://backend-grupo-33ft37a-jpaguo1zy-santiagoleyrialino.vercel.app/products";
+    let url = "https://backend-33ft37a-deploy.vercel.app/products";
 
     if (name) {
       url += `/search?name=${name}`;

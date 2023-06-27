@@ -1,12 +1,12 @@
 'use client'
+
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import offerts from '../public/accesories.jpg';
+import offerts from '../public/ofertas.jpg';
 import hombres from '../public/hombresbanner.png';
-import women from '../public/header.jpg';
-import children from  '../public/kids.jpg';
+import women from '../public/women_model.jpg';
+import children from  '../public/infantil.jpg';
 import { motion, AnimatePresence } from "framer-motion";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 export default function CarouselBanner() {
   const images = [hombres, women ,children, offerts];
@@ -14,17 +14,17 @@ export default function CarouselBanner() {
   const [selectedImage, setSelectedImage] = useState(images[0]);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
-  const prevImage = () => {
-    const condition = currentIndex > 0;
-    const nextIndex = condition ? currentIndex - 1 : images.length - 1;
-    setCurrentIndex(nextIndex);
-  };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000); // Cambia el valor "3000" para ajustar la duración de cambio de imagen
 
-  const nextImage = () => {
-    const condition = currentIndex < images.length - 1;
-    const nextIndex = condition ? currentIndex + 1 : 0;
-    setCurrentIndex(nextIndex);
-  };
+    return () => {
+      clearInterval(interval);
+    };
+  }, [images.length]);
 
   const handleImageLoad = () => {
     setIsImageLoaded(true);
@@ -37,9 +37,10 @@ export default function CarouselBanner() {
   const styles = {
     carouselContainer: {
       position: "relative",
-      width: "100%",
+      width: "100%", // Ajusta el ancho del carrusel según tus necesidades
       height: "0",
-      paddingBottom: "56.25%", // Aspect ratio of 16:9 (Change as per your desired aspect ratio)
+      paddingBottom: "30%", // Ajusta el valor de acuerdo al aspect ratio deseado
+      margin: "0 auto", // Centra el carrusel horizontalmente
     },
     slideItem: {
       position: "absolute",
@@ -52,20 +53,7 @@ export default function CarouselBanner() {
       justifyContent: "center",
       opacity: isImageLoaded ? 1 : 0,
       transition: "opacity 0.5s",
-    },
-    arrowButton: {
-      position: "absolute",
-      top: "50%",
-      transform: "translateY(-50%)",
-      backgroundColor: "transparent",
-      border: "none",
-      outline: "none",
-      cursor: "pointer",
-      zIndex: 2,
-    },
-    arrowIcon: {
-      fontSize: "24px",
-      color: "#ffffff",
+      objectFit: "contain", // Muestra la imagen completa en lugar de recortarla
     },
   };
 
@@ -83,7 +71,7 @@ export default function CarouselBanner() {
           <div style={{ position: "relative", width: "100%", height: "100%" }}>
             <Image
               onLoad={handleImageLoad}
-              className="absolute inset-0 w-full h-full object-cover bottom-0"
+              className="absolute inset-0 w-full h-full bottom-0"
               src={selectedImage}
               alt="image"
               layout="fill"
@@ -91,22 +79,9 @@ export default function CarouselBanner() {
           </div>
         </motion.div>
       </AnimatePresence>
-      <button
-        style={{ ...styles.arrowButton, left: "10px" }}
-        onClick={prevImage}
-      >
-        <FaChevronLeft style={styles.arrowIcon} />
-      </button>
-      <button
-        style={{ ...styles.arrowButton, right: "10px" }}
-        onClick={nextImage}
-      >
-        <FaChevronRight style={styles.arrowIcon} />
-      </button>
     </section>
   );
 }
-
 
 
 
