@@ -39,6 +39,7 @@ export default function About(){
             <div className='flex flex-row justify-around'>
                 {images.map(((image, index) => 
                     <motion.div
+                    key={index}
                     whileHover={{ opacity: 0.5}}>
                         <Image
                         className='object-cover w-[16rem] h-[12rem] rounded-[1rem] border shadow-lg'
