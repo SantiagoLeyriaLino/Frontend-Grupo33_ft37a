@@ -16,7 +16,7 @@ export default function CheckoutForm({ products }) {
     const [email, setEmail] = useState('')
     // const myCart = useSelector(state => state.courses.my_cart);
     // const addPurchase = async(email) =>{
-    //     const response = await axios.post('https://backend-33ft37a-deploy.vercel.app/purchase',email)
+    //     const response = await axios.post('http://localhost:3001/purchase',email)
     //     console.log(response);
     //  }
 
@@ -62,7 +62,7 @@ export default function CheckoutForm({ products }) {
                 text: 'Please login to checkout',
                 icon: 'error',
                 confirmButtonText: 'continue',
-                footer: '<a href="https://frontend-grupo33-ft37a.vercel.app/">Go login?</a>'
+                footer: '<a href="https://frontend-grupo33-ft37a.vercel.app/login">Go login?</a>'
             })
         }
 
@@ -71,7 +71,7 @@ export default function CheckoutForm({ products }) {
 
 
     useEffect(() => {
-        const userData = window.localStorage.getItem('user')||""
+        const userData = localStorage.getItem('user')
         if(userData){
             const data = JSON.parse(userData)
             setEmail(data.data.email)

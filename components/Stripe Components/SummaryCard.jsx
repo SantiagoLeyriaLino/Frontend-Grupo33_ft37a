@@ -54,6 +54,8 @@ export default function SummaryCard({ product , handleCantChange, handleDeletePr
 }
 
 
+
+
   // const myCartLocal = localStorage.getItem("myCart")
     // const myCart = JSON.parse(myCartLocal)
     // const newCart = myCart.map(producto=>{

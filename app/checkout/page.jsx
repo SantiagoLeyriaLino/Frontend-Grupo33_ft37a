@@ -57,11 +57,8 @@ export default function CheckoutPage() {
     }
 
     useEffect(() => {
-        const myCartLocal = localStorage.getItem("myCart")
-        const myCart = JSON.parse(myCartLocal)
-        if(myCart.length>0){
-        setProducts(myCart)
-        console.log(products);}
+        getMyCart()
+        console.log(products);
     }, [])
 
     useEffect(() => {
