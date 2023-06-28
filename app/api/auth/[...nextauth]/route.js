@@ -19,6 +19,10 @@ export const authOptions = {
 			await customAuth({ user });
 			return true;
 		},
+		async signOut({ session, redirect }) {
+			destroyCookie(null, 'next-auth.session-token');
+			return redirect('/login');
+		},
 	},
 };
 const handler = NextAuth(authOptions);
