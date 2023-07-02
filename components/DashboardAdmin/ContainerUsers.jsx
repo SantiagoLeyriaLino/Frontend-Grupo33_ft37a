@@ -229,10 +229,10 @@ export default function ContainerUsers() {
 					<tbody {...getTableBodyProps()}>
 						{page.map((row, index) => {
 							prepareRow(row);
+							key={index}
 							return (
 								<tr
 									{...row.getRowProps()}
-									key={index}
 									className='hover:bg-opacity-30 hover:bg-gray-500 '
 								>
 									{row.cells.map((cell,index) => (

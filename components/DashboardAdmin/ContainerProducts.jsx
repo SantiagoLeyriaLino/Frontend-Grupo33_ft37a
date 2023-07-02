@@ -280,11 +280,11 @@ export default function ContainerProducts() {
 					<tbody {...getTableBodyProps()}>
 						{page.map((row,index) => {
 							prepareRow(row);
+							key={index}
 							return (
 								<tr
 									{...row.getRowProps()}
 									className='hover:bg-opacity-30 hover:bg-gray-500 '
-									key={index}
 								>
 									{row.cells.map((cell, index) => (
 										<td
