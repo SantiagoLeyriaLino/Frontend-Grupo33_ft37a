@@ -33,7 +33,7 @@ export default function ContainerReviews({ reviews, productId }){
         <ReviewPoster productId={productId} userId={user ? user._id : {}}/> {/* falta validar la entrega del producto para postear la review*/}
         {reviews.length ?
             <div className="flex flex-col gap-y-[0.8rem] content-center">
-                {reviews.map((review)=> <Review data={review}/>)}
+                {reviews.map((review,index)=> <Review data={review} key={index}/>)}
             </div> : <></>
         }
     </div>
