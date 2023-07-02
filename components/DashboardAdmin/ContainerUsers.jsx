@@ -205,11 +205,12 @@ export default function ContainerUsers() {
 					className='w-full h-auto border-collapse overflow-hidden shadow-md'
 				>
 					<thead className='bg-[#55608f]'>
-						{headerGroups.map((headerGroup) => (
-							<tr {...headerGroup.getHeaderGroupProps()}>
-								{headerGroup.headers.map((column) => (
+						{headerGroups.map((headerGroup, index) => (
+							<tr {...headerGroup.getHeaderGroupProps()} key={index}>
+								{headerGroup.headers.map((column, index) => (
 									<th
 										{...column.getHeaderProps(column.getSortByToggleProps())}
+										key={index}
 										className='p-15 bg-opacity-20 bg-black text-white text-center border-b-2 border-gray-300'
 									>
 										{column.render('Header')}
@@ -226,16 +227,18 @@ export default function ContainerUsers() {
 						))}
 					</thead>
 					<tbody {...getTableBodyProps()}>
-						{page.map((row) => {
+						{page.map((row, index) => {
 							prepareRow(row);
 							return (
 								<tr
 									{...row.getRowProps()}
+									key={index}
 									className='hover:bg-opacity-30 hover:bg-gray-500 '
 								>
-									{row.cells.map((cell) => (
+									{row.cells.map((cell,index) => (
 										<td
 											{...cell.getCellProps()}
+											key={index}
 											className='py-7 px-14 bg-opacity-20 bg-white text-black border-2'
 										>
 											{cell.render('Cell')}
