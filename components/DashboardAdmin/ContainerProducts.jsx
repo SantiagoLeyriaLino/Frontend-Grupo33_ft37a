@@ -283,6 +283,7 @@ export default function ContainerProducts() {
 							key={index}
 							return (
 								<tr
+								key={index}
 									{...row.getRowProps()}
 									className='hover:bg-opacity-30 hover:bg-gray-500 '
 								>
