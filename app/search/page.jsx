@@ -28,7 +28,7 @@ export default function Search(){
 
             <div className="w-[80%] relative">
                 <Paginate />
-                {render&&render.length>0?<ContainerProducts products={render}/>:<p>loading...</p>}
+                <ContainerProducts products={render}/>
             </div>
         </section>
     </main>

@@ -75,7 +75,7 @@ export default function Paginate() {
         onClick={goToNextPage}
         disabled={currentPage === pageNumbers.length}
         className={`cursor-pointer px-3 py-2 rounded-lg ${
-          currentPage === pageNumbers.length ? 'opacity-0 cursor-default' : 'bg-gray-200 hover:bg-gray-300'
+          currentPage === pageNumbers.length || pageNumbers.length===0 ? 'opacity-0 cursor-default' : 'bg-gray-200 hover:bg-gray-300'
         }`}
       >
         Next

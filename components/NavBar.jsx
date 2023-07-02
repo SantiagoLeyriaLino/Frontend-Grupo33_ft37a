@@ -1,11 +1,11 @@
 'use client';
 import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
-import logo from '../public/logocommerce.png';
+import logo from '../public/logo.png';
 import cart from '../public/cart.png';
 import Link from 'next/link';
 import Menu from './Menu/Menu';
-import UserMenu from './UserMenu';
+import userBanner from '../public/userBanner.png';
 import { useRouter, usePathname } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { debounce } from 'lodash';
@@ -14,13 +14,12 @@ import { useSession } from 'next-auth/react';
 import axios from 'axios';
 
 export default function NavBar() {
-	const [search, setSearch] = useState('');
+	const [search, setSearch] = useState(null);
 	const [userData, setUserData] = useState({})
 	const router = useRouter();
 	const dispatch = useDispatch();
 	// const userData = JSON.parse(localStorage.getItem('user'));
 	const { data: session } = useSession();
-
 
 	useEffect(()=>{
 		let data = JSON.parse(localStorage.getItem('user'));
@@ -29,60 +28,60 @@ export default function NavBar() {
 	},[])
 
 	useEffect(() => {
-		const myCartLocal = window.localStorage.getItem('myCart')||"";
+		const myCartLocal = localStorage.getItem('myCart');
 		if (!myCartLocal) {
-			window.localStorage.setItem('myCart', JSON.stringify([]));
+			localStorage.setItem('myCart', JSON.stringify([]));
 		}
 	}, []);
 
-	const getUser = async() =>{
-		if (session) {
-			const email = session.user.email;
-			const response = await axios.get(
-				`https://backend-33ft37a-deploy.vercel.app/users/auth/${email}`,
-			);
-			console.log(response);
-			localStorage.setItem(
-				'user',
-				JSON.stringify({
-					data: response.data,
-					validated: false,
-				}),
-			);
-		}
-	}
 
 	useEffect(() => {
-		getUser()
+		const fetchData = async () => {
+			if (session) {
+				const email = session.user.email;
+				const response = await axios.get(
+					`https://backend-33ft37a-deploy.vercel.app/users/auth/${email}`,
+				);
+				localStorage.setItem(
+					'user',
+					JSON.stringify({
+						data: response.data,
+						validated: false,
+					}),
+				);
+			}
+		};
+		fetchData();
 	}, []);
 
 	const pathname = usePathname();
 	useEffect(() => {
-		if (pathname.includes('products')) {
+		if (!pathname.includes('/search')) {
 			setSearch('');
 		}
 	}, [pathname]);
 
 	const debouncedSearch = useCallback(
 		debounce((searchTerm) => {
-			if (searchTerm.length > 0) {
-				router.push('/search');
-				dispatch(searchProducts(searchTerm));
-			}
-		}, 500),
+			router.push('/search');
+			dispatch(searchProducts(searchTerm));
+			// 	router.push('/search');
+			// 	dispatch(searchProducts(searchTerm));
+		}, 1000),
 		[],
 	);
 
 	const handleChange = (event) => {
 		const searchTerm = event.target.value;
 		setSearch(searchTerm);
-		if (pathname.includes(search)) {
-			debouncedSearch(searchTerm);
-		}
+		debouncedSearch(searchTerm);
+		// if (pathname.includes('/search')) {
+		// 	debouncedSearch(searchTerm);
+		// }
 	};
 
 	useEffect(() => {
-		if ((!search || search == '') && pathname.includes('search')) {
+		if(search==null && pathname.includes('/search')){
 			dispatch(searchProducts());
 		}
 	}, [search, dispatch]);
@@ -101,7 +100,14 @@ export default function NavBar() {
 				/>
 				<div className='flex items-center gap-x-[2rem]'>
 					{userData && userData.data ? (
-						<UserMenu />
+						<Link href='/profile'>
+							<Image
+							className='flexblock pb-[0.4rem] self-center'
+							src={userBanner}
+							alt={'user'}
+							width={40}
+							height={40}/>
+						</Link>
 					) : (
 						<Link href={'/login'}>Register/Login</Link>
 					)}

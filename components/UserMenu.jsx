@@ -1,33 +1,20 @@
 'use client';
-import Link from 'next/link';
-import { useState } from 'react';
-import userBanner from '../public/userBanner.png';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSession, signOut } from 'next-auth/react';
 
-export default function UserMenu({ user }) {
-	const [isOpen, setIsOpen] = useState(false);
-	const router = useRouter();
+export default function UserMenu({ setView}) {
 	const { data: session } = useSession();
 	const notify = (message) => {
 		toast.success(message, {
 			autoClose: 2000,
 		});
 	};
-	const openMenu = () => {
-		setIsOpen(true);
-	};
-	const closeMenu = () => {
-		setIsOpen(false);
-	};
+	
 	const handleClick = async (e) => {
 		if (session) {
 			try {
-				await signOut('google');
-				localStorage.setItem('user',JSON.stringify({}));
+				await signOut({ callbackUrl: '/login' });
 				notify('Logging out ...');
 				setTimeout(() => {
 					router.push('/login');
@@ -36,44 +23,33 @@ export default function UserMenu({ user }) {
 				console.log('Sign out error:', error);
 			}
 		} else {
-			localStorage.setItem('user',JSON.stringify({}));
 			notify('Logging out ...');
 			setTimeout(() => {
 				router.push('/login');
 			}, 3000);
 		}
+		localStorage.removeItem('user');
 	};
 
+	function handleButtonClicks(event){
+		const { id } = event.target
+		setView(id)
+	}
 	return (
-		<div onMouseEnter={openMenu} onMouseLeave={closeMenu} className='relative '>
-			<Image
-				className=' flex block pb-[0.4rem] self-center'
-				src={userBanner}
-				alt={'user'}
-				width={40}
-				height={40}
-			/>
-			{isOpen ? (
-				<ul className='absolute bg-white flex flex-col '>
-					<div className='relative '>
-						<Link href={'/profile'}>
-							<li
-								className={`hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer`}
-							>
-								Profile account
-							</li>
-						</Link>
-					</div>
-					<li
-						onClick={handleClick}
-						className='hover:bg-[#909090] hover:text-[white] pl-[0.4rem] pr-[2rem] py-[0.6rem] cursor-pointer'
-					>
-						Log out
-					</li>
-				</ul>
-			) : (
-				<></>
-			)}
+		<div className='relative w-[18%] shadow-xl'>
+			<ul className='bg-white flex flex-col'>
+				<li className={`hover:bg-[#909090] hover:text-[white] pl-[1.8rem] pr-[2rem] py-[0.6rem] cursor-pointer`}
+					id='profile' onClick={handleButtonClicks}>Account profile
+				</li>
+				<li	className={`hover:bg-[#909090] hover:text-[white] pl-[1.8rem] pr-[2rem] py-[0.6rem] cursor-pointer`}
+					id='purchase_history' onClick={handleButtonClicks}>Purchase history
+				</li>
+				<hr className='border-gray-200'/>
+				<li className='hover:bg-[#909090] hover:text-[white] pl-[1.8rem] pr-[2rem] py-[0.6rem] cursor-pointer'
+					onClick={handleClick}
+					>Log out
+				</li>
+			</ul>
 			<ToastContainer />
 		</div>
 	);

@@ -7,11 +7,13 @@ import sold from "../public/soldout.png"
 
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css";
+import SizeSelected from "./productCard/SizeSelected";
 
 export default function ProductCard({ product }) {
 
     const notify = (message) => {
         toast.success(message, {
+            position:"bottom-left",
             autoClose: 2000,
         });
     };
@@ -26,6 +28,9 @@ export default function ProductCard({ product }) {
     const [cant, setCant] = useState(1)
     const [priceModify, setPriceModify] = useState(product.price)
     const [sizeCheck, setSizeCheck] = useState([])
+    const [cantSelect,setCantSelect] = useState([{cant: 0, index: 0, size: ""}])
+    
+    const [sizes,setSize] = useState(0)
 
     // const [productos, setProductos] = useState([])
 
@@ -47,27 +52,29 @@ export default function ProductCard({ product }) {
 
     const addMyCart = () => {
         console.log(product.cant);
-        const myCartLocal = window.localStorage.getItem('myCart')||""
+        const myCartLocal = localStorage.getItem('myCart')
         const myCartParse = JSON.parse(myCartLocal)
         const productFind = myCartParse.find(prod => (prod._id === product._id) && (prod.cant === cant))
         if (!productFind) {
             if (myCartParse.length === 0) {
-                window.localStorage.setItem('myCart', JSON.stringify([{ ...product, cant: cant }]))
+                const cantzero = cantSelect.shift()
+                localStorage.setItem('myCart', JSON.stringify([{ ...product, cant: cant, cantSelect: cantSelect }]))
                 notify('Add to Cart')
             } else {
-                const productMyCart = { ...product, cant: cant }
+                const cantzero = cantSelect.shift()
+                const productMyCart = { ...product, cant: cant, cantSelect:cantSelect }
                 const sameProduct = myCartParse.find(prod => prod._id === product._id)
                 if (!sameProduct) {
                     const myCart = [...myCartParse, productMyCart]
                     console.log(myCart);
-                    window.localStorage.setItem('myCart', JSON.stringify(myCart))
+                    localStorage.setItem('myCart', JSON.stringify(myCart))
                     notify('Add to Cart')
                 } else {
 
                     console.log(sameProduct);
                     const arrayFilter = myCartParse.filter(prod => prod._id !== sameProduct._id)
                     const newArray = [...arrayFilter, productMyCart]
-                    window.localStorage.setItem('myCart', JSON.stringify(newArray))
+                    localStorage.setItem('myCart', JSON.stringify(newArray))
                     notify('Add to Cart')
                 }
             }
@@ -75,7 +82,6 @@ export default function ProductCard({ product }) {
         } else {
             notifyError('Already added to cart')
         }
-
     }
 
     const resCant = () => {
@@ -89,28 +95,48 @@ export default function ProductCard({ product }) {
 
     }
 
-    const handleCheckSize = (event) => {
-        const { checked, name } = event.target
-        const index = parseInt(name)
-        if (checked) {
-            setSizeCheck([...sizeCheck, index]);
-        } else {
-            const newArray = sizeCheck.filter(size => size !== index)
-            setSizeCheck(newArray);
+    
+
+    const handleCantSelected = (size) =>{
+        console.log(size);
+        if(cantSelect.length === 0){
+            setCantSelect(size)
+            }else{
+                const sizeSelect = cantSelect.find(elem=> elem.size === size.size)
+                if(!sizeSelect){
+                    setCantSelect([...cantSelect,size])
+                }
+        
+        else {
+            const newArray = cantSelect.filter(elem=> elem.size !== size.size)
+            const sumArray = [...newArray,size]
+            setCantSelect(sumArray)
         }
+       
+            
+        }
+        
     }
-    console.log(sizeCheck);
+
+    const handleResSelected = (size) =>{
+        console.log(size);
+        const newArray = cantSelect.filter(ele=> ele.size !== size)
+        console.log(newArray);
+        setCantSelect(newArray)
+    }
+
+
+    const handleSumActiveCart = (value) =>{
+        setSize(sizes+1)
+    }
+    const handleResActiveCart = (value) =>{
+        setSize(sizes-1)
+    }
 
     useEffect(() => {
 
-        // setTooltip(product)
-    }, [cant, sizeCheck])
-
-    // const handlePrice = () =>{
-
-    //     setPriceModify(priceModify * cant)
-    // }
-
+    }, [cant, sizeCheck,cantSelect])
+    console.log(cantSelect);
     return (
 
         <Tippy
@@ -187,26 +213,37 @@ export default function ProductCard({ product }) {
                                         {
                                             product?.size?.map((size, index) => {
                                                 return (
-                                                    <div key={index} className="flex items-center gap-x-[0.4rem]">
-                                                        <input onChange={handleCheckSize} type="checkbox" name={index} id="" />
-                                                        <span className="w-[16px]">{size.size}</span>
+                                                    <SizeSelected 
+                                                    key={index}
+                                                    size={size.size}
+                                                    stock={size.stock}
+                                                    handleCantSelected={handleCantSelected}
+                                                    handleResSelected={handleResSelected}
+                                                    handleSumActiveCart={handleSumActiveCart}
+                                                    handleResActiveCart={handleResActiveCart}
+                                                    />
+                                                    // <div key={index} className="flex items-center gap-x-[0.4rem]">
+                                                    //     <input onChange={handleCheckSize} type="checkbox" name={index} value={size.size} id="" />
+                                                    //     <span className="w-[16px]">{size.size}</span>
 
-                                                        <div className={`${sizeCheck.includes(index) ? "opacity-1" : "opacity-0"} flex h-[fit-content] gap-x-[0.4rem]`}>
-                                                            <span>Cant</span>
-                                                            <div className="flex">
-                                                                <div
-                                                                    className="flex items-center justify-center bg-[#FA8B61] hover:bg-[#F8652A] px-[0.2rem] rounded-l-[0.6rem]  cursor-pointer"
-                                                                    onClick={resCant}><span className="text-[0.7rem]">{`<`}</span></div>
-                                                                <div className="flex items-center justify-center w-[20px] bg-white text-center  text-black ">
-                                                                    <span className="text-[0.7rem]">{cant}</span>
-                                                                </div>
-                                                                <div
-                                                                    className="flex items-center justify-center bg-[#FA8B61] hover:bg-[#F8652A] px-[0.2rem] rounded-r-[0.6rem] cursor-pointer"
-                                                                    onClick={sumCant}><span className="text-[0.7rem]">{`>`}</span></div>
-                                                            </div>
-                                                        </div>
+                                                    //     <div className={`${sizeCheck.includes(index) ? "opacity-1" : "opacity-0"} flex h-[fit-content] gap-x-[0.4rem]`}>
+                                                    //         <span>Cant</span>
+                                                    //         <div className="flex">
+                                                    //             <div
+                                                    //                 className="flex items-center justify-center bg-[#FA8B61] hover:bg-[#F8652A] px-[0.2rem] rounded-l-[0.6rem]  cursor-pointer"
+                                                    //                 onClick={()=>{handleResCantSelect(index,size.size,size.stock)}}><span className="text-[0.7rem]">{`<`}</span></div>
+                                                    //             <div className="flex items-center justify-center w-[20px] bg-white text-center  text-black ">
+                                                    //                 <span className="text-[0.7rem]">{
 
-                                                    </div>
+                                                    //                 }</span>
+                                                    //             </div>
+                                                    //             <div
+                                                    //                 className="flex items-center justify-center bg-[#FA8B61] hover:bg-[#F8652A] px-[0.2rem] rounded-r-[0.6rem] cursor-pointer"
+                                                    //                 onClick={()=>{handleSumCantSelect(index,size.size,size.stock)}}><span className="text-[0.7rem]">{`>`}</span></div>
+                                                    //         </div>
+                                                    //     </div>
+
+                                                    // </div>
 
                                                 )
                                             })
@@ -216,7 +253,7 @@ export default function ProductCard({ product }) {
                                     <></>
                             }
                             {
-                                ((product?.stock > 0) && (sizeCheck.length > 0))
+                                (sizes > 0)
                                     ?
                                     <span
                                         onClick={addMyCart}
@@ -251,10 +288,64 @@ export default function ProductCard({ product }) {
                     <span className="font-bold">$ {product.price}</span>
                 </div>
                 <ToastContainer
-                    position="bottom-left"
                     autoClose={2000}
                     theme="light" />
             </div>
         </Tippy>
     )
 }
+
+// const handleCheckSize = (event) => {
+    //     const { checked, name ,value} = event.target
+    //     const index = parseInt(name)
+    //     if (checked) {
+    //         if(sizeCheck.length === 0){
+    //             setSizeCheck([index]);
+    //             // setCantSelect([{index:index,cant:1,size:value}]);
+    //             setCantSelect([{size:value,cant:1,}]);
+
+    //         } else {
+    //             setSizeCheck([...sizeCheck,index])
+    //             // setCantSelect([...cantSelect,{index:index, cant:1,size:value}])
+    //             setCantSelect([...cantSelect,{size:value,cant:1,}])
+    //         }
+    //         // setCantSelect([...sizeCheck, {index,cant:1}]);
+            
+    //     } else {
+    //         const newArray = sizeCheck.filter(size => size !== index)
+    //         setSizeCheck(newArray);
+    //         const newArrayCant = cantSelect.filter(cant => cant.size !== value)
+    //         setCantSelect(newArrayCant);
+    //     }
+    // }
+
+    // const handleSumCantSelect = (index,size,stock) =>{
+    //     console.log(index);
+    //     console.log(size);
+    //     console.log(stock);
+    //     console.log(sizeCheck);
+    //     const newSumSelect = cantSelect.map(sum=>{
+    //         if(sum.index === index){
+    //             console.log(sum.cant);
+    //             if(sum.cant < stock){
+    //                 return {...sum, cant : sum.cant +1, size:size}
+    //             }
+    //         }
+    //     return sum
+    //     })
+    //     setCantSelect(newSumSelect)  
+    // }
+
+    // const handleResCantSelect = (index,size,stock) =>{
+    //     const newResSelect = cantSelect.map(res=>{
+    //         if(res.index === index){
+    //             console.log(res.cant);
+    //             if(res.cant > 1){
+    //                 return {...res, cant : res.cant - 1,size:size}
+    //             }
+    //         }
+    //     return res
+    //     })
+    //     setCantSelect(newResSelect)
+    // }
+    // console.log(cantSelect);

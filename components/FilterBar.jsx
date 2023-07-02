@@ -14,13 +14,17 @@ export default function FilterBar({ products, gender, category, name }) {
         }
     }, [])
 
-    const [rangeValue, setRangeValue] = useState(0)
+    const [price, setPrice] = useState(0)
     const [genders, setGenders] = useState("")
     const [names, setNames] = useState("")
     const [categorys, setCategorys] = useState("")
     const [filterBrands, setFilterBrands] = useState([])
     const [filterColors, setFilterColors] = useState([])
+    
 
+    useEffect(()=>{
+        console.log({RANGODEPRECIO:price})
+    },[price])
 
     const [filterBar, setFilterBar] = useState({
         brand: "",
@@ -40,7 +44,7 @@ export default function FilterBar({ products, gender, category, name }) {
     }, [genders, categorys])
 
     const handleRange = (event) => {
-        setRangeValue(event.target.value)
+        setPrice(event.target.value)
     }
 
     const getBrands = () => {
@@ -102,8 +106,8 @@ export default function FilterBar({ products, gender, category, name }) {
     }, [products, filterBar])
 
     useEffect(() => {
-        if ((filterBrands !== ',' && filterBrands.length > 0) || (filterColors !== ',' && filterColors.length > 0)) handleSubmit()
-    }, [filterBar])
+        if ((filterBrands !== ',' && filterBrands.length > 0) || (filterColors !== ',' && filterColors.length > 0)||(price&&price>0)) handleSubmit()
+    }, [filterBar, price])
 
     console.log(products);
     console.log(filterBrands);
@@ -115,7 +119,8 @@ export default function FilterBar({ products, gender, category, name }) {
             if (
                 (filterBar.brand && filterBar.brand.length > 1) ||
                 (filterBar.color && filterBar.color.length > 1) ||
-                (names && names.length > 0)
+                (names && names.length > 0)||
+                (price && price>0)
             ) {
                 let brand = filterBar.brand;
                 let color = filterBar.color;
@@ -125,16 +130,17 @@ export default function FilterBar({ products, gender, category, name }) {
                         categorys,
                         brand !== ',' ? brand : null,
                         color !== ',' ? color : null,
-                        names
+                        names,
+                        price !== 0 ? price : null,
                     )
                 );
             } else {
-                dispatch(getFilterProducts(genders, categorys, names));
+                dispatch(getFilterProducts(genders, categorys, names, ));
             }
         }, 500),
-        [filterBar, names, dispatch]
+        [filterBar, names, price, dispatch]
     );
-
+//comentario
     const handleSubmit = () => {
         debouncedSubmit();
     };
@@ -199,8 +205,8 @@ export default function FilterBar({ products, gender, category, name }) {
 
             <article className="w-[100%] p-[0.6rem] flex flex-col gap-y-[1rem]">
                 <h3 className="border-[#A9A9B2] border-b-[1px]">Price</h3>
-                <input value={rangeValue} onChange={handleRange} type="range" min={0} max={10000} />
-                <span>{rangeValue}</span>
+                <input value={price} onChange={handleRange} type="range" min={0} max={200000} />
+                <span>{price}</span>
 
             </article>
 

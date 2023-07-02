@@ -2,24 +2,26 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import offerts from '../public/ofertas.jpg';
-import hombres from '../public/hombresbanner.png';
-import women from '../public/women_model.jpg';
-import children from  '../public/infantil.jpg';
+import { useRouter } from "next/navigation";
+import offerts from "../public/ofertas.jpg";
+import hombres from "../public/hombres.jpg";
+import women from "../public/ropafemenina.jpg";
+import children from "../public/ropainfantil.jpg";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function CarouselBanner() {
-  const images = [hombres, women ,children, offerts];
+export default function CarouselBanner({ routes }) {
+  const images = [hombres, women, children, offerts];
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedImage, setSelectedImage] = useState(images[0]);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) =>
         prevIndex === images.length - 1 ? 0 : prevIndex + 1
       );
-    }, 5000); // Cambia el valor "3000" para ajustar la duración de cambio de imagen
+    }, 5000); // Cambia el valor "5000" para ajustar la duración de cambio de imagen
 
     return () => {
       clearInterval(interval);
@@ -34,14 +36,19 @@ export default function CarouselBanner() {
     setSelectedImage(images[currentIndex]);
   }, [currentIndex]);
 
+  const handleButtonClick = () => {
+    const currentRoute = routes[currentIndex].route;
+    router.push(currentRoute);
+  };
+
   const styles = {
     carouselContainer: {
       position: "relative",
-      width: "100%", // Ajusta el ancho del carrusel según tus necesidades
-      height: "0",
-      paddingBottom: "30%", // Ajusta el valor de acuerdo al aspect ratio deseado
-      margin: "0 auto", // Centra el carrusel horizontalmente
-    },
+      width: "100%", 
+      height: "400px", 
+      paddingBottom: "0", 
+      margin: "0 auto",
+    },
     slideItem: {
       position: "absolute",
       top: 0,
@@ -76,12 +83,17 @@ export default function CarouselBanner() {
               alt="image"
               layout="fill"
             />
+           
           </div>
         </motion.div>
       </AnimatePresence>
+      <div className="z-20">
+    <button className='absolute text-white font-bold text-[2rem] top-[8rem] left-[4rem] bg-[#90909050] py-[1rem] px-[1.4rem] rounded-[1rem]'   onClick={handleButtonClick}>Ver más</button></div>
     </section>
+ 
   );
 }
+
 
 
 
