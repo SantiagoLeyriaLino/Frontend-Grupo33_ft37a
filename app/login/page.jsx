@@ -91,6 +91,7 @@ export default function LoginPage() {
 		try {
 			const response = await axios(`https://backend-33ft37a-deploy.vercel.app/users/login?${url}`);
 			if (response.data.validated && response.data.isActive) {
+				localStorage.setItem('userEmail', JSON.stringify(response.data.email))
 				localStorage.setItem(
 					'user',
 					JSON.stringify({
