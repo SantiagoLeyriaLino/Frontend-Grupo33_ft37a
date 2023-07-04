@@ -51,7 +51,9 @@ export default function ContainerSummary({ products,
         setMyCartLocal(products)
         const userDataLocal = localStorage.getItem('user')
         const userDataParse = JSON.parse(userDataLocal)
-        setCupon(userDataParse.data.cpDesc)
+        if(userDataParse && userDataParse.data){
+            setCupon(userDataParse.data.cpDesc)
+        }
 
         console.log(products);
     }, [products])

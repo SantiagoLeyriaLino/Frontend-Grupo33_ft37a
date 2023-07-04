@@ -5,6 +5,7 @@ import SideBar from '@/components/DashboardAdmin/SideBar';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import NoAccess from '@/components/DashboardAdmin/NoAccess';
+import BarChart from '@/components/DashboardAdmin/BarChar';
 
 export default function AdminPage() {
 	const router = useRouter()
@@ -39,6 +40,9 @@ export default function AdminPage() {
 					/>
 					<div>Perfil Admin</div>
 				</nav>
+				<div>
+					<BarChart />
+				</div>
 			</main>
 		</SideBar>
 	}
