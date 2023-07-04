@@ -19,7 +19,7 @@ export default function ContainerProducts() {
 	useEffect(() => {
 		const fetchUsers = async () => {
 			try {
-				const response = await axios.get('https://backend-33ft37a-deploy.vercel.app/products');
+				const response = await axios.get('https://backend-33ft37a-deploy.vercel.app/products/search');
 				setProductData(response.data);
 			} catch (error) {
 				console.error('Error fetching users:', error);

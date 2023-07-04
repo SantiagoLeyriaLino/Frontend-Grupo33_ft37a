@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export default async function customAuth({ user }) {
 	const userExistsResponse = await axios.get(
-		`https://backend-33ft37a-deploy.vercel.app/users/auth/${user.email}`,
+		`https://backend-33ft37a-deploy.vercel.app/users/authNew/${user.email}`,
 	);
 
 	if (!userExistsResponse.data) {
