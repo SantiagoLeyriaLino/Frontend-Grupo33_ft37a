@@ -210,7 +210,7 @@ export default function ContainerProducts() {
 					</thead>
 					<tbody {...getTableBodyProps()}>
 						{page.map((row,index) => {
-							key={index}
+							
 							prepareRow(row);
 							return (
 								<tr

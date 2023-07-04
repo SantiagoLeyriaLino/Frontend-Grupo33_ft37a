@@ -279,7 +279,7 @@ export default function ContainerUsers() {
 					</thead>
 					<tbody {...getTableBodyProps()}>
 						{page.map((row, index) => {
-							key={index}
+							
 							prepareRow(row);
 							return (
 								<tr
