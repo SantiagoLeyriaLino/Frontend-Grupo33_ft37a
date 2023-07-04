@@ -16,22 +16,22 @@ export default function ProductsPage() {
         {
             title: "Shoes",
             img: maleShoes,
-            link:'products/hombres/zapatillas'
+            link:'/products/hombres/zapatillas'
         },
         {
             title: "Hoodies",
             img: maleHoodie,
-            link:'products/hombres/buzos'
+            link:'/products/hombres/buzos'
         },
         {
             title: "T-shirts",
             img: maleShirt,
-            link:'products/hombres/remeras'
+            link:'/products/hombres/remeras'
         },
         {
             title: "Pants",
             img: maleTrousers,
-            link:'products/hombres/pantalones'
+            link:'/products/hombres/pantalones'
         },
     ]
 

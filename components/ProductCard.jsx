@@ -226,7 +226,7 @@ export default function ProductCard({ product }) {
                                     ?
                                     myUserParse?.data?.isAdmin 
                                     ?
-                                    <div className="flex flex-col gap-y-[0.2rem]">
+                                    <div className="flex gap-[0.4rem] flex-wrap">
                                         Size
                                         {
                                             product?.size?.map((size,index)=>{

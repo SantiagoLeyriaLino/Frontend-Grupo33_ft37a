@@ -191,14 +191,14 @@ export default function ProductDetail() {
                                     <div className="flex flex-col gap-y-[0.6rem]">
                                         <div>
 
-                                            <h2 className="font-bold text-[1.4rem]">$ {productDetail[0]?.price}</h2>
+                                            {/* <h2 className="font-bold text-[1.4rem]">$ {productDetail[0]?.price}</h2>
                                             {
                                                 (!myUserParse?.data?.isAdmin)
                                                 ?
                                                 <span>ver cuotas</span>
                                                 :
                                                 <></>
-                                            }
+                                            } */}
 
                                             <h2 className="font-bold text-[1.4rem]">{productDetail[0]?.price
                                             .toLocaleString('en-US', { style: 'currency', currency: 'USD' })
@@ -258,9 +258,15 @@ export default function ProductDetail() {
                                     (productDetail[0]?.stock > 0)
                                         ?
                                         <div className="flex flex-col gap-y-[0.6rem] mt-[2rem]">
-                                            <span
-                                                onClick={goBuy}
-                                                className="text-white p-[0.6rem] w-[100%] text-center bg-[#FA8B61] hover:bg-[#F8652A] font-bold cursor-pointer">Comprar</span>
+                                            {cantSelect
+                                                ?
+                                                <span
+                                                    onClick={goBuy}
+                                                    className="text-white p-[0.6rem] w-[100%] text-center bg-[#FA8B61] hover:bg-[#F8652A] font-bold cursor-pointer">Comprar</span>
+                                                :
+                                                <span
+                                                className="text-white p-[0.6rem] w-[100%] text-center bg-[#11111180] hover:bg-[#F8652A] font-bold cursor-default">Comprar</span> 
+                                            }
                                                 {
                                                     cantSelect
                                                     ?
