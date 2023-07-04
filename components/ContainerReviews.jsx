@@ -51,7 +51,7 @@ export default function ContainerReviews({ reviews, productId, setRefresh}){
         }
         {reviews.length ?
             <div className="flex flex-col gap-y-[0.8rem] content-center">
-                {reviews.map((review)=> <Review data={review}/>)}
+                {reviews.map((review, index)=> <Review key={index} data={review}/>)}
             </div> : <></>
         }
     </div>
