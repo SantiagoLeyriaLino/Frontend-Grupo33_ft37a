@@ -91,7 +91,6 @@ export default function LoginPage() {
 		try {
 			const response = await axios(`https://backend-33ft37a-deploy.vercel.app/users/login?${url}`);
 			if (response.data.validated && response.data.isActive) {
-				localStorage.setItem('userEmail', JSON.stringify(response.data.email))
 				localStorage.setItem(
 					'user',
 					JSON.stringify({
@@ -102,6 +101,7 @@ export default function LoginPage() {
 				notify('You were successfully logged in');
 				setTimeout(() => router.push('/'), 3000);
 			} else if (response.data.isActive) {
+				localStorage.setItem('userEmail', JSON.stringify(response.data.email))
 				notifyError(
 					'Unauthenticated user, check your email to confirm your account',
 				);
