@@ -197,7 +197,7 @@ export default function ContainerProducts() {
 			for (const productId in dataUpdate) {
 				const updates = dataUpdate[productId];
 				console.log(updates);
-				await axios.put(`http://localhost:3001/products/${productId}`, updates);
+				await axios.put(`https://backend-33ft37a-deploy.vercel.app/products/${productId}`, updates);
 			}
 			window.location.reload();
 		} catch (error) {
