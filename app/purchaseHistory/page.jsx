@@ -1,11 +1,11 @@
 'use client'
 import { useState, useEffect } from "react"
-import CardHistoryPurchase from "@/components/CardHistoryPurchase"
+import CardHistoryPurchase from "@/components/cardHistoryPurchase"
 import SkeletonPurchaseHistory from "@/components/SkeletonComponents/SkeletonPurchaseHistory"
 import axios from "axios"
 import Image from "next/image"
 
-export default function PurchaseHistory() {
+export default function PurchaseHistoryPage() {
     // const user = JSON.parse(window.localStorage.getItem('user'))
     // console.log(user)
 

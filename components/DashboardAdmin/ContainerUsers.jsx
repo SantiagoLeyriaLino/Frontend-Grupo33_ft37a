@@ -2,11 +2,21 @@
 import axios from 'axios';
 import { useState, useEffect, useMemo } from 'react';
 import { useTable, useSortBy, usePagination } from 'react-table';
+import { useRouter } from 'next/navigation';
 
 export default function ContainerUsers() {
+	const router = useRouter();
+
+	const [localUser, setLocalUser] = useState({})
 	const [userData, setUserData] = useState([]);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [currentPage, setCurrentPage] = useState(0);
+	const [dataUpdate, setDataUpdate] = useState({});
+
+	useEffect(() => {
+		let data = JSON.parse(localStorage.getItem('user'));
+		if (data && data.data) setLocalUser(data);
+	}, []);
 
 	useEffect(() => {
 		const fetchUsers = async () => {
@@ -22,8 +32,113 @@ export default function ContainerUsers() {
 		fetchUsers();
 	}, []);
 
+	const updateUser = (userId, propertyName, value) => {
+		setDataUpdate((prevUpdatedUsers) => ({
+			...prevUpdatedUsers,
+			[userId]: {
+				...prevUpdatedUsers[userId],
+				[propertyName]: value,
+			},
+		}));
+
+		setUserData((prevUserData) => {
+			const updatedData = prevUserData.map((user) => {
+				if (user._id === userId) {
+					return {
+						...user,
+						[propertyName]: value,
+					};
+				}
+				return user;
+			});
+			setCurrentPage(pageIndex);
+			return updatedData;
+		});
+	};
+
+	const saveChanges = async () => {
+		try {
+			for (const userId in dataUpdate) {
+				const updates = dataUpdate[userId];
+				console.log(updates);
+				let token = localUser.data.token
+				console.log({ESTEESELTOKEN:localUser})
+				await axios.put(`https://backend-33ft37a-deploy.vercel.app/users/${userId}`, updates, {
+					headers: {
+						Authorization: `Bearer ${token}`
+					  }
+				});
+			}
+			window.location.reload();
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	const data = useMemo(() => userData, [userData]);
-	console.log(data);
+	const filteredData = useMemo(() => {
+		if (searchTerm === '') {
+			return data;
+		} else {
+			return data.filter(
+				(user) =>
+					user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+					user.email.toLowerCase().includes(searchTerm.toLowerCase()),
+			);
+		}
+	}, [data, searchTerm]);
+
+	const EditableCell = ({
+		value: initialValue,
+		row: { index },
+		column: { id },
+		updateData,
+	}) => {
+		const [value, setValue] = useState(initialValue);
+		const onChange = (e) => {
+			const newValue = e.target.value;
+			setValue(newValue);
+		};
+
+		const onBlur = (e) => {
+			const newValue = e.target.value;
+			updateData(index, id, newValue);
+		};
+
+		useEffect(() => {
+			setValue(initialValue);
+		}, [initialValue]);
+
+		if (id === 'isActive') {
+			return (
+				<select
+					value={value}
+					onChange={onChange}
+					onBlur={onBlur}
+					className='block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+				>
+					<option value='true'>Active</option>
+					<option value='false'>Not Active</option>
+				</select>
+			);
+		} else if (id === 'isAdmin') {
+			return (
+				<select
+					value={value}
+					onChange={onChange}
+					onBlur={onBlur}
+					className='block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+				>
+					<option value='true'>Admin</option>
+					<option value='false'>Not Admin</option>
+				</select>
+			);
+		}
+	};
+
+	const handleSearch = (e) => {
+		setSearchTerm(e.target.value);
+	};
 	const columns = useMemo(
 		() => [
 			// {
@@ -71,22 +186,7 @@ export default function ContainerUsers() {
 			{
 				Header: 'Active',
 				accessor: 'isActive',
-				Cell: ({ row }) => (
-					<select
-						value={row.original.isActive}
-						onChange={(e) =>
-							updateUser(
-								row.original._id,
-								'isActive',
-								e.target.value === 'true',
-							)
-						}
-						className='block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
-					>
-						<option value='true'>Active</option>
-						<option value='false'>Not Active</option>
-					</select>
-				),
+				Cell: EditableCell,
 				canSort: true,
 				sortType: (rowA, rowB, columnId) => {
 					const valueA = rowA.values[columnId] ? 1 : 0;
@@ -97,18 +197,7 @@ export default function ContainerUsers() {
 			{
 				Header: 'Admin',
 				accessor: 'isAdmin',
-				Cell: ({ row }) => (
-					<select
-						value={row.original.isAdmin}
-						onChange={(e) =>
-							updateUser(row.original._id, 'isAdmin', e.target.value === 'true')
-						}
-						className='block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
-					>
-						<option value='true'>Admin</option>
-						<option value='false'>Not Admin</option>
-					</select>
-				),
+				Cell: EditableCell,
 				canSort: true,
 				sortType: (rowA, rowB, columnId) => {
 					const valueA = rowA.values[columnId] ? 1 : 0;
@@ -117,20 +206,8 @@ export default function ContainerUsers() {
 				},
 			},
 		],
-		[],
+		[data, dataUpdate],
 	);
-
-	const filteredData = useMemo(() => {
-		if (searchTerm === '') {
-			return data;
-		} else {
-			return data.filter(
-				(user) =>
-					user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-					user.email.toLowerCase().includes(searchTerm.toLowerCase()),
-			);
-		}
-	}, [data, searchTerm]);
 
 	const {
 		getTableProps,
@@ -153,40 +230,14 @@ export default function ContainerUsers() {
 			columns,
 			data: filteredData,
 			initialState: { pageIndex: currentPage, pageSize: 5 },
+			updateData: (rowIndex, columnId, value) => {
+				const productId = filteredData[rowIndex]._id;
+				updateUser(productId, columnId, value);
+			},
 		},
 		useSortBy,
 		usePagination,
 	);
-
-	const handleSearch = (e) => {
-		setSearchTerm(e.target.value);
-	};
-
-	// useEffect(() => {
-	// 	setCurrentPage(0);
-	// }, [searchTerm]);
-
-	const updateUser = async (userId, propertyName, value) => {
-		try {
-			const updates = { [propertyName]: value };
-			await axios.put(`https://backend-33ft37a-deploy.vercel.app/users/${userId}`, updates);
-			setUserData(
-				(prevData) =>
-					prevData.map((user) => {
-						if (user._id === userId) {
-							return {
-								...user,
-								[propertyName]: value,
-							};
-						}
-						return user;
-					}),
-				setCurrentPage(pageIndex),
-			);
-		} catch (error) {
-			console.log(error);
-		}
-	};
 
 	return (
 		<div className='w-11/12 mx-auto py-4'>
@@ -205,12 +256,11 @@ export default function ContainerUsers() {
 					className='w-full h-auto border-collapse overflow-hidden shadow-md'
 				>
 					<thead className='bg-[#55608f]'>
-						{headerGroups.map((headerGroup, index) => (
-							<tr {...headerGroup.getHeaderGroupProps()} key={index}>
-								{headerGroup.headers.map((column, index) => (
+						{headerGroups.map((headerGroup) => (
+							<tr {...headerGroup.getHeaderGroupProps()}>
+								{headerGroup.headers.map((column) => (
 									<th
 										{...column.getHeaderProps(column.getSortByToggleProps())}
-										key={index}
 										className='p-15 bg-opacity-20 bg-black text-white text-center border-b-2 border-gray-300'
 									>
 										{column.render('Header')}
@@ -227,19 +277,16 @@ export default function ContainerUsers() {
 						))}
 					</thead>
 					<tbody {...getTableBodyProps()}>
-						{page.map((row, index) => {
+						{page.map((row) => {
 							prepareRow(row);
-							key={index}
 							return (
 								<tr
-								key={index}
 									{...row.getRowProps()}
 									className='hover:bg-opacity-30 hover:bg-gray-500 '
 								>
-									{row.cells.map((cell,index) => (
+									{row.cells.map((cell) => (
 										<td
 											{...cell.getCellProps()}
-											key={index}
 											className='py-7 px-14 bg-opacity-20 bg-white text-black border-2'
 										>
 											{cell.render('Cell')}
@@ -250,7 +297,7 @@ export default function ContainerUsers() {
 						})}
 					</tbody>
 				</table>
-
+				<button onClick={saveChanges}>Save Changes</button>
 				<div className='flex justify-evenly'>
 					<button onClick={() => previousPage()} disabled={!canPreviousPage}>
 						prev

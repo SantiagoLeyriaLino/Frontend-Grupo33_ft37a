@@ -131,7 +131,7 @@ export default function FilterBar({ products, gender, category, name }) {
                         brand !== ',' ? brand : null,
                         color !== ',' ? color : null,
                         names,
-                        price !== 0 ? price : null,
+                        price > 0 ? price : null,
                     )
                 );
             } else {

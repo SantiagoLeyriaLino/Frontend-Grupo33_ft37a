@@ -63,7 +63,12 @@ export default function UserProfile(){
     }, [refresh, userId])
     
     function submitChange(response, name) {        // cuando se resuelven los errores, se realiza el PUT
-        axios.put(`https://backend-33ft37a-deploy.vercel.app/users/${data._id}`, response)
+        let token = data.token
+        axios.put(`https://backend-33ft37a-deploy.vercel.app/users/${data._id}`, response, {
+            headers: {
+                Authorization: `Bearer ${token}`
+              }
+        })
         .then((response)=>{
             setRefresh(response) // pide la información actualizada del usuario
             setErrors({...errors, [name]: ''}) // limpia los errors
@@ -139,10 +144,10 @@ export default function UserProfile(){
         imageInput.click()
     }
 
-    return <section className="m-[4rem] flex flex-row justify-center gap-x-[6rem]">
+    return <section className="m-[4rem] flex justify-center gap-x-[6rem]">
         <div className='relative'
             onMouseEnter={handleMouse} onMouseLeave={handleMouse}>
-            <Image className='flex w-[200px] h-[200px] border-[1px]' // imagen de perfil
+            <Image className='flex w-[250px] h-[250px] border-[1px] object-cover' // imagen de perfil
                 src={profileImage} width={200} height={200} id={'imageViewer'} alt={'profile'}/>
             { hover ? 
                 <Image className="w-[25px] h-[25px] top-0 left-0 absolute cursor-pointer opacity-50" // boton edit
@@ -161,24 +166,24 @@ export default function UserProfile(){
         </div>
         <input className={`relative top-[2rem] hidden`}
             id={'imageInput'} type='file' name='images' onChange={handleOnChange}></input>
-        <div className="flex flex-col justify-left">
+        <div className="flex flex-col gap-y-[1rem]  w-[250px]">
             { dataEntry?.map((prop, index)=>{ // mapea los datos, los inputs y los errors
                 return (
-                <div className="flex flex-col m-[0.5rem]" key={index}>
+                <div className="flex flex-col  " key={index}>
                     <label
-                    >{fields[index]}</label>
-                    <div className="flex flex-row relative right-[20px] items-center">
+                    className="font-bold">{fields[index]}</label>
+                    <div className="flex flex-row relative w-full items-center ">
                         {
                             !inputs[prop[0]] ? <>
-                                <Image className="w-[18px] h-[18px] relative right-[10px] cursor-pointer opacity-50"
+                                <Image className="w-[20px] h-[20px] absolute right-[100%] cursor-pointer opacity-50"
                                     src={editIcon} alt={'username'} width={300} height={300} // botón 'edit'
                                     onClick={handleOnClick} name={prop[0]}/>
-                                <h1>{data ? dataEntry[index][1] : ''}</h1></>
+                                <h2 className="w-full text-[1rem] py-[7.4px] pl-[0.4rem]">{data ? dataEntry[index][1] : ''}</h2></>
                                 : <>
-                                <Image className="w-[18px] h-[18px] relative right-[10px] cursor-pointer opacity-50"
+                                <Image className="w-[20px] h-[20px] absolute right-[100%] cursor-pointer opacity-50"
                                     src={check} alt={'username'} width={300} height={300} // botón 'check'
                                     onClick={handleOnClick} name={prop[0]}/>
-                                <input className="border w-[15rem]" value={values[prop[0]]}
+                                <input className="w-full border text-[1rem] pl-[0.4rem] py-[0.4rem]" value={values[prop[0]]}
                                     type={prop[0] === 'date' ? 'date': 'text'} placeholder={dataEntry[index][1]} name={prop[0]}
                                     onChange={handleOnChange}/>
                                 <h3 className="text-red-500 text-[12px] absolute left-[18rem] w-[15rem]">{errors[prop[0]]}</h3></>

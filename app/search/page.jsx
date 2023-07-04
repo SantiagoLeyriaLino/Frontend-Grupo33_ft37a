@@ -2,7 +2,9 @@
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect } from "react"
 import FilterBar from "@/components/FilterBar"
+import SkeletonFilterBar from "@/components/SkeletonComponents/SkeletonFilterBar"
 import ContainerProducts from "@/components/ContainerProducts"
+import SkeletonContainerProducts from "@/components/SkeletonComponents/SkeletonContainerProducts"
 import { clearState } from "@/redux/Slice"
 import Paginate from "@/components/Paginate/Paginate"
 
@@ -24,11 +26,11 @@ export default function Search(){
         <main className="pt-[9rem] min-h-[100vh]">
         <section className="w-[70%] mx-[auto] flex py-[3rem]">
             
-            {productsSearch&&productsSearch.length>0?<FilterBar products={productsSearch} name={nameSearch}/>:<p>loading...</p>}
+            {productsSearch&&productsSearch.length>0?<FilterBar products={productsSearch} name={nameSearch}/>:<SkeletonFilterBar />}
 
             <div className="w-[80%] relative">
                 <Paginate />
-                <ContainerProducts products={render}/>
+                {render && render.length > 0 ? <ContainerProducts products={render} /> : <SkeletonContainerProducts />}
             </div>
         </section>
     </main>

@@ -22,7 +22,7 @@ export default function Review({ data }){
                 src={user.image[0]} width={400} height={400}/>
                 <div className="flex flex-col">
                     <h1>{user.name}</h1>
-                    <div>{stars}</div>
+                    <div className="text-blue-500">{stars}</div>
                 </div>
             </div>
             <div>

@@ -28,7 +28,7 @@ export default function SideBar({ children }) {
 						</div>
 					</Link>
 
-					<Link href='/admin/banned'>
+					<Link href='/admin/ban'>
 						<div className='bg-gray-100 hover:bg-gray-200 cursor-pointer p-3 rounded-lg inline-block'>
 							<MdNoEncryptionGmailerrorred size={30} />
 						</div>

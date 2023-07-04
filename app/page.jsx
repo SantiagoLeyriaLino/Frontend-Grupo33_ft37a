@@ -28,7 +28,7 @@ export default function Home() {
 					  ]}
 				/>
 				<h2 className='absolute text-white font-bold text-[2rem] top-[2rem] left-[4rem] bg-[#90909050] py-[1rem] px-[1.4rem] rounded-[1rem]'>
-					Empieza tu negocio
+				Start your business
 				
 				</h2>
 			</div>
@@ -36,7 +36,7 @@ export default function Home() {
 
 			<section className='flex w-[80%] mx-[auto]  justify-center py-[3rem]'>
 				<div className='w-[60%] pt-[2rem] text-center'>
-					<h2 className='text-[3.4rem] font-semibold'>Vende tus productos</h2>
+					<h2 className='text-[3.4rem] font-semibold'>Sell your products</h2>
 					<p className='w-[60%] mx-[auto] mt-[2rem] text-[1.4rem]'>
 						Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum ut eos
 						facere vero, laborum fugiat ipsum quis autem iusto, aut, ipsam
@@ -55,7 +55,7 @@ export default function Home() {
 			<section className='bg-[#909090] py-[4rem]'>
 				<div className='flex w-[80%] mx-[auto] justify-around flex-wrap '>
 					<h2 className='w-full font-bold text-[2rem] mb-[2rem]'>
-						Nuestros articulos
+					Our articles
 					</h2>
 					<Image
 						className='rounded-[2rem]'
@@ -90,8 +90,8 @@ export default function Home() {
 			<section className='py-[6rem]'>
 				<div className='w-[80%] mx-[auto]'>
 					<h2 className='text-[2rem] font-light mb-[2rem]'>
-						Crea con nosotros tu{' '}
-						<strong className='font-bold'>tienda online.</strong>
+					Create with us your{' '}
+						<strong className='font-bold'>Online store.</strong>
 					</h2>
 					<div className='flex mb-[2rem] gap-x-[3rem] items-center'>
 						<Image
@@ -103,7 +103,7 @@ export default function Home() {
 						/>
 						<div className='w-[40%]'>
 							<h2 className='font-semibold mb-[1rem] text-[1.4rem]'>
-								Vende desde tu casa
+							Sell from home.
 							</h2>
 							<p>
 								Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum ut
@@ -117,7 +117,7 @@ export default function Home() {
 					<div className='flex gap-x-[3rem] items-center'>
 						<div className='w-[40%]'>
 							<h2 className='font-semibold mb-[1rem] text-[1.4rem]'>
-								Vende desde tu casa
+							Sell from home.
 							</h2>
 							<p>
 								Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum ut

@@ -88,12 +88,11 @@ export default function CarouselBanner({ routes }) {
         </motion.div>
       </AnimatePresence>
       <div className="z-20">
-    <button className='absolute text-white font-bold text-[2rem] top-[8rem] left-[4rem] bg-[#90909050] py-[1rem] px-[1.4rem] rounded-[1rem]'   onClick={handleButtonClick}>Ver más</button></div>
+    <button className='absolute text-white font-bold text-[2rem] top-[8rem] left-[4rem] bg-[#90909050] py-[1rem] px-[1.4rem] rounded-[1rem]'   onClick={handleButtonClick}>See more</button></div>
     </section>
  
   );
 }
-
 
 
 

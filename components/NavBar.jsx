@@ -13,45 +13,24 @@ import { searchProducts, clearState } from '@/redux/Slice';
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
 
+import { RxDashboard, RxPerson } from 'react-icons/rx';
+
 export default function NavBar() {
 	const [search, setSearch] = useState(null);
-	const [userData, setUserData] = useState({})
+	const [userData, setUserData] = useState({});
 	const router = useRouter();
 	const dispatch = useDispatch();
-	// const userData = JSON.parse(localStorage.getItem('user'));
-	const { data: session } = useSession();
 
-	useEffect(()=>{
+	useEffect(() => {
 		let data = JSON.parse(localStorage.getItem('user'));
-		if(data && data.data)
-		setUserData(data)
-	},[])
+		if (data && data.data) setUserData(data);
+	}, []);
 
 	useEffect(() => {
 		const myCartLocal = localStorage.getItem('myCart');
 		if (!myCartLocal) {
 			localStorage.setItem('myCart', JSON.stringify([]));
 		}
-	}, []);
-
-
-	useEffect(() => {
-		const fetchData = async () => {
-			if (session) {
-				const email = session.user.email;
-				const response = await axios.get(
-					`https://backend-33ft37a-deploy.vercel.app/users/auth/${email}`,
-				);
-				localStorage.setItem(
-					'user',
-					JSON.stringify({
-						data: response.data,
-						validated: false,
-					}),
-				);
-			}
-		};
-		fetchData();
 	}, []);
 
 	const pathname = usePathname();
@@ -61,30 +40,29 @@ export default function NavBar() {
 		}
 	}, [pathname]);
 
-	const debouncedSearch = useCallback(
-		debounce((searchTerm) => {
-			router.push('/search');
-			dispatch(searchProducts(searchTerm));
-			// 	router.push('/search');
-			// 	dispatch(searchProducts(searchTerm));
-		}, 1000),
-		[],
-	);
 
 	const handleChange = (event) => {
 		const searchTerm = event.target.value;
 		setSearch(searchTerm);
-		debouncedSearch(searchTerm);
+		
 		// if (pathname.includes('/search')) {
 		// 	debouncedSearch(searchTerm);
 		// }
 	};
+	const handleKeyPress = (event) => {
+		if (event.key === 'Enter') {
+			dispatch(searchProducts(search));
+			router.push('/search');
+		}
+	};
 
 	useEffect(() => {
-		if(search==null && pathname.includes('/search')){
+		if (search == null && pathname.includes('search')) {
 			dispatch(searchProducts());
 		}
 	}, [search, dispatch]);
+
+	console.log(userData);
 
 	return (
 		<nav className='flex flex-col justify-between pt-[1rem]  gap-y-[1rem] fixed w-full z-50 bg-white border-b-2 border-black'>
@@ -93,27 +71,48 @@ export default function NavBar() {
 					<Image src={logo} alt='logo-img' width={80} height={80} />
 				</Link>
 				<input
-					className='bg-[#90909050] w-[45%] p-[0.6rem] rounded-[1rem]  pl-[1rem]'
+					className='bg-[#90909050] w-[40%] p-[0.6rem] rounded-[1rem]  pl-[1rem]'
 					type='text'
+					onKeyPress={handleKeyPress}
 					onChange={handleChange}
 					value={search}
 				/>
-				<div className='flex items-center gap-x-[2rem]'>
+				<div className={`flex items-center justify-between gap-x-[2rem]
+				 ${userData && userData.data ? "w-[15%]" : "w-[20%]"}`}>
+				<Link href={'/checkout'} className={`${(userData && userData?.data?.isAdmin) ? "hidden" : ""}`}>
+									<Image src={cart} alt='ico-cart' width={40} height={40} />
+								</Link>
+
+								<div className={`bg-purple-800 text-white p-[0.6rem] rounded-lg ${(userData && userData?.data?.isAdmin) ? "inline-block" : "hidden" } `}>
+									<Link href={'/admin'}>
+										<RxDashboard size={30} />
+									</Link>
+								</div>
+					{/* {
+						(userData && userData.data)
+							?
+							userData.data.isAdmin ?
+								<div className='bg-purple-800 text-white p-[0.6rem] rounded-lg inline-block'>
+									<Link href={'/admin'}>
+										<RxDashboard size={30} />
+									</Link>
+								</div>
+								:
+								<Link href={'/checkout'}>
+									<Image src={cart} alt='ico-cart' width={40} height={40} />
+								</Link>
+							:
+							<></>
+					} */}
 					{userData && userData.data ? (
-						<Link href='/profile'>
-							<Image
-							className='flexblock pb-[0.4rem] self-center'
-							src={userBanner}
-							alt={'user'}
-							width={40}
-							height={40}/>
+						<Link href={'/profile'}>
+						<Image 
+						className='rounded-full h-[50px] w-[50px] object-cover'
+						src={userData.data.image[0]} alt='img-user' width={50} height={50} />
 						</Link>
 					) : (
 						<Link href={'/login'}>Register/Login</Link>
 					)}
-					<Link href={'/checkout'}>
-						<Image src={cart} alt='ico-cart' width={40} height={40} />
-					</Link>
 				</div>
 			</div>
 			<Menu />

@@ -3,6 +3,8 @@ import kids from '../../public/kids.jpg'
 import male from '../../public/male.jpg'
 import female from '../../public/female.jpg'
 import accesories from '../../public/accesorios.jpg'
+import boys from '../../public/nino.jpg'
+import girls from '../../public/nina.jpg'
 import Image from 'next/image'
 import { useState } from 'react'
 import Link from 'next/link'
@@ -23,16 +25,26 @@ export default function ProductsPage() {
             img: female,
             link:'products/female'
         },
+        // {
+        //     title: "Kids",
+        //     img: kids,
+        //     link:'products/children'
+        // },
+        // {
+        //     title: "Accesories",
+        //     img: accesories,
+        //     link:'products/children'
+        // },
         {
-            title: "Kids",
-            img: kids,
-            link:'products/children'
+            title: "Boys",
+            img: boys,
+            link:'products/boy'
         },
         {
-            title: "Accesories",
-            img: accesories,
-            link:'products/children'
-        },
+            title: "Girls",
+            img: girls,
+            link:'products/girl'
+        }
     ]
 
     const handleMouseEnter = (index) => {

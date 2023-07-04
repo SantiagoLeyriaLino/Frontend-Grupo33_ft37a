@@ -1,13 +1,17 @@
 'use client'
 import Summary from "@/components/Stripe Components/ContainerSummary";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from '@stripe/stripe-js'
 import { CardElement } from "@stripe/react-stripe-js";
 import CheckoutForm from "@/components/Stripe Components/CheckoutForm";
 import { useRouter } from "next/navigation";
+import stripeImg from "../../public/stripee.png"
+import Image from "next/image";
+
+import { addTotalPay } from "@/redux/Slice";
 
 const stripePromise = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_KEY_PUBLIC}`); // estado "products"
 
@@ -21,6 +25,7 @@ export default function CheckoutPage() {
     const cupon = useSelector(state=> state.products.cupon)
 
     const router = useRouter()
+    const dispatch = useDispatch()
 
     const [sizeCheck, setSizeCheck] = useState([])
     const [cantSelect, setCantSelect] = useState([])
@@ -226,6 +231,7 @@ export default function CheckoutPage() {
         const myCartLocal = localStorage.getItem("myCart")
         const myCart = JSON.parse(myCartLocal)
         if(myCart.length === 0){
+            dispatch(addTotalPay(0))
             router.push('/')
         }
     }, [products])
@@ -253,7 +259,7 @@ export default function CheckoutPage() {
         <main>
 
             <section className="pt-[10rem] pb-[4rem] flex w-[80%] mx-[auto] justify-between min-h-[100vh]">
-                <div className="w-[60%] pt-[1rem]">
+                <div className="w-[60%] pt-[1rem] flex flex-col gap-y-[0.6rem] items-center">
                     {
                         stripePromise && clientSecret && (
                             <Elements stripe={stripePromise} options={{ clientSecret }} >
@@ -261,6 +267,7 @@ export default function CheckoutPage() {
                             </Elements>
                         )
                     }
+                    <Image src={stripeImg} alt="power-stripe" width={150} height={150}/>
                 </div>
                 <div className="w-[40%] pt-[1rem]">
                     <Summary products={products}
