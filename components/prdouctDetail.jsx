@@ -265,7 +265,7 @@ export default function ProductDetail() {
                                                     className="text-white p-[0.6rem] w-[100%] text-center bg-[#FA8B61] hover:bg-[#F8652A] font-bold cursor-pointer">Comprar</span>
                                                 :
                                                 <span
-                                                className="text-white p-[0.6rem] w-[100%] text-center bg-[#11111180] hover:bg-[#F8652A] font-bold cursor-default">Comprar</span> 
+                                                className="text-white p-[0.6rem] w-[100%] text-center bg-[#11111180] font-bold cursor-default">Comprar</span> 
                                             }
                                                 {
                                                     cantSelect
@@ -291,7 +291,7 @@ export default function ProductDetail() {
                                 }
                             </div>
                             {
-                                (productDetail[1]?.lenght > 0)
+                                (productDetail[1]?.length > 0)
                                     ?
                                     <div className="w-[80%] flex flex-col gap-y-[1rem] mx-[auto]">
                                         <h3>Mas colores</h3>

@@ -13,6 +13,8 @@ export default function ContainerProducts() {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [selectedProduct, setSelectedProduct] = useState(null);
 	const [showEditModal, setShowEditModal] = useState(false);
+	const [dataUpdate, setDataUpdate] = useState({});
+	const [currentPage, setCurrentPage] = useState(0);
 
 	useEffect(() => {
 		const fetchUsers = async () => {
@@ -51,6 +53,38 @@ export default function ContainerProducts() {
 		setSelectedProduct(null);
 	};
 
+	const EditableCell = ({
+		value: initialValue,
+		row: { index },
+		column: { id },
+		updateData,
+	}) => {
+		const [value, setValue] = useState(initialValue);
+		const onChange = (e) => {
+			const newValue = e.target.value;
+			setValue(newValue);
+		};
+		const onBlur = (e) => {
+			const newValue = e.target.value === 'true';
+			updateData(index, id, newValue);
+		};
+		useEffect(() => {
+			setValue(initialValue);
+		}, [initialValue]);
+		return (
+			<select
+				value={value}
+				onChange={onChange}
+				onBlur={onBlur}
+				className='block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+			>
+				<option value='true'>Active</option>
+				<option value='false'>Not Active</option>
+			</select>
+		);
+	};
+
+
 	const columns = useMemo(
 		() => [
 			{
@@ -62,6 +96,11 @@ export default function ContainerProducts() {
 					const valueB = rowB.values[columnId] || '';
 					return valueA.localeCompare(valueB);
 				},
+				Cell: ({ row, value }) => (
+					<div className='max-w-xs overflow-hidden whitespace-nowrap overflow-ellipsis'>
+						<p>{value}</p>
+					</div>
+				),
 			},
 			{
 				Header: 'Size',
@@ -70,7 +109,7 @@ export default function ContainerProducts() {
 				Cell: ({ value }) => (
 					<div>
 						{value.map((s, idx) => (
-							<div key={idx}>
+							<div key={idx} className='flex flex-col flex-wrap'>
 								Size: {s.size}
 								<br />
 								Stock: {s.stock}
@@ -110,18 +149,7 @@ export default function ContainerProducts() {
 			{
 				Header: 'Active',
 				accessor: 'isActive',
-				Cell: ({ row }) => (
-					<select
-						value={row.original.isActive}
-						// onChange={(e) =>
-						// 	updateProduct(row.original._id, 'isActive', e.target.value)
-						// }
-						className='block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
-					>
-						<option value='true'>Active</option>
-						<option value='false'>Not Active</option>
-					</select>
-				),
+				Cell: EditableCell,
 				canSort: true,
 				sortType: (rowA, rowB, columnId) => {
 					const valueA = rowA.values[columnId] ? 1 : 0;
@@ -139,6 +167,44 @@ export default function ContainerProducts() {
 		],
 		[],
 	);
+
+	const updateUser = (userId, propertyName, value) => {
+		setDataUpdate((prevUpdatedUsers) => ({
+			...prevUpdatedUsers,
+			[userId]: {
+				...prevUpdatedUsers[userId],
+				[propertyName]: value,
+			},
+		}));
+
+		setProductData((prevUserData) => {
+			const updatedData = prevUserData.map((user) => {
+				if (user._id === userId) {
+					return {
+						...user,
+						[propertyName]: value,
+					};
+				}
+				return user;
+			});
+			setCurrentPage(pageIndex);
+			return updatedData;
+		});
+	};
+
+	const saveChanges = async () => {
+		try {
+			for (const productId in dataUpdate) {
+				const updates = dataUpdate[productId];
+				console.log(updates);
+				await axios.put(`http://localhost:3001/products/${productId}`, updates);
+			}
+			window.location.reload();
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 
 	const {
 		getTableProps,
@@ -160,7 +226,11 @@ export default function ContainerProducts() {
 		{
 			columns,
 			data: filteredData,
-			initialState: { pageIndex: 0, pageSize: 5 },
+			initialState: { pageIndex: currentPage, pageSize: 5 },
+			updateData: (rowIndex, columnId, value) => {
+				const productId = filteredData[rowIndex]._id;
+				updateUser(productId, columnId, value);
+			},
 		},
 		useSortBy,
 		usePagination,
@@ -170,7 +240,9 @@ export default function ContainerProducts() {
 		<div className='w-11/12 mx-auto py-14'>
 			<div className='shadow-md rounded-lg overflow-hidden'>
 				{showEditModal && (
+					<div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex justify-center items-center'>
 					<EditForm product={selectedProduct} onClose={closeEditModal} />
+				</div>
 				)}
 				<div className='p-4'>
 					<input
@@ -270,6 +342,7 @@ export default function ContainerProducts() {
 							</option>
 						))}
 					</select>
+					<button onClick={saveChanges}>Change product Status</button>
 				</div>
 			</div>
 		</div>

@@ -13,10 +13,10 @@ export default function EditForm({ product, onClose }) {
 	const validationSchema = Yup.object().shape({
 		name: Yup.string().required('Name is required').min(4),
 		category: Yup.string().required('Category is required').min(4),
-		color: Yup.string().required('Color is required'),
+		// color: Yup.string().required('Color is required'),
 		gender: Yup.string().required('Gender is required'),
 		season: Yup.string().required('Season is required'),
-		brand: Yup.string().required('Brand is required'),
+		// brand: Yup.string().required('Brand is required'),
 		price: Yup.number().positive('Price must be a positive number'),
 		articleCode: Yup.string().required('articleCode is required'),
 		stock: Yup.number().positive('Price must be a positive number'),
@@ -60,10 +60,12 @@ export default function EditForm({ product, onClose }) {
 			formData.append('brand', values.brand);
 			formData.append('articleCode', values.articleCode);
 			formData.append('price', values.price);
-			images.forEach((file) => {
-				formData.append('images', file);
-			});
-			console.log(formData);
+			images.length
+				? images.forEach((file) => {
+						formData.append('images', file);
+				  })
+				: formData.append('images', product.images);
+			console.log(product.images);
 			axios
 				.put(`https://backend-33ft37a-deploy.vercel.app/products/${product._id}`, formData)
 				.then((response) => {
