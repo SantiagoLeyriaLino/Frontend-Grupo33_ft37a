@@ -59,6 +59,7 @@ export default function LoginPage() {
 						notify('You were successfully logged in');
 						setTimeout(() => router.push('/'), 3000);
 					} else if (response.data.isActive) {
+						localStorage.setItem('userEmail', JSON.stringify(response.data.email))
 						notifyError(
 							'Unauthenticated user, check your email to confirm your account',
 						);
