@@ -30,7 +30,7 @@ export default function AdminPage() {
 					<main className='bg-gray-100 min-h-screen'>
 						<nav className='flex justify-between w-[80%] mx-[auto] items-center py-[1rem]'>
 							<Image
-								className='w-[80px] h-[80px]'
+								className='w-[80px] h-[80px] cursor-pointer'
 								src={logo}
 								alt='logo'
 								width={600}
