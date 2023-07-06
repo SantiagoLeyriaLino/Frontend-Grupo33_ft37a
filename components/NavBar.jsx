@@ -19,7 +19,7 @@ import { RxDashboard, RxPerson } from 'react-icons/rx';
 import MyCart from './MyCart';
 
 export default function NavBar() {
-	const [search, setSearch] = useState("qwerttyopokmf");
+	const [search, setSearch] = useState(null);
 	const [userData, setUserData] = useState({});
 	const router = useRouter();
 	const dispatch = useDispatch();
@@ -71,7 +71,7 @@ export default function NavBar() {
 	};
 
 	useEffect(() => {
-		if (search == "qwerttyopokmf" && pathname.includes('/search')) {
+		if (search == null && pathname.includes('/search')) {
 			dispatch(searchProducts());
 		}
 	}, [search, dispatch]);
