@@ -3,10 +3,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function UserMenu({ setView, view }) {
-	const myUser = window.localStorage.getItem('user')
-	const myUserParse = JSON.parse(myUser)
+	const [myUserParse, setMyUserParse] = useState()
 	const { data: session } = useSession();
 	const router = useRouter()
 	const notify = (message) => {
@@ -14,6 +14,13 @@ export default function UserMenu({ setView, view }) {
 			autoClose: 2000,
 		});
 	};
+
+	useEffect(()=>{
+		const myUser = JSON.parse(window.localStorage.getItem('user'))
+		if(myUser && myUser.data){
+			setMyUserParse(myUser)
+		}
+	},[])
 
 	const handleClick = async (e) => {
 		if (session) {
