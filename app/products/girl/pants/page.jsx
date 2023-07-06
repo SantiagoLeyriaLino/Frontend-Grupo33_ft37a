@@ -39,7 +39,7 @@ export default function GirlPantsPage() {
     <main className="pt-[9rem] min-h-[100vh]">
       <section className="w-[70%] mx-[auto] flex py-[3rem]">
 
-        {products && products.length > 0 ? <FilterBar products={products} gender={"Girl"} category={"pants"} /> : <SkeletonFilterBar />}
+        {products && products.length > 0 ? <FilterBar products={products} gender={"girl"} category={"pants"} /> : <SkeletonFilterBar />}
 
         <div className="w-[80%] relative">
           <Paginate />
