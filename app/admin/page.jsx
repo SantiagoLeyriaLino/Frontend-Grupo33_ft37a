@@ -9,6 +9,7 @@ import BarChart from '@/components/DashboardAdmin/BarChar';
 import PieChart from '@/components/DashboardAdmin/PieChart';
 import RecentPruchase from '@/components/DashboardAdmin/RecentPurchase';
 
+
 export default function AdminPage() {
 	const router = useRouter();
 	const [userLocal, setUserlocal] = useState();
@@ -34,6 +35,7 @@ export default function AdminPage() {
 								alt='logo'
 								width={600}
 								height={600}
+								onClick={()=>router.push("/")}
 							/>
 							<div>Perfil Admin</div>
 						</nav>
