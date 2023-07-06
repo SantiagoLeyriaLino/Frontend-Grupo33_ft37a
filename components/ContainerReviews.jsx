@@ -24,13 +24,17 @@ export default function ContainerReviews({ reviews, productId, setRefresh}){
     useEffect(()=> {
         const user = JSON.parse(localStorage.getItem('user'))
         if (user && user.data){
-            setUser(user.data)
+            axios.get(`https://backend-33ft37a-deploy.vercel.app/users/${user.data._id}`)
+            .then((response)=>{
+                setUser(response.data)
+                console.log({ESTOESLOQUEQUERESVER:response.data})
+            })
         }
     }, [])
 
     useEffect(()=>{
         showReviewPost()
-    }, [reviews])
+    }, [reviews, user])
 
     return <div className="flex flex-col gap-y-[2.2rem]">
         {reviews.length ?
@@ -51,7 +55,9 @@ export default function ContainerReviews({ reviews, productId, setRefresh}){
         }
         {reviews.length ?
             <div className="flex flex-col gap-y-[0.8rem] content-center">
+
                 {reviews.map((review, index)=> <Review key={index} data={review}/>)}
+
             </div> : <></>
         }
     </div>

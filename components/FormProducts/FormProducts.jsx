@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { motion } from 'framer-motion';
 
 export default function FormProducts() {
 	const [userLocal, setUserLocal] = useState({})
@@ -103,7 +104,8 @@ export default function FormProducts() {
 	});
 
 	useEffect(() => {
-		formik.validateForm();
+		if (formik.values !== formik.initialValues)
+			formik.validateForm();
 	}, [formik.values, sizeValue]);
 	useEffect(() => {
 		console.log({ color: colorValue, size: sizeValue });
@@ -134,6 +136,8 @@ export default function FormProducts() {
 		setImages(selectFiles);
 	}
 	const handleBlur = (event) => {
+		const { relatedTarget } = event
+		console.log(event);
 		formik.handleBlur(event);
 	};
 
@@ -141,18 +145,17 @@ export default function FormProducts() {
 		let newArr = sizeValue.filter((size) => size.size != value);
 		setSizeValue(newArr);
 	};
-
 	return (
-		<div className='flex flex-col items-center justify-center bg-gray-100 p-8 rounded-lg shadow-md w-[70%]  mx-auto mt-[2rem]'>
-			<h1 className='text-4xl font-bold text-black mb-[2rem]'>
+		<div className='flex flex-col items-left bg-gray-100 rounded-lg shadow-md w-[70%] pt-[5rem] pl-[2rem] pr-[2rem] pb-[5rem]'>
+			<h1 className='text-4xl font-black leading-[3.5rem] text-black mb-[2rem]'>
 				Add your products
 			</h1>
 			<form
 				onSubmit={formik.handleSubmit}
 				className=' relative w-full flex flex-col gap-y-[2rem]'
 			>
-				<div className=''>
-					<label htmlFor='name' className='text-lg mb-2'>
+				<div className='flex flex-col gap-y-[0.4rem]'>
+					<label htmlFor='name' className='text-lg'>
 						Name:
 					</label>
 					<input
@@ -162,17 +165,17 @@ export default function FormProducts() {
 						onChange={handleChange}
 						value={formik.values.name}
 						onBlur={handleBlur}
-						className='w-full px-4 py-2 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+						className='w-[400px] p-2 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500'
 					/>
 					{formik.errors.name && (
-						<div className='absolute text-red-500 text-sm'>
+						<div className='absolute text-red-500 text-sm top-[80px]'>
 							{formik.errors.name}
 						</div>
 					)}
 				</div>
 
-				<div className='flex justify-between  '>
-					<div className='w-[60%]'>
+				<div className='flex justify-between'>
+					<div className='flex flex-col w-[400px] gap-y-[0.4rem]'>
 						<label
 							htmlFor='brand'
 							className='relative flex flex-col gap-y-[0.4rem]'
@@ -186,18 +189,18 @@ export default function FormProducts() {
 							onChange={handleChange}
 							value={formik.values.brand}
 							onBlur={handleBlur}
-							className='py-[0.6rem] px-[1rem] rounded-[0.4rem] shadow-md shadow-[#11111180] w-[100%]'
+							className='w-[400px] p-2 rounded-[0.4rem] shadow-md shadow-[#11111180] w-[100%]'
 						/>
 						{formik.errors.brand && (
-							<div className='absolute text-red-500 text-sm'>
+							<div className='absolute top-[185px] text-red-500 text-sm'>
 								{formik.errors.brand}
 							</div>
 						)}
 					</div>
 
-					<div className='w-[30%]'>
+					<div className='flex flex-col w-[30%] gap-y-[0.4rem]'>
 						<label htmlFor='articleCode' className='relative'>
-							Aticle Code
+							Article Code:
 						</label>
 						<input
 							type='text'
@@ -206,10 +209,10 @@ export default function FormProducts() {
 							onChange={handleChange}
 							value={formik.values.articleCode}
 							onBlur={handleBlur}
-							className='py-[0.6rem] px-[1rem] rounded-[0.4rem] shadow-md shadow-[#11111180] w-[100%]'
+							className='p-2 rounded-[0.4rem] shadow-md shadow-[#11111180] w-[100%]'
 						/>
 						{formik.errors.articleCode && (
-							<div className='absolute text-red-500 text-sm'>
+							<div className='absolute top-[185px] text-red-500 text-sm'>
 								{formik.errors.articleCode}
 							</div>
 						)}
@@ -217,10 +220,10 @@ export default function FormProducts() {
 				</div>
 
 				<div className='flex justify-between '>
-					<div className='justify-start w-[30%] '>
+					<div className='flex flex-col justify-start w-[30%] gap-y-[0.4rem]'>
 						<label htmlFor='images'>
 							Images:
-							<span className=' gap-y-[0.4rem] bg-black text-white rounded-[0.4rem]  flex flex-col py-[0.6rem] px-[1rem] shadow-md shadow-[#11111180]'>
+							<span className='cursor-pointer gap-y-[0.4rem] bg-black text-white rounded-[0.4rem]  flex flex-col py-[0.6rem] px-[1rem] shadow-md shadow-[#11111180]'>
 								{`${images ? images.length : 0} Images selected `}
 							</span>
 							<input
@@ -228,6 +231,7 @@ export default function FormProducts() {
 								multiple
 								id='images'
 								placeholder='Choose Images'
+								className='p-2'
 								onChange={(e) => handleImage(e.target.files)}
 								style={{
 									display: 'none',
@@ -236,7 +240,7 @@ export default function FormProducts() {
 						</label>
 					</div>
 
-					<div className='w-[25%] '>
+					<div className='w-[25%] flex flex-col gap-y-[0.4rem]'>
 						<label
 							htmlFor='color'
 							className='relative flex flex-col gap-y-[0.4rem]'
@@ -253,13 +257,13 @@ export default function FormProducts() {
 							className='w-[100%] py-[0.6rem] px-[1rem] rounded-[0.4rem] shadow-md shadow-[#11111180]'
 						/>
 						{formik.errors.color && (
-							<div className='absolute text-red-500 text-sm'>
+							<div className='absolute top-[290px] text-red-500 text-sm'>
 								{formik.errors.color}
 							</div>
 						)}
 					</div>
 
-					<div className='w-[18%]'>
+					<div className='w-[18%] flex flex-col gap-y-[0.4rem]'>
 						<label htmlFor='price' className='relative'>
 							Price:
 						</label>
@@ -273,7 +277,7 @@ export default function FormProducts() {
 							className='w-full py-[0.6rem] px-[1rem] rounded-[0.4rem] shadow-md shadow-[#11111180]'
 						/>
 						{formik.errors.price && (
-							<div className='absolute text-red-500 text-sm'>
+							<div className='absolute top-[290px] text-red-500 text-sm'>
 								{formik.errors.price}
 							</div>
 						)}
@@ -281,8 +285,8 @@ export default function FormProducts() {
 				</div>
 
 				<div className='flex   py-[1rem]  justify-between  mt-[1rem]'>
-					<div className='flex flex-col justify-between gap-y-[1.6rem]'>
-						<div className=''>
+					<div className='flex flex-col justify-between gap-y-[2.8rem]'>
+						<div className='flex flex-col gap-y-[0.4rem]'>
 							<label
 								htmlFor='category'
 								className='relative flex flex-col gap-y-[0.4rem]'
@@ -294,7 +298,7 @@ export default function FormProducts() {
 								onChange={handleChange}
 								onBlur={handleBlur}
 								value={formik.values.category}
-								className='w-full px-4 py-2  shadow-md focus:outline-none focus:ring-2 focus:ring-[#F8652A] bg-black text-white rounded-[0.4rem]'
+								className='cursor-pointer w-full p-2  shadow-md focus:outline-none focus:ring-2 focus:ring-[#F8652A] bg-black text-white rounded-[0.4rem]'
 							>
 								<option value=''>Select</option>
 								<option value='shoe'>Shoe</option>
@@ -303,12 +307,12 @@ export default function FormProducts() {
 								<option value='pants'>Pants</option>
 							</select>
 							{formik.errors.category && (
-								<div className='absolute text-red-500 text-sm'>
+								<div className='absolute top-[420px] text-red-500 text-sm'>
 									{formik.errors.category}
 								</div>
 							)}
 						</div>
-						<div className=''>
+						<div className='flex flex-col gap-y-[0.4rem]'>
 							<label
 								htmlFor='gender'
 								className='relative flex flex-col gap-y-[0.4rem]'
@@ -320,7 +324,7 @@ export default function FormProducts() {
 								onChange={handleChange}
 								onBlur={handleBlur}
 								value={formik.values.gender}
-								className='w-full px-4 py-2  shadow-md focus:outline-none focus:ring-2 focus:ring-[#F8652A] bg-black text-white rounded-[0.4rem]'
+								className='cursor-pointer w-full p-2 shadow-md focus:outline-none focus:ring-2 focus:ring-[#F8652A] bg-black text-white rounded-[0.4rem]'
 							>
 								<option value=''>Select</option>
 								<option value='male'>Male</option>
@@ -330,12 +334,12 @@ export default function FormProducts() {
 								<option value='girl'>Girl</option>
 							</select>
 							{formik.errors.gender && (
-								<div className='absolute text-red-500 text-sm'>
+								<div className='absolute top-[535px] text-red-500 text-sm'>
 									{formik.errors.gender}
 								</div>
 							)}
 						</div>
-						<div className=''>
+						<div className='flex flex-col gap-y-[0.4rem]'>
 							<label
 								htmlFor='season'
 								className='relative flex flex-col gap-y-[0.4rem]'
@@ -347,7 +351,7 @@ export default function FormProducts() {
 								onChange={handleChange}
 								onBlur={handleBlur}
 								value={formik.values.season}
-								className='w-full px-4 py-2  shadow-md focus:outline-none focus:ring-2 focus:ring-[#F8652A] bg-black text-white rounded-[0.4rem]'
+								className='cursor-pointer w-full p-2 shadow-md focus:outline-none focus:ring-2 focus:ring-[#F8652A] bg-black text-white rounded-[0.4rem]'
 							>
 								<option value=''>Select</option>
 								<option value='spring'>Spring </option>
@@ -356,7 +360,7 @@ export default function FormProducts() {
 								<option value='winter'>Winter </option>
 							</select>
 							{formik.errors.season && (
-								<div className='absolute text-red-500 text-sm'>
+								<div className='absolute top-[648px] text-red-500 text-sm'>
 									{formik.errors.season}
 								</div>
 							)}
@@ -410,14 +414,12 @@ export default function FormProducts() {
 									)}
 							</label>
 							{!formik.errors.size && !formik.errors.stock && (
-								<button
-									onClick={handleClick}
-									className='text-[1rem] py-4 px-[2rem] bg-black text-white rounded-[0.4rem] w-24 mx-auto relative shadow-md shadow-[#11111180]'
-								>
-									<span className='absolute inset-0 flex items-center justify-center'>
-										Add
-									</span>
-								</button>
+								<span className='absolute inset-0 flex items-center justify-center
+								text-[1rem] p-2 bg-black text-white rounded-[0.4rem]
+								w-24 mx-auto relative shadow-md shadow-[#11111180] cursor-pointer' onClick={handleClick}>
+									Add
+								</span>
+
 							)}
 						</div>
 					</div>
@@ -473,16 +475,12 @@ export default function FormProducts() {
 						!formik.errors.season &&
 						sizeValue &&
 						sizeValue.length > 0 && (
-							<button
+							<motion.button initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 1}}
 								type='submit'
-								className='font-normal text-[1rem] py-2 px-3 bg-black text-white transform -skew-x-12 w-24 h-12 shadow-md hover:bg-green-500 transition-colors duration-300'
-								style={{
-									clipPath:
-										'polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%)',
-								}}
+								className='absolute rounded-full font-normal text-[1rem] font-black p-10 pt-2 pb-2 bg-black text-white shadow-md hover:bg-green-500 transition-colors duration-300'
 							>
-								Submit
-							</button>
+								SUBMIT
+							</motion.button>
 						)}
 				</div>
 			</form>

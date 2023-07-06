@@ -40,14 +40,14 @@ export default function SizeCheck({ summaryProduct, id, size, cant, restCount, s
         <div className="flex items-center gap-x-[1rem]">
             <div className="flex gap-x-[0.4rem]">
                 <input onChange={handleCheck} type="checkbox" name="" value="" id="" />
-                <span className="w-[16px]">{size}</span>
+                <span className="w-[16px] text-[#11111190]">{size}</span>
             </div>
 
             {
                 checked
                     ?
                     <div className={`${checked ? "opacity-1" : "opacity-0"} flex h-[fit-content] gap-x-[0.6rem]`}>
-                        <span>x</span>
+                        <span className="text-black">x</span>
                         <div className="flex gap-x-[0.4rem]">
                             <div
                                 className="  cursor-pointer"
@@ -55,7 +55,7 @@ export default function SizeCheck({ summaryProduct, id, size, cant, restCount, s
                             >
                                 <span className="text-[#FA8B61] hover:text-[#F8652A] select-none">{`-`}</span></div>
                             <div className=" ">
-                                <span className="text-white">{cant}</span>
+                                <span className="text-[#FA8B61]">{cant}</span>
                             </div>
                             <div
                                 className="cursor-pointer flex items-center"
@@ -68,8 +68,8 @@ export default function SizeCheck({ summaryProduct, id, size, cant, restCount, s
                     :
                     <div className="flex gap-x-[1.4rem]">
                         
-                        <span>x</span>
-                        <span>{cant}</span>
+                        <span className="text-[#11111190]">x</span>
+                        <span className="text-[#11111190]">{cant}</span>
 
                         </div>
             }

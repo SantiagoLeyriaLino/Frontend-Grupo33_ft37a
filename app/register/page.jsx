@@ -1,7 +1,7 @@
 'use client'
 import Image from "next/image"
 import register from '../../public/register.jpg'
-import logo from '../../public/logocommerce.png'
+import logo from '../../public/logo-white.png'
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { Form, Formik, Field, ErrorMessage } from "formik"
@@ -25,24 +25,22 @@ export default function RegisterPage() {
 
 
     return (
-        <main className="min-h-[100vh]">
+        <main className="min-h-[100vh] bg-black">
             <section className="flex">
-                <motion.article
-                    initial={{ opacity: 0, x: -50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 1 }}
-                    className="relative w-[50%] min-h-[100vh] flex items-center">
+                <article className="w-[55%] min-h-[100vh] flex items-center">
                     <Image
-                        className="relative h-[98%]  w-[100%] object-cover object-bottom rounded-r-[1rem]"
+                        className="relative h-[100%] w-[100%] object-cover object-bottom"
                         src={register} alt="img-login" width={2000} height={2000} />
-                    <span className="absolute font-playfair text-white font-light text-[3rem] bottom-[2rem] right-[1rem] py-[0.6rem] px-[1.4rem] rounded-[1rem]">La moda que te define <br />esta a solo un <strong className="font-bold underline ">CLIC</strong>.</span>
-                </motion.article>
+                    <motion.span className="absolute font-playfair text-white font-light text-[3rem]
+                        bottom-[2rem] right-[820px]"
+                        initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 1 }}>
+                        Fashion that defines you <br />with just one{' '}
+                        <strong className="font-bold underline ">CLICK</strong>.</motion.span>
+                </article>
 
-                <motion.article
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 1 }}
-                    className="w-[50%] min-h-[100vh] flex items-center">
+                <article
+                    className="h-[100vh] w-[45%] flex align-center justify-center bg-black">
                     <Formik
                         initialValues={{
                             name: "",
@@ -71,37 +69,38 @@ export default function RegisterPage() {
                         }}
                     >
                         {({ errors }) => (
-                            <Form className="mx-[auto]">
-                                <div className="h-[97%] w-[100%] bg-[#90909050] pt-[1rem] px-[2rem] pb-[4rem] flex flex-col gap-y-[1rem] rounded-[1rem] shadow-md shadow-[#11111180] mx-[auto]">
+                            <Form>
+                                <motion.div className="flex items-center h-[100%] w-fit pt-[1rem] px-[2rem] flex-col gap-y-[1rem]"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ duration: 1 }}>
                                     <div className="flex flex-col gap-y-[1rem]">
                                         <Link href={'/'}>
                                             <Image
                                                 className="mx-[auto]"
                                                 src={logo} alt="img-logo" width={150} height={150} />
                                         </Link>
-                                        <div className="flex  bg-[#909090] w-[fit-content] p-[0.6rem] rounded-[1.6rem] mx-[auto]">
+                                        <div className="flex bg-[#909090] w-[fit-content] p-[0.2rem] rounded-[1.6rem]">
                                             <Link
-                                                className="font-semibold text-[1rem] py-[0.4rem] px-[2rem] text-white rounded-[1rem] "
+                                                className="font-semibold text-[1rem] py-[0.4rem] px-[1.4rem] text-white rounded-[1rem]"
                                                 href={'/login'}>Login</Link>
                                             <Link
-                                                className="font-semibold text-[1rem] py-[0.4rem] px-[2rem] bg-black text-white rounded-[1rem] shadow-md shadow-[#11111180]"
+                                                className="font-semibold text-[1rem] py-[0.4rem] px-[1.6rem] bg-white text-black rounded-[1rem]"
                                                 href={'/register'}>Register</Link>
                                         </div>
 
                                     </div>
 
-                                    <div className="flex flex-col gap-y-[3rem] ">
+                                    <div className="flex flex-col gap-y-[2rem] align-center">
 
                                         <div className="flex justify-center gap-x-[2rem]">
-
                                             <label
                                                 className="relative flex flex-col gap-y-[0.4rem]"
                                                 htmlFor="">
-                                                <span className="font-medium">User Name:</span>
+                                                <span className="font-black text-[1rem] text-white">Username:</span>
                                                 <Field
                                                     name="name"
-                                                    placeholder="Enter you User Name.."
-                                                    className=" py-[0.6rem] px-[1rem] rounded-[1rem] shadow-md shadow-[#11111180]"
+                                                    className="p-[0.3rem] pl-[0.7rem] w-[220px] rounded"
                                                     type="text" />
                                                 <ErrorMessage
                                                     name="name"
@@ -116,11 +115,10 @@ export default function RegisterPage() {
                                             <label
                                                 className="relative flex flex-col gap-y-[0.4rem]"
                                                 htmlFor="">
-                                                <span className="font-medium">Email:</span>
+                                                <span className="font-black text-[1rem] text-white">Email:</span>
                                                 <Field
                                                     name="email"
-                                                    placeholder="Enter you email.."
-                                                    className="py-[0.6rem] px-[1rem] rounded-[1rem] shadow-md shadow-[#11111180]"
+                                                    className="p-[0.3rem] pl-[0.7rem] w-[220px] rounded"
                                                     type="text" />
                                                 <ErrorMessage
                                                     name="email"
@@ -138,11 +136,10 @@ export default function RegisterPage() {
                                             <label
                                                 className="relative flex flex-col gap-y-[0.4rem]"
                                                 htmlFor="">
-                                                <span className="font-medium">Password:</span>
+                                                <span className="font-black text-[1rem] text-white">Password:</span>
                                                 <Field
                                                     name="password"
-                                                    placeholder="Enter you password.."
-                                                    className="py-[0.6rem] px-[1rem] rounded-[1rem] shadow-md shadow-[#11111180]"
+                                                    className="p-[0.3rem] pl-[0.7rem] w-[220px] rounded"
                                                     type="password" />
                                                 <ErrorMessage
                                                     name="password"
@@ -157,11 +154,10 @@ export default function RegisterPage() {
                                             <label
                                                 className="relative flex flex-col gap-y-[0.4rem]"
                                                 htmlFor="">
-                                                <span className="font-medium">Confirm Password:</span>
+                                                <span className="font-black text-[1rem] text-white">Confirm Password:</span>
                                                 <Field
                                                     name="confirm_password"
-                                                    placeholder="Confirm password.."
-                                                    className="py-[0.6rem] px-[1rem] rounded-[1rem] shadow-md shadow-[#11111180]"
+                                                    className="p-[0.3rem] pl-[0.7rem] w-[220px] rounded"
                                                     type="password" />
 
                                                 <ErrorMessage
@@ -180,10 +176,10 @@ export default function RegisterPage() {
                                             <label
                                                 className="relative flex flex-col gap-y-[0.4rem]"
                                                 htmlFor="">
-                                                <span className="font-medium">Phone:</span>
+                                                <span className="font-black text-[1rem] text-white">Phone number:</span>
                                                 <Field
                                                     name="phoneNumber"
-                                                    className="py-[0.6rem] px-[1rem] rounded-[1rem] shadow-md shadow-[#11111180]"
+                                                    className="p-[0.3rem] pl-[0.7rem] w-[220px] rounded"
                                                     type="text" />
                                                 <ErrorMessage
                                                     name="phoneNumber"
@@ -198,10 +194,10 @@ export default function RegisterPage() {
                                             <label
                                                 className="relative flex flex-col gap-y-[0.4rem] w-[45%]"
                                                 htmlFor="">
-                                                <span className="font-medium">Date:</span>
+                                                <span className="font-black text-[1rem] text-white">Date:</span>
                                                 <Field
                                                     name="date"
-                                                    className="py-[0.6rem] px-[1rem] rounded-[1rem] shadow-md shadow-[#11111180]"
+                                                    className="p-[0.3rem] pl-[0.7rem] w-[220px] rounded"
                                                     type="date" />
                                                 <ErrorMessage
                                                     name="date"
@@ -213,18 +209,20 @@ export default function RegisterPage() {
                                                 />
                                             </label>
                                         </div>
-
-
-                                        <button
+                                        <motion.button
+                                            whileTap={{scale: 0.92}}
                                             type="submit"
-                                            className="font-semibold text-[1rem] py-[0.4rem] px-[2rem] bg-black text-white rounded-[1rem] w-[50%] mx-[auto] shadow-md shadow-[#11111180]">Register</button>
+                                            className="font-black self-center text-[1rem] py-[0.3rem] bg-white text-black
+                                            rounded-[1rem] w-[120px]"
+                                            >REGISTER
+                                        </motion.button>
                                     </div>
-                                </div>
+                                </motion.div>
                             </Form>
                         )}
                     </Formik>
                 <ToastContainer />
-                </motion.article>
+                </article>
             </section>
         </main>
     )

@@ -1,6 +1,6 @@
 'use client'
 import ContainerProducts from "@/components/ContainerProducts"
-import { useState, useEffect } from "react"
+import {useState, useEffect} from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { getProducts } from "@/redux/Slice"
 import FilterBar from "@/components/FilterBar"

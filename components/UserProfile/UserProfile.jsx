@@ -8,7 +8,7 @@ import { userSchema, emailSchema, phoneNumberSchema, dateSchema } from './valida
 
 export default function UserProfile(){
 
-    const fields = [ 'Nombre de usuario', 'Correo electrónico', 'Teléfono', 'Fecha de nacimiento' ]
+    const fields = [ 'Username', 'Email', 'Phone Number', 'Birthdate' ]
 
     const [ hover, setHover ] = useState(false)
 
@@ -145,40 +145,44 @@ export default function UserProfile(){
     }
 
     return <section className="m-[4rem] flex justify-center gap-x-[6rem]">
-        <div className='relative'
-            onMouseEnter={handleMouse} onMouseLeave={handleMouse}>
-            <Image className='flex w-[250px] h-[250px] border-[1px] object-cover' // imagen de perfil
-                src={profileImage} width={200} height={200} id={'imageViewer'} alt={'profile'}/>
-            { hover ? 
-                <Image className="w-[25px] h-[25px] top-0 left-0 absolute cursor-pointer opacity-50" // boton edit
-                    src={editIcon} alt={'username'} width={300} height={300} name={'edit'}
-                    onClick={handleImageClick}/>
-                :
-                <></>}
-            { inputs.image ? <>
-                <Image className="w-[18px] h-[18px] top-[10px] relative cursor-pointer opacity-50"
-                    src={check} alt={'check'} width={300} height={300} // botón 'check image'
-                    onClick={handleOnClick} name={'image'}/>
-                <label className="relative left-[2rem] bottom-[0.6rem]">{values.imageName}</label>
-                </>
-                :
-                <></> }
+        <div className="flex flex-col gap-y-[1rem] items-center">
+            <h1 className="text-4xl font-black leading-[3.5rem]">Account profile</h1>
+            <div className='relative'
+                onMouseEnter={handleMouse} onMouseLeave={handleMouse}>
+                <Image className='flex w-[250px] h-[250px] border-[1px] object-fill border-black border-[3px]' // imagen de perfil
+                    src={profileImage} width={1000} height={1000} id={'imageViewer'} alt={'profile'}/>
+                { hover ? 
+                    <Image className="w-[25px] h-[25px] top-0 left-0 absolute cursor-pointer opacity-50" // boton edit
+                        src={editIcon} alt={'username'} width={300} height={300} name={'edit'}
+                        onClick={handleImageClick}/>
+                    :
+                    <></>}
+                { inputs.image ? <>
+                    <Image className="w-[18px] h-[18px] top-[10px] relative cursor-pointer opacity-50"
+                        src={check} alt={'check'} width={300} height={300} // botón 'check image'
+                        onClick={handleOnClick} name={'image'}/>
+                    <label className="relative left-[2rem] bottom-[0.6rem]">{values.imageName}</label>
+                    </>
+                    :
+                    <></> }
+            </div>
         </div>
         <input className={`relative top-[2rem] hidden`}
             id={'imageInput'} type='file' name='images' onChange={handleOnChange}></input>
         <div className="flex flex-col gap-y-[1rem]  w-[250px]">
+
             { dataEntry?.map((prop, index)=>{ // mapea los datos, los inputs y los errors
                 return (
-                <div className="flex flex-col  " key={index}>
+                <div className="flex flex-col gap-y-[1rem]" key={index}>
                     <label
-                    className="font-bold">{fields[index]}</label>
+                    className="font-black">{fields[index]}</label>
                     <div className="flex flex-row relative w-full items-center ">
                         {
                             !inputs[prop[0]] ? <>
                                 <Image className="w-[20px] h-[20px] absolute right-[100%] cursor-pointer opacity-50"
                                     src={editIcon} alt={'username'} width={300} height={300} // botón 'edit'
                                     onClick={handleOnClick} name={prop[0]}/>
-                                <h2 className="w-full text-[1rem] py-[7.4px] pl-[0.4rem]">{data ? dataEntry[index][1] : ''}</h2></>
+                                <h2 className="w-full text-[1rem] py-[7.4px] pl-[0.4rem] ">{data ? dataEntry[index][1] : ''}</h2></>
                                 : <>
                                 <Image className="w-[20px] h-[20px] absolute right-[100%] cursor-pointer opacity-50"
                                     src={check} alt={'username'} width={300} height={300} // botón 'check'

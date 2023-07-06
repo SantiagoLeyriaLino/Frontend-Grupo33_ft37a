@@ -51,9 +51,10 @@ export default function ContainerSummary({ products,
         setMyCartLocal(products)
         const userDataLocal = localStorage.getItem('user')
         const userDataParse = JSON.parse(userDataLocal)
-        if(userDataParse && userDataParse.data){
+        if(userDataParse){
             setCupon(userDataParse.data.cpDesc)
         }
+
 
         console.log(products);
     }, [products])
@@ -83,7 +84,7 @@ export default function ContainerSummary({ products,
     console.log(cupon);
 
     return (
-        <div className="bg-[#454545] p-[0.6rem] flex flex-col gap-y-[1rem]">
+        <div className="bg-white p-[0.6rem] flex flex-col gap-y-[1rem] shadow-lg shadow-black">
             {
                 products?.map((prod, index) => {
                     return (
@@ -103,8 +104,8 @@ export default function ContainerSummary({ products,
             }
             <div className="flex flex-col justify-between pb-[1rem] gap-y-[1rem] px-[2rem]">
             <div className="flex justify-between">
-                <h2 className="text-white">Sub total:</h2>
-                <h2 className="text-white" >$ {totalPriceGlobal}</h2>
+                <h2 className="text-black">Sub total:</h2>
+                <h2 className="text-black" >$ {totalPriceGlobal}</h2>
             </div>
             {
                 (cupon > 0)
@@ -114,20 +115,20 @@ export default function ContainerSummary({ products,
                     <input type="checkbox" name="" id="" 
                     onChange={handleCheckCupon}
                     />
-                    <h2 className={`${cpActive ? "text-white" : "text-[#ffffff30]"}`}>Cupon de desc 15%</h2>
+                    <h2 className={`${cpActive ? "text-[#111111]" : "text-[#11111180]"}`}>Cupon de desc 15%</h2>
                 </div>
-                <h2 className={`${cpActive ? "text-white" : "text-[#ffffff30]"}`}>1</h2>
+                <h2 className={`${cpActive ? "text-[#111111]" : "text-[#11111180]"}`}>1</h2>
             </div>
             :
             <div className="flex justify-between">
-                <h2 className="text-[#ffffff30]">Cupon de desc 15%</h2>
-                <h2 className="text-[#ffffff30]">0</h2>
+                <h2 className="text-[#11111180]">Cupon de desc 15%</h2>
+                <h2 className="text-[#11111180]">0</h2>
             </div>
             
 
             }
             <div className="flex justify-between pt-[1rem] border-[#F8652A] border-t-[1px]">
-                <h2 className="text-white">Total:</h2>
+                <h2 className="text-black">Total:</h2>
                 <h2 className="text-[#F8652A]">$ {totalPay}</h2>
             </div>
 

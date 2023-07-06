@@ -63,13 +63,13 @@ export default function PurchaseHistory(){
                             <table className="w-[100%] ">
                                 <thead>
                                     <tr>
-                                        <th className="py-2 px-4 border-[1px] ">id_transaction</th>
-                                        <th className="py-2 px-4 border-[1px] ">img_product</th>
+                                        <th className="py-2 px-4 border-[1px] ">Transactions</th>
+                                        <th className="py-2 px-4 border-[1px] ">Products</th>
                                         <th className="py-2 px-4 border-[1px] text-start ">Description</th>
                                         <th className="py-2 px-4 border-[1px] ">Price</th>
-                                        <th className="py-2 px-4 border-[1px] ">cant</th>
-                                        <th className="py-2 px-4 border-[1px] ">date</th>
-                                        <th className="py-2 px-4 border-[1px] ">ammount</th>
+                                        <th className="py-2 px-4 border-[1px] ">Cant.</th>
+                                        <th className="py-2 px-4 border-[1px] ">Date</th>
+                                        <th className="py-2 px-4 border-[1px] ">Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody className="">

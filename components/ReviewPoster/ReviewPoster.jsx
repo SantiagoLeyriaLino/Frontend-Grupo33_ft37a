@@ -27,11 +27,11 @@ export default function ReviewPoster({ productId, userId, setRefresh, reviews}){
         formData.append('comment', response.review)
         formData.append('ProductID', productId)
         await axios.post('https://backend-33ft37a-deploy.vercel.app/reviews', formData)
-        const sum = reviews.reduce((acc, review) => acc + review.ratings, 0)
-        const average = ((sum + rating) / (reviews.length + 1)).toFixed(1)
-        await axios.put(`https://backend-33ft37a-deploy.vercel.app/products/${productId}`, {rating: average})
+        setRefresh(true)
+        // const sum = reviews.reduce((acc, review) => acc + review.ratings, 0)
+        // const average = ((sum + rating) / (reviews.length + 1)).toFixed(1)
+        // await axios.put(`https://backend-33ft37a-deploy.vercel.app/products/${productId}`, {rating: average})
         setError('')
-        setRefresh(formData)
     }
 
     function handleClick(event){

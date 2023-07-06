@@ -1,12 +1,9 @@
 'use client';
 import axios from 'axios';
 import { useState, useEffect, useMemo } from 'react';
-import { useTable, useSortBy, usePagination, useCell } from 'react-table';
+import { useTable, useSortBy, usePagination } from 'react-table';
 import EditForm from './EditForm';
-import Image from 'next/image';
-// import { IoMdImages } from 'react-icons/io';
-// import Swal from 'sweetalert2';
-// import { useFormik } from 'formik';
+import { LuEdit } from 'react-icons/lu';
 
 export default function ContainerProducts() {
 	const [productData, setProductData] = useState([]);
@@ -19,7 +16,7 @@ export default function ContainerProducts() {
 	useEffect(() => {
 		const fetchUsers = async () => {
 			try {
-				const response = await axios.get('https://backend-33ft37a-deploy.vercel.app/products/search');
+				const response = await axios.get('https://backend-33ft37a-deploy.vercel.app/products');
 				setProductData(response.data);
 			} catch (error) {
 				console.error('Error fetching users:', error);
@@ -28,6 +25,7 @@ export default function ContainerProducts() {
 
 		fetchUsers();
 	}, []);
+
 	const data = useMemo(() => productData, [productData]);
 	const filteredData = useMemo(() => {
 		if (searchTerm === '') {
@@ -38,15 +36,16 @@ export default function ContainerProducts() {
 			);
 		}
 	}, [data, searchTerm]);
+
 	const handleSearch = (e) => {
 		setSearchTerm(e.target.value);
 	};
 
 	const handleEdit = (product) => {
+		console.log(product);
 		setSelectedProduct(product);
 		setShowEditModal(true);
 	};
-	console.log(selectedProduct);
 
 	const closeEditModal = () => {
 		setShowEditModal(false);
@@ -60,17 +59,21 @@ export default function ContainerProducts() {
 		updateData,
 	}) => {
 		const [value, setValue] = useState(initialValue);
+
 		const onChange = (e) => {
 			const newValue = e.target.value;
 			setValue(newValue);
 		};
+
 		const onBlur = (e) => {
 			const newValue = e.target.value === 'true';
 			updateData(index, id, newValue);
 		};
+
 		useEffect(() => {
 			setValue(initialValue);
 		}, [initialValue]);
+
 		return (
 			<select
 				value={value}
@@ -83,7 +86,6 @@ export default function ContainerProducts() {
 			</select>
 		);
 	};
-
 
 	const columns = useMemo(
 		() => [
@@ -102,33 +104,32 @@ export default function ContainerProducts() {
 					</div>
 				),
 			},
-			{
-				Header: 'Size',
-				accessor: 'size',
-				canSort: true,
-				Cell: ({ value }) => (
-					<div>
-						{value.map((s, idx) => (
-							<div key={idx} className='flex flex-col flex-wrap'>
-								Size: {s.size}
-								<br />
-								Stock: {s.stock}
-							</div>
-						))}
-					</div>
-				),
-			},
+			// {
+			// 	Header: 'Size',
+			// 	accessor: 'size',
+			// 	canSort: true,
+			// 	Cell: ({ value }) => (
+			// 		<div className='space-y-3'>
+			// 			{value.map((s, idx) => (
+			// 				<div key={idx} className='flex flex-col  p-1 rounded-lg'>
+			// 					<div className='text-sm '>Size: {s.size}</div>
+			// 					<div className='text-sm'>Stock: {s.stock}</div>
+			// 				</div>
+			// 			))}
+			// 		</div>
+			// 	),
+			// },
 			{
 				Header: 'Images',
 				accessor: 'images',
 				Cell: ({ row, value }) => (
-					<div className='flex flex-row justify-evenly '>
-						{value.map((image, index) => (
-							<Image
-							key={index}
+					<div className='flex flex-row justify-evenly'>
+						{value.map((image) => (
+							<img
+								key={image}
 								src={image}
 								alt='img'
-								className='w-14 h-14 gap-5 border rounded-lg object-cover w-100 h-100 shadow-lg '
+								className='w-14 h-14 gap-5 border rounded-lg object-cover w-100 h-100 shadow-lg'
 							/>
 						))}
 					</div>
@@ -149,7 +150,9 @@ export default function ContainerProducts() {
 			{
 				Header: 'Active',
 				accessor: 'isActive',
-				Cell: EditableCell,
+				Cell: ({ value }) => {
+					return value ? 'Active' : 'Not Active';
+				},
 				canSort: true,
 				sortType: (rowA, rowB, columnId) => {
 					const valueA = rowA.values[columnId] ? 1 : 0;
@@ -158,9 +161,18 @@ export default function ContainerProducts() {
 				},
 			},
 			{
-				Header: 'Actions',
+				Header: 'Edit',
 				Cell: ({ row }) => (
-					<button onClick={() => handleEdit(row.original)}>Edit</button>
+					<label htmlFor={`edit-${row.index}`}>
+						<button
+							onClick={() => handleEdit(row.original)}
+							className='hidden'
+							id={`edit-${row.index}`}
+						>
+							Edit
+						</button>
+						<LuEdit className='h-7 w-7 cursor-pointer' />
+					</label>
 				),
 				canSort: false,
 			},
@@ -205,7 +217,6 @@ export default function ContainerProducts() {
 		}
 	};
 
-
 	const {
 		getTableProps,
 		getTableBodyProps,
@@ -240,16 +251,23 @@ export default function ContainerProducts() {
 		<div className='w-11/12 mx-auto py-14'>
 			<div className='shadow-md rounded-lg overflow-hidden'>
 				{showEditModal && (
-					<div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex justify-center items-center'>
-					<EditForm product={selectedProduct} onClose={closeEditModal} />
-				</div>
+					<div
+						className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 z-50 flex justify-center items-center '
+						onClick={closeEditModal}
+					>
+						<EditForm
+							product={selectedProduct}
+							onClose={closeEditModal}
+							onClick={(e) => e.stopPropagation()}
+						/>
+					</div>
 				)}
 				<div className='p-4'>
 					<input
 						type='text'
 						value={searchTerm}
 						onChange={handleSearch}
-						placeholder='Search users...'
+						placeholder='Search products...'
 						className='w-full py-2 px-3 border border-collapse rounded-md shadow-sm focus:outline-none focus:border-indigo-500 sm:text-sm'
 					/>
 				</div>
@@ -258,12 +276,11 @@ export default function ContainerProducts() {
 					{...getTableProps()}
 					className='w-full h-auto border-collapse overflow-hidden shadow-md'
 				>
-					<thead className='bg-[#55608f]'>
-						{headerGroups.map((headerGroup, index) => (
-							<tr key={index} {...headerGroup.getHeaderGroupProps()}>
-								{headerGroup.headers.map((column, index) => (
+					<thead className='bg-orange-500'>
+						{headerGroups.map((headerGroup) => (
+							<tr {...headerGroup.getHeaderGroupProps()}>
+								{headerGroup.headers.map((column) => (
 									<th
-									key={index}
 										{...column.getHeaderProps(column.getSortByToggleProps())}
 										className='p-15 bg-opacity-20 bg-black text-white text-center border-b-2 border-gray-300'
 									>
@@ -281,18 +298,15 @@ export default function ContainerProducts() {
 						))}
 					</thead>
 					<tbody {...getTableBodyProps()}>
-						{page.map((row,index) => {
-							
+						{page.map((row) => {
 							prepareRow(row);
 							return (
 								<tr
-								key={index}
 									{...row.getRowProps()}
-									className='hover:bg-opacity-30 hover:bg-gray-500 '
+									className='hover:bg-opacity-30 hover:bg-gray-500'
 								>
-									{row.cells.map((cell, index) => (
+									{row.cells.map((cell) => (
 										<td
-										key={index}
 											{...cell.getCellProps()}
 											className='py-7 px-14 bg-opacity-20 bg-white text-black border-2'
 										>
@@ -304,16 +318,29 @@ export default function ContainerProducts() {
 						})}
 					</tbody>
 				</table>
-				{/* <button onClick={saveChanges}>Save Changes</button> */}
-				<div className='flex justify-evenly'>
-					<button onClick={() => previousPage()} disabled={!canPreviousPage}>
+				<div className='flex justify-evenly items-center'>
+					<button
+						onClick={() => previousPage()}
+						disabled={!canPreviousPage}
+						className={`py-1 px-2 text-white rounded ${
+							!canPreviousPage
+								? 'bg-gray-300 cursor-not-allowed'
+								: 'bg-[#F8652A]'
+						}`}
+					>
 						prev
 					</button>
-					<button onClick={() => nextPage()} disabled={!canNextPage}>
+					<button
+						onClick={() => nextPage()}
+						disabled={!canNextPage}
+						className={`py-1 px-2 text-white rounded ${
+							!canNextPage ? 'bg-gray-300 cursor-not-allowed' : 'bg-[#F8652A]'
+						}`}
+					>
 						next
 					</button>
 					<span>
-						Page
+						Page{' '}
 						<strong>
 							{pageIndex + 1} of {pageOptions.length}
 						</strong>
@@ -328,6 +355,7 @@ export default function ContainerProducts() {
 								gotoPage(page);
 							}}
 							style={{ width: '50px' }}
+							className='ml-2 py-2 px-3 border border-collapse rounded-md shadow-sm focus:outline-none focus:border-indigo-500 sm:text-sm'
 						/>
 					</span>
 					<select
@@ -335,6 +363,7 @@ export default function ContainerProducts() {
 						onChange={(e) => {
 							setPageSize(Number(e.target.value));
 						}}
+						className='py-2 px-3 border border-collapse rounded-md shadow-sm focus:outline-none focus:border-indigo-500 sm:text-sm'
 					>
 						{[5, 10, 15, 20].map((pageSize) => (
 							<option key={pageSize} value={pageSize}>
@@ -342,7 +371,12 @@ export default function ContainerProducts() {
 							</option>
 						))}
 					</select>
-					<button onClick={saveChanges}>Change product Status</button>
+					{/* <button
+						onClick={saveChanges}
+						className='bg-orange-500 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded'
+					>
+						Guardar cambios
+					</button> */}
 				</div>
 			</div>
 		</div>

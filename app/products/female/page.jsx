@@ -75,7 +75,7 @@ export default function ProductsPage() {
     {
       title: "T-Shirt",
       img: shirt,
-      link: '/products/female/t-shirt',
+      link: '/female/t-shirt',
       description: "Embark on an exhilarating exploration of t-shirts, originating from a myriad of esteemed brands, boasting captivating designs and exquisite craftsmanship. Embrace the pinnacle of comfort, style, and versatility, meticulously tailored to resonate with your individual fashion inclinations. Whether you seek trendy graphic tees, timeless classics, or contemporary printed shirts, our expansive collection leaves no desire unfulfilled. Immerse yourself in a captivating odyssey through our thoughtfully curated assortment and unearth the perfect t-shirt to elevate your wardrobe with unparalleled flair."
 
     },

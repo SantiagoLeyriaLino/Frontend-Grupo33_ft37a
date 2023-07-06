@@ -7,16 +7,17 @@ import Swal from 'sweetalert2';
 
 export default function EditForm({ product, onClose }) {
 	const [images, setImages] = useState([]);
+	const [existingImages, setExistingImages] = useState([]);
 	const [sizeValue, setSizeValue] = useState([]);
 	const [colorValue, setColorValue] = useState([]);
 
 	const validationSchema = Yup.object().shape({
 		name: Yup.string().required('Name is required').min(4),
 		category: Yup.string().required('Category is required').min(4),
-		// color: Yup.string().required('Color is required'),
+		// color: Yup.required('Color is required'),
 		gender: Yup.string().required('Gender is required'),
 		season: Yup.string().required('Season is required'),
-		// brand: Yup.string().required('Brand is required'),
+		// brand: Yup.required('Brand is required'),
 		price: Yup.number().positive('Price must be a positive number'),
 		articleCode: Yup.string().required('articleCode is required'),
 		stock: Yup.number().positive('Price must be a positive number'),
@@ -35,6 +36,7 @@ export default function EditForm({ product, onClose }) {
 			brand: product.brand || '',
 			price: product.price || 1,
 			articleCode: product.articleCode || '',
+			isActive: product.isActive,
 		},
 		validationSchema: validationSchema,
 		validate: (values) => {
@@ -60,25 +62,26 @@ export default function EditForm({ product, onClose }) {
 			formData.append('brand', values.brand);
 			formData.append('articleCode', values.articleCode);
 			formData.append('price', values.price);
+			formData.append('isActive', values.isActive);
 			images.length
 				? images.forEach((file) => {
 						formData.append('images', file);
 				  })
 				: formData.append('images', product.images);
-			console.log(product.images);
 			axios
 				.put(`https://backend-33ft37a-deploy.vercel.app/products/${product._id}`, formData)
 				.then((response) => {
 					Swal.fire({
-						title: 'Create Product!',
-						text: `product was successfully created`,
+						title: 'Product Updated!',
+						text: `product was successfully Updated`,
 						icon: 'success',
 						confirmButtonText: 'continue',
 					});
 					console.log(response.data);
-					formik.setValues(formik.initialValues);
-					setSizeValue([]);
-					setImages([]);
+					setTimeout(() => window.location.reload(), 2000);
+					// formik.setValues(formik.initialValues);
+					// setSizeValue([]);
+					// setImages([]);
 				})
 				.catch((error) => {
 					console.log(error);
@@ -104,11 +107,23 @@ export default function EditForm({ product, onClose }) {
 				brand: product.brand || '',
 				price: product.price || 1,
 				articleCode: product.articleCode || '',
+				isActive: product.isActive,
 			});
 			setSizeValue(product.size || []);
 			setColorValue(product.color || []);
+			setExistingImages(product.images || []);
 		}
 	}, [product]);
+	console.log(existingImages);
+	const handleButtonClick = (e) => {
+		e.stopPropagation();
+	};
+
+	const handleImageDelete = (index) => {
+		const updatedImages = [...existingImages];
+		updatedImages.splice(index, 1);
+		setExistingImages(updatedImages);
+	};
 
 	useEffect(() => {
 		formik.validateForm();
@@ -137,6 +152,7 @@ export default function EditForm({ product, onClose }) {
 		formik.setFieldValue('color', '');
 		console.log(color);
 	};
+
 	function handleImage(files) {
 		const selectFiles = Array.from(files).slice(0, 3);
 		setImages(selectFiles);
@@ -151,11 +167,21 @@ export default function EditForm({ product, onClose }) {
 	};
 
 	return (
-		<div className='flex flex-col items-center justify-center bg-gray-100 p-8 rounded-lg shadow-md w-full max-w-3xl mx-auto'>
-			<button onClick={onClose}>X</button>
-			<h1 className='text-4xl font-bold text-black mb-[2rem]'>
-				Add your products
-			</h1>
+		<div
+			onClick={handleButtonClick}
+			className='flex flex-col items-center justify-center bg-gray-100 p-8 shadow-md w-full h-auto max-w-3xl mx-auto'
+		>
+			<div className='flex flex-col '>
+				<button
+					onClick={onClose}
+					className='text-gray-600 hover:text-gray-900 self-end mt-10'
+				>
+					X
+				</button>
+				<h1 className='text-4xl font-bold text-black mb-[2rem]'>
+					Edit {product.name}
+				</h1>
+			</div>
 			<form
 				onSubmit={formik.handleSubmit}
 				className=' relative w-full flex flex-col gap-y-[2rem]'
@@ -243,6 +269,26 @@ export default function EditForm({ product, onClose }) {
 								}}
 							/>
 						</label>
+					</div>
+
+					<div>
+						<div className='flex'>
+							{existingImages.map((image, index) => (
+								<div key={index} className='flex flex-col'>
+									<img
+										src={image}
+										alt='img'
+										className='w-14 h-14 gap-5 border rounded-lg shadow-lg'
+									/>
+									<button
+										onClick={() => handleImageDelete(index)}
+										className='text-red-500 absolute'
+									>
+										X
+									</button>
+								</div>
+							))}
+						</div>
 					</div>
 
 					<div className='w-[25%] '>
@@ -368,6 +414,30 @@ export default function EditForm({ product, onClose }) {
 								</div>
 							)}
 						</div>
+						<div className=''>
+							<label
+								htmlFor='isActive'
+								className='relative flex flex-col gap-y-[0.4rem]'
+							>
+								Active:{' '}
+							</label>
+							<select
+								id='isActive'
+								onChange={handleChange}
+								onBlur={handleBlur}
+								value={formik.values.isActive}
+								className='w-full px-4 py-2  shadow-md focus:outline-none focus:ring-2 focus:ring-[#F8652A] bg-black text-white rounded-[0.4rem]'
+							>
+								<option value=''>Select</option>
+								<option value='true'>Active</option>
+								<option value='false'>Not Active</option>
+							</select>
+							{/* {formik.errors.category && (
+								<div className='absolute text-red-500 text-sm'>
+									{formik.errors.category}
+								</div>
+							)} */}
+						</div>
 					</div>
 					<div className=' w-[25%]'>
 						<h3 className='text-center font-bold '>Size List</h3>
@@ -482,7 +552,7 @@ export default function EditForm({ product, onClose }) {
 						sizeValue.length > 0 && (
 							<button
 								type='submit'
-								className='font-normal text-[1rem] py-2 px-3 bg-black text-white transform -skew-x-12 w-24 h-12 shadow-md hover:bg-green-500 transition-colors duration-300'
+								className='font-normal text-[1rem] py-2 px-3 bg-black text-white transform -skew-x-12 w-24 h-12 shadow-md hover:bg-green-500 transition-colors duration-300 mb-6'
 								style={{
 									clipPath:
 										'polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%)',

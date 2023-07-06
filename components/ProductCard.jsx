@@ -4,12 +4,17 @@ import 'tippy.js/dist/tippy.css';
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react"
 import sold from "../public/soldout.png"
-import { addTotalPay } from "@/redux/Slice";
+import { addNotifyCart, addTotalPay } from "@/redux/Slice";
 
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css";
 import SizeSelected from "./productCard/SizeSelected";
 import { useDispatch } from "react-redux";
+
+import 'tippy.js/themes/light.css';
+import 'tippy.js/themes/translucent.css';
+import 'tippy.js/themes/material.css';
+import 'tippy.js/themes/light-border.css';
 
 
 export default function ProductCard({ product }) {
@@ -74,6 +79,7 @@ export default function ProductCard({ product }) {
                 const cantzero = cantSelect.shift()
                 localStorage.setItem('myCart', JSON.stringify([{ ...product, cant: cant, cantSelect: cantSelect }]))
                 notify('Add to Cart')
+                dispatch(addNotifyCart())
             } else {
                 const cantzero = cantSelect.shift()
                 const productMyCart = { ...product, cant: cant, cantSelect:cantSelect }
@@ -83,6 +89,7 @@ export default function ProductCard({ product }) {
                     console.log(myCart);
                     localStorage.setItem('myCart', JSON.stringify(myCart))
                     notify('Add to Cart')
+                    dispatch(addNotifyCart())
                 } else {
 
                     console.log(sameProduct);
@@ -90,6 +97,7 @@ export default function ProductCard({ product }) {
                     const newArray = [...arrayFilter, productMyCart]
                     localStorage.setItem('myCart', JSON.stringify(newArray))
                     notify('Add to Cart')
+                    dispatch(addNotifyCart())
                 }
             }
 
@@ -156,19 +164,23 @@ export default function ProductCard({ product }) {
         <Tippy
             interactive={true}
             placement="left"
+            delay={100}
+            theme="material"
             content={
-                <div className="flex gap-x-[1rem] py-[1rem] z-0">
+                <div className="flex gap-x-[0.3rem] pb-[0.6rem] z-0 ">
                     {
                         (product?.sameCode?.length > 0)
                             ?
-                            <div className="w-[20%] flex flex-col gap-y-[1rem]">
+                            <div className="w-[40px] flex flex-col gap-y-[1rem]">
                                 {
                                     product?.sameCode?.map((color, index) => {
                                         if (product?._id !== color?._id) {
                                             return (
-                                                <Image
-                                                    key={index}
-                                                    src={color?.images[0]} alt={color?.name} width={200} height={400} />
+                                                <div key={index} className="h-[60px]  bg-white flex items-center">
+                                                    <Image
+                                                    className=""    
+                                                        src={color?.images[0]} alt={color?.name} width={200} height={400} />
+                                                </div>
                                             )
                                         }
                                     })
@@ -178,11 +190,14 @@ export default function ProductCard({ product }) {
                             <></>
                     }
 
-                    <div className={`flex flex-col gap-y-[1rem] ${(product.sameCode.length > 0) ? 'w-[70%]' : 'w-[90%] mx-[auto]'}`}>
+                    {/* <div className={`flex flex-col gap-y-[1rem] ${(product.sameCode.length > 0) ? 'w-[100%]' : 'w-[100%] mx-[auto]'}`}> */}
+                    <div className={`flex flex-col gap-y-[1rem] w-[230px]`}>
                         <div className="relative">
+                            <div className="bg-white w-[230px]">
                             <Image
-                                className="w-[100%] cursor-pointer"
+                                className=" cursor-pointer h-[350px] object-contain w-full"
                                 src={product?.images[0]} alt={product?.name} width={200} height={400} />
+                            </div>
                             {
                                 (product?.stock === 0)
                                     ?
@@ -226,7 +241,7 @@ export default function ProductCard({ product }) {
                                     ?
                                     myUserParse?.data?.isAdmin 
                                     ?
-                                    <div className="flex gap-[0.4rem] flex-wrap">
+                                    <div className="flex flex-col gap-y-[0.2rem]">
                                         Size
                                         {
                                             product?.size?.map((size,index)=>{
@@ -297,12 +312,12 @@ export default function ProductCard({ product }) {
         >
             <div
                 onClick={() => { handleOnClick(product?._id) }}
-                className="w-[28%]  flex flex-col gap-y-[0.6rem] h-[340px] "
+                className="w-[28%]  flex flex-col gap-y-[0.6rem] h-[450px] "
             >
                 <div className="relative h-[70%] ">
                     <Image
-                        className="w-[90%] h-[100%] object-cover mx-[auto] cursor-pointer"
-                        src={product?.images[0]} alt={product?.name} width={200} height={400} />
+                        className="w-[90%] h-[100%] object-contain mx-[auto] cursor-pointer"
+                        src={product?.images[0]} alt={product?.name} width={400} height={400} />
                     {
                         (product?.stock === 0)
                             ?
@@ -334,58 +349,3 @@ export default function ProductCard({ product }) {
         </Tippy>
     )
 }
-
-// const handleCheckSize = (event) => {
-    //     const { checked, name ,value} = event.target
-    //     const index = parseInt(name)
-    //     if (checked) {
-    //         if(sizeCheck.length === 0){
-    //             setSizeCheck([index]);
-    //             // setCantSelect([{index:index,cant:1,size:value}]);
-    //             setCantSelect([{size:value,cant:1,}]);
-
-    //         } else {
-    //             setSizeCheck([...sizeCheck,index])
-    //             // setCantSelect([...cantSelect,{index:index, cant:1,size:value}])
-    //             setCantSelect([...cantSelect,{size:value,cant:1,}])
-    //         }
-    //         // setCantSelect([...sizeCheck, {index,cant:1}]);
-            
-    //     } else {
-    //         const newArray = sizeCheck.filter(size => size !== index)
-    //         setSizeCheck(newArray);
-    //         const newArrayCant = cantSelect.filter(cant => cant.size !== value)
-    //         setCantSelect(newArrayCant);
-    //     }
-    // }
-
-    // const handleSumCantSelect = (index,size,stock) =>{
-    //     console.log(index);
-    //     console.log(size);
-    //     console.log(stock);
-    //     console.log(sizeCheck);
-    //     const newSumSelect = cantSelect.map(sum=>{
-    //         if(sum.index === index){
-    //             console.log(sum.cant);
-    //             if(sum.cant < stock){
-    //                 return {...sum, cant : sum.cant +1, size:size}
-    //             }
-    //         }
-    //     return sum
-    //     })
-    //     setCantSelect(newSumSelect)  
-    // }
-
-    // const handleResCantSelect = (index,size,stock) =>{
-    //     const newResSelect = cantSelect.map(res=>{
-    //         if(res.index === index){
-    //             console.log(res.cant);
-    //             if(res.cant > 1){
-    //                 return {...res, cant : res.cant - 1,size:size}
-    //             }
-    //         }
-    //     return res
-    //     })
-    //     setCantSelect(newResSelect)
-    // }
-    // console.log(cantSelect);

@@ -57,7 +57,7 @@ export default function SummaryCard({ product,
                     className="object-cover h-[60px] rounded-[0.4rem]"
                     src={product.images[0]} alt={product.title} width={100} height={0} />
                 <div className="flex flex-col gap-y-[0.4rem]  w-[65%]">
-                    <span className="font-semibold text-[1rem] text-white">{product.name}</span>
+                    <span className="font-semibold text-[1rem] text-black">{product.name}</span>
                     
                     <div className="flex gap-x-[0.4rem] ">
                         {

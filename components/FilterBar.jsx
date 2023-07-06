@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState, useCallback } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { getFilterProducts, clearState } from "@/redux/Slice"
 import { debounce } from 'lodash';
 
@@ -11,8 +11,14 @@ export default function FilterBar({ products, gender, category, name }) {
     useEffect(() => {
         return () => {
             dispatch(clearState())
+            setFilterBar({
+                brand: "",
+                color: ""
+            })
+            setPrice(0)
         }
     }, [])
+
 
     const [price, setPrice] = useState(0)
     const [genders, setGenders] = useState("")
@@ -21,14 +27,25 @@ export default function FilterBar({ products, gender, category, name }) {
     const [filterBrands, setFilterBrands] = useState([])
     const [filterColors, setFilterColors] = useState([])
     
-
+    const [checkedBrands, setCheckedBrands] = useState([]);
+    const [checkedColors, setCheckedColors] = useState([]);
     useEffect(()=>{
         console.log({RANGODEPRECIO:price})
     },[price])
 
+    // useEffect(() => {
+    //     console.log("+++++++++++++++++++++++++++++++")
+    //       setCheckedBrands([])
+    //       setFilterBar({
+    //         brand: "",
+    //         color: ""
+    //       })
+    //       setPrice(0)
+        
+    //   }, [products])
     const [filterBar, setFilterBar] = useState({
-        brand: "",
-        color: ""
+        brand: ",",
+        color: ","
     })
 
     console.log({ FILTRADOPRINCIPAL: genders + " " + categorys })
@@ -68,16 +85,26 @@ export default function FilterBar({ products, gender, category, name }) {
         console.log(checked);
         if (checked) {
             if (filterBar.brand == "") {
-                let valor = filterBar.brand + value + ","
+                let valor = filterBar.brand+"," + value + ","
                 setFilterBar({ ...filterBar, brand: valor })
             }
             else {
                 let valor = filterBar.brand + value + ","
                 setFilterBar({ ...filterBar, brand: valor })
             }
+            setCheckedBrands((prevBrands) => {
+                // Agregar la marca solo si no está presente en prevBrands
+                if (!prevBrands.includes(value)) {
+                  return [...prevBrands, value];
+                }
+                return prevBrands;
+              })
         } else {
             let newBrands = filterBar.brand.replace(new RegExp(value + ",?"), "");
             setFilterBar({ ...filterBar, brand: newBrands })
+            setCheckedBrands((prevBrands) =>
+                  prevBrands.filter((brand) => brand !== value)
+                 );
         }
     }
 
@@ -87,26 +114,43 @@ export default function FilterBar({ products, gender, category, name }) {
         console.log(checked);
         if (checked) {
             if (filterBar.color == "") {
-                let valor = filterBar.color + value + ","
+                let valor = filterBar.color+"," + value + ","
                 setFilterBar({ ...filterBar, color: valor })
             }
             else {
                 let valor = filterBar.color + value + ","
                 setFilterBar({ ...filterBar, color: valor })
+            }    
+        setCheckedColors((prevColors) => {
+            // Agregar la marca solo si no está presente en prevBrands
+            if (!prevColors.includes(value)) {
+              return [...prevColors, value];
             }
-        } else {
+            return prevColors;
+          })}
+        else {
             let newColors = filterBar.color.replace(new RegExp(value + ",?"), "");
             setFilterBar({ ...filterBar, color: newColors })
+            setCheckedColors((prevColors) =>
+                  prevColors.filter((color) => color !== value)
+                 );
         }
     }
 
     useEffect(() => {
+        setCheckedBrands([])
+        setCheckedColors([])
+          setFilterBar({
+            brand: "",
+            color: ""
+          })
+          setPrice(0)
         getBrands()
         getColors()
-    }, [products, filterBar])
+    }, [products])
 
     useEffect(() => {
-        if ((filterBrands !== ',' && filterBrands.length > 0) || (filterColors !== ',' && filterColors.length > 0)||(price&&price>0)) handleSubmit()
+        if ((filterBar.brand !== '' && filterBar.brand.length > 0) || (filterBar.color !== '' && filterBar.color.length > 0)||(price&&price>0)) handleSubmit()
     }, [filterBar, price])
 
     console.log(products);
@@ -143,6 +187,7 @@ export default function FilterBar({ products, gender, category, name }) {
 //comentario
     const handleSubmit = () => {
         debouncedSubmit();
+        
     };
 
     useEffect(() => {
@@ -167,12 +212,14 @@ export default function FilterBar({ products, gender, category, name }) {
                     className="flex flex-col h-[120px] overflow-y-scroll">
                     {
                         filterBrands?.map((brand, index) => {
+                            const isChecked = checkedBrands.includes(brand);
                             return (
                                 <label key={index} htmlFor="">
                                     <input
                                         value={brand}
                                         onChange={handleBrandChange}
-                                        type="checkbox" /> <span className="text-[#A9A9B2]">{brand}</span>
+                                        type="checkbox"
+                                        checked={isChecked} /> <span className="text-[#A9A9B2]">{brand}</span>
                                 </label>
                             )
                         })
@@ -192,9 +239,10 @@ export default function FilterBar({ products, gender, category, name }) {
                     className="flex flex-col h-[120px] overflow-y-scroll">
                     {
                         filterColors?.map((filter, index) => {
+                            const isChecked = checkedColors.includes(filter);
                             return (
                                 <label key={index} htmlFor="">
-                                    <input type="checkbox" value={filter} onChange={handleColorChange} /> <span className="text-[#A9A9B2]">{filter}</span>
+                                    <input checked={isChecked} type="checkbox" value={filter} onChange={handleColorChange} /> <span className="text-[#A9A9B2]">{filter}</span>
                                 </label>
                             )
                         })
@@ -205,7 +253,7 @@ export default function FilterBar({ products, gender, category, name }) {
 
             <article className="w-[100%] p-[0.6rem] flex flex-col gap-y-[1rem]">
                 <h3 className="border-[#A9A9B2] border-b-[1px]">Price</h3>
-                <input value={price} onChange={handleRange} type="range" min={0} max={200000} />
+                <input value={Number(price)} onChange={handleRange} type="range" min={0} max={500} />
                 <span>{price}</span>
 
             </article>

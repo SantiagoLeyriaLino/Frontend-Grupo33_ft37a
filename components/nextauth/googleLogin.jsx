@@ -2,6 +2,7 @@
 
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { FcGoogle } from 'react-icons/fc';
 
 const GoogleLogin = () => {
 	const { data: session } = useSession();
@@ -13,14 +14,16 @@ const GoogleLogin = () => {
 	};
 
 	return (
-		<div>
-			<a
-				href='#'
-				onClick={handleClick}
-				className='font-semibold text-[1rem] py-[0.4rem] px-[2rem] bg-black text-white rounded-[1rem] w-[50%] mx-[auto] shadow-md shadow-[#11111180]'
-			>
-				Continue With Google
-			</a>
+		<div className='flex justify-center'>
+			<label htmlFor='google'>
+				<a href='#' onClick={handleClick} className='hidden' id='google'>
+					Continue With Google
+				</a>
+				<FcGoogle
+					onClick={handleClick}
+					className='h-[5vh] w-[5vh] cursor-pointer'
+				/>
+			</label>
 		</div>
 	);
 };
