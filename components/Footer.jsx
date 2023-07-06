@@ -157,7 +157,7 @@ export default function Footer() {
 					</article>
 
 					<article className='flex flex-col gap-y-[0.6rem]'>
-						<h3 className='underline cursor-default'>Redes</h3>
+						<h3 className='underline cursor-default'>Networks</h3>
 						<span className='text-[0.8rem] cursor-pointer'>Facebook</span>
 						<span className='text-[0.8rem] cursor-pointer'>Twitter</span>
 						<span className='text-[0.8rem] cursor-pointer'>Instagram</span>
