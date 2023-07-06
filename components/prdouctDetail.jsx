@@ -213,7 +213,7 @@ export default function ProductDetail() {
                                             </div>
                                         </div>
                                     </div>
-                                    <h3>Talles</h3>
+                                    <h3>Size</h3>
                                     {
                                         (myUserParse?.data?.isAdmin)
                                             ?
@@ -235,7 +235,7 @@ export default function ProductDetail() {
                                                 onChange={handleSelect}
                                                 name="" id="" className="text-black p-[0.6rem] w-[100%] text-center">
 
-                                                <option value="" selected disabled>Elegir talle</option>
+                                                <option value="" selected disabled>Choise size</option>
                                                 {
                                                     productDetail[0]?.size?.map((size, index) => {
                                                         if (size.stock > 0) {
@@ -258,7 +258,11 @@ export default function ProductDetail() {
                                     {
                                         (myUserParse?.data?.isAdmin)
                                             ?
+                                            (productDetail[0]?.stock > 0)
+                                            ?
                                             <></>
+                                            :
+                                            <span className="text-white p-[0.6rem] w-[100%] text-center bg-red-400 font-bold cursor-default">Sold Out</span>
                                             :
 
                                             (productDetail[0]?.stock > 0)
@@ -286,7 +290,7 @@ export default function ProductDetail() {
                                     (productDetail[1]?.length > 0)
                                         ?
                                         <div className="w-[80%] flex flex-col gap-y-[1rem] mx-[auto]">
-                                            <h3>Mas colores</h3>
+                                            <h3>More colors</h3>
                                             <div className="flex gap-x-[1rem]">
 
                                                 {
