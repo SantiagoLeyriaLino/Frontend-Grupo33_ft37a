@@ -105,7 +105,7 @@ export default function ContainerSummary({ products,
             <div className="flex flex-col justify-between pb-[1rem] gap-y-[1rem] px-[2rem]">
             <div className="flex justify-between">
                 <h2 className="text-black">Sub total:</h2>
-                <h2 className="text-black" >$ {totalPriceGlobal}</h2>
+                <h2 className="text-black" >$ {(totalPriceGlobal).toFixed(2)}</h2>
             </div>
             {
                 (cupon > 0)
@@ -129,7 +129,7 @@ export default function ContainerSummary({ products,
             }
             <div className="flex justify-between pt-[1rem] border-[#F8652A] border-t-[1px]">
                 <h2 className="text-black">Total:</h2>
-                <h2 className="text-[#F8652A]">$ {totalPay}</h2>
+                <h2 className="text-[#F8652A]">$ {(totalPay.toFixed(2))}</h2>
             </div>
 
             </div>

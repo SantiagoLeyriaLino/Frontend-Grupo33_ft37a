@@ -140,7 +140,7 @@ export default function ContainerProducts() {
 				Header: 'Price',
 				accessor: 'price',
 				canSort: true,
-				// Cell: EditableCell,
+				Cell: ({ value }) => <div>${value}</div>,
 			},
 			{
 				Header: 'Stock',

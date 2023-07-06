@@ -15,9 +15,6 @@ export default function HombresRemerasPage() {
     const renderProducts = useSelector((state)=>state.products.renderProducts)
     const [products, setProducts] = useState([]);
     const [render, setRender] = useState([])
-
-    const [loadingFilter,setLoadingFilter] = useState(true)
-    const [loadingProduct,setLoadingProduct] = useState(true)
   
     useEffect(() => {
       dispatch(getProducts("male", "t-shirt"));
@@ -26,11 +23,6 @@ export default function HombresRemerasPage() {
     useEffect(() => {
         if (allProducts && allProducts.length > 0) {
           setProducts(allProducts);
-          // setLoadingFilter(false)
-        }
-        
-        return () =>{
-          setProducts([])
         }
       }, [allProducts]);
     
@@ -38,35 +30,20 @@ export default function HombresRemerasPage() {
         if (renderProducts && renderProducts.length > 0) {
             console.log({RENDER:renderProducts})
           setRender(renderProducts);
-          setLoadingProduct(false)
-        }
-
-        return () =>{
-          setRender([])
         }
       }, [renderProducts]);
-
 
     return (
       <main className="pt-[9rem] min-h-[100vh]">
       <section className="w-[70%] mx-[auto] flex py-[3rem]">
-      {
-        loadingFilter
-        ? <SkeletonFilterBar />
-        : <FilterBar products={products} gender={"male"} category={"t-shirt"} />
-      }
-        {/* {products && products.length > 0 ? <FilterBar products={products} gender={"male"} category={"t-shirt"} /> : <SkeletonFilterBar />} */}
+
+        {products && products.length > 0 ? <FilterBar products={products} gender={"male"} category={"t-shirt"} /> : <SkeletonFilterBar />}
 
         <div className="w-[80%] relative">
           <Paginate />
-          {
-            loadingProduct
-            ? <SkeletonContainerProducts />
-            :  <ContainerProducts products={render} />
-          }
-          {/* {render && render.length > 0 ? <ContainerProducts products={render} /> : <SkeletonContainerProducts />} */}
+          {render && render.length > 0 ? <ContainerProducts products={render} /> : <SkeletonContainerProducts />}
         </div>
       </section>
     </main>
-    )
+)
 }

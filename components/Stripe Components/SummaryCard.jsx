@@ -92,7 +92,7 @@ export default function SummaryCard({ product,
                             })
                         }
                     </div>
-                    <span className="font-medium text-[#F8652A]">$ {product.price * cantTotal}</span>
+                    <span className="font-medium text-[#F8652A]">$ {(product.price * cantTotal).toFixed(2)}</span>
                 </div>
             </div>
         </div>
