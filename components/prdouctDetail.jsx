@@ -282,8 +282,9 @@ export default function ProductDetail() {
                                                     }
                                                 </div>
                                                 :
+                                                <div className="flex flex-col gap-y-[0.6rem] mt-[2rem]">
                                                 <span className="text-white p-[0.6rem] w-[100%] text-center bg-red-400 font-bold cursor-default">Sold Out</span>
-
+                                                </div>
 
                                     }
 
