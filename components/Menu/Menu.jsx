@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react"
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function Menu() {
     const [isOpen, setIsOpen] = useState(false);
@@ -11,6 +12,7 @@ export default function Menu() {
     const [isOpen4, setIsOpen4] = useState(false);
     const [isOpen5, setIsOpen5] = useState(false);
     const pathname = usePathname()
+    const router = useRouter()
 
     const openMenu = () => {
         setIsOpen(true);
@@ -162,12 +164,13 @@ export default function Menu() {
                         className={`block pb-[0.4rem] font-bold ${pathname === '/about' ? 'border-b-2 border-black' : ''}`}
                     >ABOUT</motion.li>
                 </Link>
-                <Link href={'/search'}>
+               
                     <motion.li initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}
                         whileTap={{ scale: 0.92 }}
+                        onClick={(router.push('/serach'))}
                         className={`block pb-[0.4rem] font-bold ${pathname === '/search' ? 'border-b-2 border-black' : ''}`}
                     >SHOP</motion.li>
-                </Link>
+              
                 {/* <Link href={'/products/create'}>
                 <motion.li initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 0.2}}
                     whileTap={{ scale: 0.92}}
