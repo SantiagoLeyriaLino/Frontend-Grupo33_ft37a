@@ -329,7 +329,6 @@ export default function FormProducts() {
 								<option value=''>Select</option>
 								<option value='male'>Male</option>
 								<option value='female'>Female</option>
-								<option value='child'>Child</option>
 								<option value='boy'>Boy</option>
 								<option value='girl'>Girl</option>
 							</select>
