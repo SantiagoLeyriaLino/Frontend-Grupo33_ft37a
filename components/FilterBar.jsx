@@ -150,7 +150,7 @@ export default function FilterBar({ products, gender, category, name }) {
     }, [products])
 
     useEffect(() => {
-        if ((filterBar.brand !== '' && filterBar.brand.length > 0) || (filterBar.color !== '' && filterBar.color.length > 0)||(price&&price>0)) handleSubmit()
+        if ((filterBar.brand !== '' && filterBar.brand.length > 0) || (filterBar.color !== '' && filterBar.color.length > 0)||(price&&price>=0)) handleSubmit()
     }, [filterBar, price])
 
     console.log(products);

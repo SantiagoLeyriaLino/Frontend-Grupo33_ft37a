@@ -301,7 +301,7 @@ export default function ProductCard({ product }) {
                                     ?
                                     <span
                                         onClick={addMyCart}
-                                        className="cursor-pointer w-[100%] py-[0.6rem] text-center bg-[white] text-black rounded-[0.6rem] hover:bg-[#F8652A] hover:text-white">Añadir a carrito</span>
+                                        className="cursor-pointer w-[100%] py-[0.6rem] text-center bg-[white] text-black rounded-[0.6rem] hover:bg-[#F8652A] hover:text-white">Add to cart</span>
                                     :
                                     <></>
                             }
